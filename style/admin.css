@@ -1,0 +1,150 @@
+#blocSelectionPartie
+{
+	width: 1280px;
+	height: 800px;
+	border: 4px solid black;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	box-shadow: -7px 4px 5px 1px rgba(0, 0, 0, 0.7); 
+	margin-top: 20px;
+}
+
+#blocSelectionPartie #title, #blocAdminPartie #title
+{
+	text-align:center;
+	width: 100%;
+	font-weight: bold;
+	font-size: 30px;
+	font-family: 'Chelsea Market', cursive;
+}
+
+#blocSelectionPartie .partie
+{
+	border: 2px solid black;
+	border-radius: 10px;
+	width: 400px;
+	float: left;
+	margin: 20px;
+	font-family: 'Chelsea Market', cursive;
+	text-align: center;
+	font-size: 18px;
+}
+
+#blocSelectionPartie .partie .nomPartie
+{
+	font-size: 30px;
+	text-decoration : underline;
+	margin-bottom:5px;
+	font-weight: bold;
+}
+
+#blocSelectionPartie .partie .etatPartieEnCours
+{
+	color: red;
+}
+
+#blocSelectionPartie .partie .etatPartieEnCreation
+{
+	color: green;
+}
+
+#blocSelectionPartie .partie .titreJoueur
+{
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#blocSelectionPartie .partie .nomHeros
+{
+	font-weight: bold;
+}
+
+#blocSelectionPartie .partie .boutonAdministrer
+{
+	font-family: 'Chelsea Market', cursive;
+	text-align: center;
+	font-size: 18px;
+	cursor: pointer;
+	margin-top: 10px;
+	color: blue;
+	border: 2px solid black;
+	border-radius: 10px;
+}
+
+#blocSelectionPartie .partie .boutonAdministrer:hover
+{
+	color: green;
+	border: 2px solid green;
+}
+
+#blocSelectionPartie .partieNonPrete
+{
+	color: red;
+	margin: 17.5px;
+	font-weight: bold;
+}
+
+#blocAdminPartie
+{
+	width: 1280px;
+	height: 800px;
+	border: 4px solid black;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	box-shadow: -7px 4px 5px 1px rgba(0, 0, 0, 0.7); 
+	margin-top: 20px;
+	font-family: 'Chelsea Market', cursive;
+	text-align: center;
+}
+
+#deconnexion
+{
+	font-family: 'Chelsea Market', cursive;
+	text-align: center;
+	font-size: 18px;
+	border: 4px solid black;
+	border-radius: 10px;
+	cursor: pointer;
+	background-color: white;
+}
+
+#deconnexion:hover
+{
+	background-color: red;
+	color: white;
+}
+
+#blocAdminPartie #jourEtCycle
+{
+	font-size: 18px;
+}
+
+#blocAdminPartie #blocPersonnages
+{
+	height: 400px;
+	width: 100%;
+	padding-left:0.5%;
+}
+
+#blocAdminPartie #blocPersonnages .blocPersonnage
+{
+	border: 2px solid black;
+	height: 150px;
+	width: 24.5%;
+	float: left;
+}
+
+#blocAdminPartie #blocPersonnages .blocPersonnage .image_personnage
+{
+	width:50%;
+	height:130px;
+	border-bottom: 4px solid black;
+	background-size: cover;
+	border-right:2px solid black;
+}

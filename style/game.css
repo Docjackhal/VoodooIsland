@@ -1,0 +1,497 @@
+body
+{
+	background-image: url("../images/background.jpg");
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-position:100% 0%;
+}
+
+#game
+{
+	width: 1280px;
+	height: 800px;
+	border: 4px solid black;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	background-color: white;
+	box-shadow: -7px 4px 5px 1px rgba(0, 0, 0, 0.7); 
+
+}
+
+#logo
+{
+	background-color: white;
+	width: 300px;
+	height: 100px;
+	border: 4px solid black;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	box-shadow: -7px 4px 5px 1px rgba(0, 0, 0, 0.7); 
+
+}
+
+#topBar
+{
+	width: 100%;
+	height: 30px;
+	border-bottom: 4px solid black;
+}
+
+#topbar #horloge
+{
+	float: right;
+	height: 100%;
+	padding-top: 5px;
+}
+
+#topbar #horloge .time
+{
+	float: left;
+	margin-right: 50px;
+}
+
+#topbar #horloge #symbole_soleil
+{
+	border-bottom: 4px solid black;
+	border-left: 4px solid black;
+	border-radius: 0px 0px 0px 75px;
+	width: 75px;
+	height: 75px;
+	position: relative;
+	float: right;
+	top: 28px;
+}
+
+#topbar #horloge #symbole_soleil img
+{
+	margin-left: 18px;
+	margin-top: 8px;
+
+}
+
+#footer
+{
+	border: 4px solid black;
+	border-radius: 50px 50px 50px 50px;
+	width: 1280px;
+	height: 30px;
+	background-color: white;
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: -7px 4px 5px 1px rgba(0, 0, 0, 0.7); 
+}
+
+#footer .btn
+{
+	text-align: center;
+	border-left: 4px solid black;
+	width: 25%;
+	height: 100%;
+	float: right;
+	font-weight: bold;
+	font-size: 22px;
+	cursor: pointer;
+	color: black;
+}
+
+#footer .btn:hover
+{
+	background-color: black;
+	color: white;
+}
+
+#footer .btn:active
+{
+	background-color: grey;
+}
+
+#game #bloc_personnage, #game #bloc_game, #game #bloc_tchat
+{
+	height: 767px;
+	width: 33%;
+	float: left;
+	margin-top: -1px;
+}
+
+#game #bloc_personnage
+{
+	border-right: 4px solid black;
+	width: 200px;
+
+}
+
+#game #bloc_game
+{
+	border-right: 4px solid black;
+	width: 800px;
+}
+
+#game #bloc_tchat
+{
+	width: 270px;
+
+}	
+
+#game #nom_personnage
+{
+	text-align: center;
+	font-weight: bold;
+	font-size: 25px;
+	width: 100%;
+	border-bottom: 4px solid black;
+}
+
+#game #metier_personnage
+{
+	text-align: center;
+	font-style: italic;
+	font-size: 20px;
+	width: 100%;
+	border-bottom: 4px solid black;
+}
+
+#game #bloc_personnage #image_personnage
+{
+	width:100%;
+	height:240px;
+	border-bottom: 4px solid black;
+}
+
+#game #bloc_personnage #bloc_stat
+{
+	border-bottom: 4px solid black;
+	width:100%;
+	height:310px;
+}
+
+#game #bloc_personnage .stat_personnage
+{
+	height: 150px;
+	width: 100px;
+	margin-width:10px;
+	float: left;
+}
+
+#game #bloc_personnage .stat_barre
+{
+	width: 20%;
+	height: 65%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 5px;
+	border-radius: 25px;
+	border: 2px solid black;
+	background-color: rgba(79,79,79,0.2);
+
+}
+
+#game #bloc_personnage .stat_barre_filter
+{
+	width: 100%;
+	border-radius: 25px;
+	position:relative;
+}
+
+#game #bloc_personnage #stat_sante .stat_barre_filter
+{
+	background-color: red;
+}
+
+#game #bloc_personnage #stat_fatigue .stat_barre_filter
+{
+	background-color: green;
+}
+
+#game #bloc_personnage #stat_faim .stat_barre_filter
+{
+	background-color: orange;
+}
+
+#game #bloc_personnage #stat_soif .stat_barre_filter
+{
+	background-color: blue;
+}
+
+#game #bloc_personnage #stat_Pa .stat_barre_filter
+{
+	background-color: purple;
+}
+
+#game #bloc_personnage #stat_Pm .stat_barre_filter
+{
+	background-color: cyan;
+}
+
+#game #bloc_personnage .stat_bloc .text_stat .stat_value_actuel, #game #bloc_personnage .stat_bloc .text_stat .stat_value_max
+{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#game #bloc_personnage .stat_bloc .text_stat
+{
+	text-align: center;
+}
+
+#game #bloc_personnage #bloc_main_points
+{
+	width: auto;
+	height: auto;
+}
+
+#game #bloc_game #bloc_canvas
+{
+	height:80%;
+	width:100%;
+	border-bottom: 4px solid black;
+}
+
+#game #bloc_game #bloc_canvas #canvas
+{
+	height:100%;
+	width:100%;
+}
+
+#game #bloc_game #bloc_canvas #btn_voyager, #game #bloc_game #bloc_canvas #zone_lieu
+{
+	position: relative;
+	bottom: 33px;
+	text-align: center;
+	border-top: 4px solid black;
+	height: 30px;	
+	font-size: 22px;
+	font-weight: bold;
+	background-color: white;
+}
+
+#game #bloc_game #bloc_canvas #zone_lieu
+{	
+	border-right: 4px solid black;	
+	border-radius: 0px 25px 0px 0px;	
+	width: 300px;
+	float: left;
+}
+
+#game #bloc_game #bloc_canvas #btn_voyager
+{
+	border-left: 4px solid black;	
+	border-radius: 25px 0px 0px 0px;
+	float: right;
+	width: 150px;
+	cursor: pointer;
+}
+
+#game #bloc_game #bloc_canvas #btn_voyager:hover
+{
+	background-color: black;
+	color: white;
+}
+
+#game #bloc_game #bloc_canvas #btn_voyager:active
+{
+	background-color: grey;
+}
+
+#game #bloc_game #bloc_inventaire
+{
+	height:20%;
+	width:100%;
+	float: left;
+	margin-top: -30px;
+}
+
+#game #bloc_game #bloc_inventaire .slot_inventaire
+{
+	height: 100%;
+	width: 19.5%;
+	float: left;
+	border-left: 2px solid black;
+	text-align: center;
+}
+
+#game #bloc_game #bloc_inventaire #slot_inventaire_0
+{
+	border-left: 0px solid black;
+}
+
+#game #bloc_tchat #bloc_selection_channels
+{
+	width: 102%;
+	height: 10%;
+	border-bottom: 4px solid black;
+}
+
+#game #bloc_tchat #bloc_selection_channels .selection_channel
+{
+	border: 2px solid black;
+	border-bottom: 0px solid black;
+	border-radius: 25px 25px 0px 0px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	float: left;
+	width: 70px;
+	position: relative;
+	bottom: -59px;
+	cursor: pointer;
+	background-color: white;
+	color: black;
+}
+
+#game #bloc_tchat #bloc_selection_channels .selection_channel:hover, #game #bloc_tchat #bloc_selection_channels .selected
+{
+	background-color: black;
+	color: white;
+}
+
+#game #bloc_tchat #bloc_selection_channels .selection_channel:active
+{
+	background-color: grey;
+}
+
+#game #bloc_tchat #contener_tchat
+{
+	width: 100%;
+	height: 90%;
+}
+
+#game #bloc_tchat .entree_tchat
+{
+	width: 80%;
+	border-bottom: 2px solid black;
+	margin-left: 10%;
+	margin-top: 10px;
+
+}
+
+#game #bloc_tchat .tchat .enssemble_message
+{
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 575px;
+	border-bottom: 2px solid black;
+}
+
+#game #bloc_tchat .tchat .tchat_auteur
+{
+	font-weight: bold;
+}
+
+#game #bloc_tchat .tchat .tchat_date
+{
+	font-style: italic;
+	font-size: 12px;
+}
+
+.bloc_envoi_message textarea
+{
+	width: 100%;
+	display: block;
+	height: 70px;
+	margin-top: 10px;
+}
+
+.bloc_envoi_message .submit
+{
+	float: right;
+	cursor: pointer;
+	background-color: white;
+	border: 2px solid black;
+	border-radius: 10px;
+	font-size: 15px;
+	width: 80px;
+	text-align:center;
+	margin-top: 2px;
+}
+
+.bloc_envoi_message .submit:hover
+{
+	color: white;
+	background-color: black;
+}
+
+.bloc_envoi_message .submit:active
+{
+	color: white;
+	background-color: grey;
+}
+
+#game #popup_validation_voyage, #game #popup_interdiction_voyage
+{
+	background-color: white;
+	border: 4px solid black;
+	border-radius: 25px;
+	box-shadow: -7px 4px 5px 1px rgba(0, 0, 0, 0.7);
+	position: absolute;
+	width: 475px;
+	height: 125px;
+	margin-left: 160px;
+	top: 250px;
+	display: none;
+}
+
+#game .popup_voyage_content
+{
+	width: 100%;
+	text-align: center;
+	height: 40%;
+	margin-top: 15px;
+}
+
+#game .popup_voyage_content .content_button
+{
+	margin-right: auto;
+	margin-left: auto;
+	width: auto;
+}
+
+#game #popup_interdiction_voyage .content_button
+{
+	margin-top: 20px;
+}
+
+#game #popup_validation_voyage .content_button form
+{
+	display: inline;
+}
+
+#game #popup_validation_voyage #name_region
+{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.submit
+{
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
+.submit:hover
+{
+	background-color: black;
+	color: white;
+}
+
+.submit:active
+{
+	background-color: grey;
+}
+
+.submit_popup
+{
+	margin-top: 20px;
+	width: 100px;
+	height: 30px;
+	border-radius: 15px;
+	margin-left: 10px;
+}
+
+
+
