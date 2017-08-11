@@ -13,7 +13,7 @@ if(!empty($_POST['login']) && !empty($_POST['mdp'])  && !empty($_POST['mdpv'])  
 	mysqli_set_charset($mysqli, "utf8");
 	
 	// Verification d'un login similaire existant
-	$requete = "SELECT 1 FROM accounts WHERE Login = '".$login."' LIMIT 1";
+	$requete = "SELECT 1 FROM ".$PT."accounts WHERE Login = '".$login."' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('Requête invalide : ' . mysqli_error());
 		
@@ -23,9 +23,9 @@ if(!empty($_POST['login']) && !empty($_POST['mdp'])  && !empty($_POST['mdpv'])  
 		if($mdp == $mdpv)
 		{
 			// CrÃ©ation du compte
-			$requete = "INSERT INTO accounts (Login,Password,Email,DateInscription) VALUES ('".$login."','".$mdp."','".$email."', NOW())";
+			$requete = "INSERT INTO ".$PT."accounts (Login,Password,Email,DateInscription) VALUES ('".$login."','".$mdp."','".$email."', NOW())";
 			$retour = mysqli_query($mysqli,$requete);
-			if (!$retour) die('RequÃªte invalide : ' . mysqli_error());
+			if (!$retour) die('Requète invalide : ' . mysqli_error());
 
 			// Inscription terminÃ©e !
 			header('Location: connexion.php?loginRegister='.$login."&mdpRegister=".$mdp); // Redirection

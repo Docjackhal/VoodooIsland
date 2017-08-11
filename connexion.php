@@ -22,7 +22,7 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 
 			// Récupération des informations sur les personnages
 			$_SESSION['Heros'] = array();
-			$requete = "SELECT * FROM heros";
+			$requete = "SELECT * FROM ".$PT."heros";
 			$retour = mysqli_query($mysqli ,$requete);
 			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
@@ -31,7 +31,7 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 
 			if($_SESSION['IDPartieEnCours'] != -1)
 			{
-				$requete = "SELECT * FROM parties WHERE ID = '".$_SESSION['IDPartieEnCours']."' ";
+				$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$_SESSION['IDPartieEnCours']."' ";
 				$retour = mysqli_query($mysqli,$requete);
 				if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 				$partie = mysqli_fetch_assoc($retour);
@@ -45,7 +45,7 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 			}
 
 			// Récuperation des regions
-			$requete = "SELECT * FROM regions";
+			$requete = "SELECT * FROM ".$PT."regions";
 			$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 

@@ -1,14 +1,14 @@
 <?php
 function updateInformationsSession()
 {
-	global $mysql_ip, $mysql_user, $mysql_password, $base;
+	global $mysql_ip, $mysql_user, $mysql_password, $base, $PT;
 
 	// Connexion a la base
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
 	mysqli_set_charset($mysqli, "ANSI");
 
 	// Caractéristiques joueurs
-	$requete = "SELECT IDHeros, FaimActuel, SoifActuel, FatigueActuel, PvActuel, PaActuel, PmActuel, RegionActuelle, DateArriveeLieu FROM personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = '".$_SESSION['IDPartieEnCours']."' LIMIT 1";
+	$requete = "SELECT ".$PT."IDHeros, FaimActuel, SoifActuel, FatigueActuel, PvActuel, PaActuel, PmActuel, RegionActuelle, DateArriveeLieu FROM personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = '".$_SESSION['IDPartieEnCours']."' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('RequÃªte invalide : ' . mysqli_error($mysqli));
 	$personnage = mysqli_fetch_assoc($retour);
@@ -24,7 +24,7 @@ function updateInformationsSession()
 	$_SESSION['IDPersonnage'] = $personnage['IDHeros'];
 
 	// Cycle et jours
-	$requete = "SELECT * FROM parties WHERE ID = '".$_SESSION['IDPartieEnCours']."' LIMIT 1";
+	$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$_SESSION['IDPartieEnCours']."' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('Requéte invalide : ' . mysqli_error($mysqli));
 	$partie = mysqli_fetch_assoc($retour);
@@ -33,7 +33,7 @@ function updateInformationsSession()
 	$_SESSION['PartieEnCours']['Jour'] = $partie['Jour'];
 
 	// Données Tchat
-	$requete = "SELECT Auteur, Message, Canal, DateEnvoie FROM tchats WHERE IDPartie = '".$_SESSION['IDPartieEnCours']."' AND (Canal = '".$_SESSION['RegionActuelle']."' OR Canal = 0) AND DateEnvoie >= '".$_SESSION['DateArriveeLieu']."' ORDER BY DateEnvoie DESC";
+	$requete = "SELECT Auteur, Message, Canal, DateEnvoie FROM ".$PT."tchats WHERE IDPartie = '".$_SESSION['IDPartieEnCours']."' AND (Canal = '".$_SESSION['RegionActuelle']."' OR Canal = 0) AND DateEnvoie >= '".$_SESSION['DateArriveeLieu']."' ORDER BY DateEnvoie DESC";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('Requète invalide : ' . mysql_error($mysqli));
 	

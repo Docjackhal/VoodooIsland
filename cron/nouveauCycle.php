@@ -3,11 +3,8 @@
 // Cron de nouveau cycle
 
 include_once("../prive/config.php");
-$link = mysql_connect($mysql_ip, $mysql_user,$mysql_password);
-if (!$link)
-	die('Connexion impossible : ' . mysql_error());
-else
-	mysql_select_db($base);
+$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
+mysqli_set_charset($mysqli, "utf8");
 
 
 // Préparation
@@ -17,20 +14,20 @@ echo "TEST :".$test."</br>";
 
 // Recuperation des heros
 $listHeros = array();
-$requete = "SELECT * FROM heros";
-$retour = mysql_query($requete);
-if (!$retour) die('Requête invalide : ' . mysql_error());
+$requete = "SELECT * FROM  ".$PT."heros";
+$retour = mysqli_query($mysqli,$requete);
+if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 while($heros = mysql_fetch_assoc($retour))
 	$listHeros[$heros['ID']] = $heros;
 
 
-$requete = "SELECT * FROM parties WHERE ETAT= 'en_cours'";
-$retour = mysql_query($requete);
-if (!$retour) die('Requête invalide : ' . mysql_error());
+$requete = "SELECT * FROM  ".$PT."parties WHERE ETAT= 'en_cours'";
+$retour = mysqli_query($mysqli,$requete);
+if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
-if(mysql_num_rows($retour))
+if(mysqli_num_rows($retour))
 {
-	while($partie = mysql_fetch_assoc($retour))
+	while($partie = mysqli_fetch_assoc($retour))
 	{
 		$oldCycle = $partie['Cycle'];
 		$jour = $partie['Jour'];
@@ -52,19 +49,19 @@ if(mysql_num_rows($retour))
 		// Update final de la partie
 		if(!$test)
 		{
-			$requete2 = "UPDATE parties SET Cycle='".$newCycle."', Jour='".$jour."' WHERE ID= '".$idPartie."'";
-			$retour2 = mysql_query($requete2);
-			if (!$retour2) die('Requête invalide : ' . mysql_error());
+			$requete2 = "UPDATE  ".$PT."parties SET Cycle='".$newCycle."', Jour='".$jour."' WHERE ID= '".$idPartie."'";
+			$retour2 = mysql_queryi($mysqli,$requete2);
+			if (!$retour2) die('Requête invalide : ' . mysqli_error($mysqli));
 		}
 
 		// Gestion des joueurs de la partie
-		$requete = "SELECT * FROM personnages WHERE idPartie= '".$idPartie."' AND Actif='o'";
-		$retour = mysql_query($requete);
-		if (!$retour) die('Requête invalide : ' . mysql_error());
+		$requete = "SELECT * FROM  ".$PT."personnages WHERE idPartie= '".$idPartie."' AND Actif='o'";
+		$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
-		if(mysql_num_rows($retour))
+		if(mysqli_num_rows($retour))
 		{
-			while($personnage = mysql_fetch_assoc($retour))
+			while($personnage = mysqli_fetch_assoc($retour))
 			{
 				$login = $personnage['Joueur'];
 				$idHeros = $personnage['IDHeros'];
@@ -134,9 +131,9 @@ if(mysql_num_rows($retour))
 				// Update final
 				if(!$test)
 				{
-					$requete2 = "UPDATE personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."' WHERE ID= '".$idPersonnage."'";
-					$retour2 = mysql_query($requete2);
-					if (!$retour2) die('Requête invalide : ' . mysql_error());
+					$requete2 = "UPDATE  ".$PT."personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."' WHERE ID= '".$idPersonnage."'";
+					$retour2 = mysqli_query($mysqli,$requete2);
+					if (!$retour2) die('Requête invalide : ' . mysqli_error($mysqli));
 				}			
 			}
 		}
@@ -151,21 +148,21 @@ if(mysql_num_rows($retour))
 		
 function TuerPersonnage($personnage,$heros)
 {
-	global $test;
+	global $test, $PT, $mysqli;
 
 	echo "</br><span style='color:red;'><b>Le Personnage ".$heros['Nom']." joué par ".$personnage['Joueur']." est MORT </b></span></br></br>";
 
 	if(!$test)
 	{
 			// Mise hors activité du personnage
-		$requete = "UPDATE personnages SET Actif = 'n' WHERE ID= '".$personnage['ID']."'";
-		$retour = mysql_query($requete);
-				if (!$retour) die('Requête invalide : ' . mysql_error());
+		$requete = "UPDATE  ".$PT."personnages SET Actif = 'n' WHERE ID= '".$personnage['ID']."'";
+		$retour = mysqli_query($mysqli,$requete);
+				if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
 		// Nouvelle partie pour le joueur
-		$requete = "UPDATE accounts SET IDPartieEnCours = '-1' WHERE Login= '".$personnage['Joueur']."'";
-		$retour = mysql_query($requete);
-			if (!$retour) die('Requête invalide : ' . mysql_error());
+		$requete = "UPDATE  ".$PT."accounts SET IDPartieEnCours = '-1' WHERE Login= '".$personnage['Joueur']."'";
+		$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 	}
 }	
 

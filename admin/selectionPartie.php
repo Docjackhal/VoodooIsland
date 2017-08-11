@@ -1,12 +1,12 @@
 <?php
-	$requete = "SELECT * FROM parties WHERE Etat != 'terminee'";
+	$requete = "SELECT * FROM ".$PT."parties WHERE Etat != 'terminee'";
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les parties : ' . mysqli_error($mysqli));
 	$parties = array();
 	while($partie = mysqli_fetch_assoc($retour))
 		$parties[] = $partie;
 
-	$requete = "SELECT * FROM heros";
+	$requete = "SELECT * FROM ".$PT."heros";
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les héros : ' . mysqli_error($mysqli));
 	$listeHeros = array();
@@ -15,7 +15,7 @@
 
 	$_SESSION["Heros"] = $listeHeros;
 
-	$requete = "SELECT * FROM accounts";
+	$requete = "SELECT * FROM ".$PT."accounts";
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les comptes joueurs : ' . mysqli_error($mysqli));
 	$listeJoueurs = array();

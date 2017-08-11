@@ -12,7 +12,7 @@ else
 		header('Location: game.php');
 
 	//Récupération des parties
-	$requete = "SELECT * FROM parties WHERE Etat = 'en_creation' LIMIT 1";
+	$requete = "SELECT * FROM ".$PT."parties WHERE Etat = 'en_creation' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 

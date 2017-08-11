@@ -14,14 +14,14 @@
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
 	mysqli_set_charset($mysqli, "utf8");
 
-	$requete = "SELECT * FROM parties WHERE ID != ".$IDPartie;
+	$requete = "SELECT * FROM ".$PT."parties WHERE ID != ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les parties : ' . mysqli_error($mysqli));
 	$parties = array();
 	$partie = mysqli_fetch_assoc($retour);
 		$_SESSION["Admin"]["PartieEnCours"] = $partie;
 
-	$requete = "SELECT * FROM heros";
+	$requete = "SELECT * FROM ".$PT."heros";
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les héros : ' . mysqli_error($mysqli));
 	$listeHeros = array();
@@ -29,7 +29,7 @@
 		$listeHeros[$heros["ID"]] = $heros;
 	$_SESSION["Admin"]["Heros"] = $listeHeros;
 
-	$requete = "SELECT * FROM accounts WHERE IDPartieEnCours = ".$IDPartie;
+	$requete = "SELECT * FROM ".$PT."accounts WHERE IDPartieEnCours = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les comptes joueurs : ' . mysqli_error($mysqli));
 	$listeJoueurs = array();

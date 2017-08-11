@@ -2,13 +2,13 @@
 	$IDPartie = $_SESSION["Admin"]["IDPartieEnCours"];
 
 	// Chargement de la partie
-	$requete = "SELECT * FROM parties WHERE ID = ".$IDPartie;
+	$requete = "SELECT * FROM ".$PT."parties WHERE ID = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les parties : ' . mysqli_error($mysqli));
 	$partie = mysqli_fetch_assoc($retour);
 
 	// Chargement des personnages
-	$requete = "SELECT * FROM personnages WHERE IDPartie = ".$IDPartie;
+	$requete = "SELECT * FROM ".$PT."personnages WHERE IDPartie = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les personnages : ' . mysqli_error($mysqli));
 	$personnages = array();
@@ -17,7 +17,7 @@
 	
 
 	// CHargement des comptes joueurs
-	$requete = "SELECT ID,Login FROM accounts WHERE IDPartieEnCours = ".$IDPartie;
+	$requete = "SELECT ID,Login FROM ".$PT."accounts WHERE IDPartieEnCours = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les comptes joueurs : ' . mysqli_error($mysqli));
 	$joueurs = array();
@@ -25,7 +25,7 @@
 		$joueurs[$joueur["ID"]] = $joueur;
 
 	// CHargement des comptes joueurs
-	$requete = "SELECT * FROM heros";
+	$requete = "SELECT * FROM ".$PT."heros";
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les profils heros : ' . mysqli_error($mysqli));
 	$heros = array();

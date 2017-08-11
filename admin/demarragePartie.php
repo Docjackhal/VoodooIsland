@@ -11,7 +11,7 @@ $requete = "START TRANSACTION";
 $retour = mysqli_query($mysqli,$requete);
 
 $idPartie = $_POST["IDPartie"];
-$requete = "SELECT * FROM parties WHERE ID = '".$idPartie."' AND Etat = 'en_creation' LIMIT 1";
+$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$idPartie."' AND Etat = 'en_creation' LIMIT 1";
 $retour = mysqli_query($mysqli,$requete);
 if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
@@ -32,11 +32,11 @@ if(mysqli_num_rows($retour))
 	if($pret)
 	{
 		// Autorisation Démarrage de la partie	
-		$requete = "UPDATE parties SET DateDemarrage = CURDATE(), Etat = 'en_cours', Jour=1 WHERE ID = '".$idPartie."'";
+		$requete = "UPDATE ".$PT."parties SET DateDemarrage = CURDATE(), Etat = 'en_cours', Jour=1 WHERE ID = '".$idPartie."'";
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
-		$requete = "SELECT * FROM parties WHERE ID = '".$idPartie."' AND Etat = 'en_cours' LIMIT 1";
+		$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$idPartie."' AND Etat = 'en_cours' LIMIT 1";
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 		$partie = mysqli_fetch_assoc($retour);
@@ -52,7 +52,7 @@ if(mysqli_num_rows($retour))
 		//Manuel:
 		$cycle = 0;
 
-		$requete = "UPDATE parties SET Cycle = '".$cycle."' WHERE ID = '".$idPartie."'";
+		$requete = "UPDATE ".$PT."parties SET Cycle = '".$cycle."' WHERE ID = '".$idPartie."'";
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
@@ -70,14 +70,14 @@ if(mysqli_num_rows($retour))
 			$pa = $heros['PaMax'];
 			$pm = $heros['PmMax'];
 
-			$requete = "INSERT INTO personnages (Joueur, IDHeros, IDPartie, PvActuel, PvMax, FaimActuel, FaimMax, SoifActuel, SoifMax, FatigueActuel, FatigueMax, PaActuel, PaMax, PmActuel, PmMax) VALUES ('".$partie['Joueur'.$i]."', '".$i."','".$idPartie."' ,'".$pv."', '".$pv."', '".$faim."', '".$faim."', '".$soif."', '".$soif."', '".$fatigue."','".$fatigue."','".$pa."','".$pa."','".$pm."','".$pm."')";
+			$requete = "INSERT INTO ".$PT."personnages (Joueur, IDHeros, IDPartie, PvActuel, PvMax, FaimActuel, FaimMax, SoifActuel, SoifMax, FatigueActuel, FatigueMax, PaActuel, PaMax, PmActuel, PmMax) VALUES ('".$partie['Joueur'.$i]."', '".$i."','".$idPartie."' ,'".$pv."', '".$pv."', '".$faim."', '".$faim."', '".$soif."', '".$soif."', '".$fatigue."','".$fatigue."','".$pa."','".$pa."','".$pm."','".$pm."')";
 			$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) die('Requête création perso invalide : ' . mysqli_error($mysqli));
 
 			if($i == $_SESSION['IDPersoActuel'])
 			{
 				$idInsert = mysqli_insert_id($mysqli);
-				$requete = "SELECT * FROM personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = ".$idPartie." LIMIT 1";
+				$requete = "SELECT * FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = ".$idPartie." LIMIT 1";
 				$retour = mysqli_query($mysqli,$requete);
 				if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
 
@@ -134,7 +134,7 @@ if(mysqli_num_rows($retour))
 				$lieuxSeul[] = $idLieu;
 			}
 
-			$requete = "UPDATE personnages SET RegionActuelle = '".$idLieu."', DateArriveeLieu = NOW() WHERE IDHeros = '".$idJoueur."' AND idPartie = '".$idPartie."'";
+			$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idLieu."', DateArriveeLieu = NOW() WHERE IDHeros = '".$idJoueur."' AND idPartie = '".$idPartie."'";
 			$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
 		}
