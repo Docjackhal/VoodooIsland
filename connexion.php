@@ -11,7 +11,7 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 	$mdp = isset($_POST['mdp']) ? $_POST['mdp'] : $_GET['mdpRegister'] ;
 	setcookie("ConnexionVoodooIsland", $login);
 
-	$requete = "SELECT * FROM accounts WHERE Login = '".$login."' AND Password = '".$mdp."' LIMIT 1";
+	$requete = "SELECT * FROM ".$PT."accounts WHERE Login = '".$login."' AND Password = '".$mdp."' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 

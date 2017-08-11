@@ -8,7 +8,7 @@ function updateInformationsSession()
 	mysqli_set_charset($mysqli, "ANSI");
 
 	// Caractéristiques joueurs
-	$requete = "SELECT ".$PT."IDHeros, FaimActuel, SoifActuel, FatigueActuel, PvActuel, PaActuel, PmActuel, RegionActuelle, DateArriveeLieu FROM personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = '".$_SESSION['IDPartieEnCours']."' LIMIT 1";
+	$requete = "SELECT IDHeros, FaimActuel, SoifActuel, FatigueActuel, PvActuel, PaActuel, PmActuel, RegionActuelle, DateArriveeLieu FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = '".$_SESSION['IDPartieEnCours']."' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('RequÃªte invalide : ' . mysqli_error($mysqli));
 	$personnage = mysqli_fetch_assoc($retour);
