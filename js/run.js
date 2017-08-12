@@ -14,8 +14,9 @@ function load()
 	game.isFadeOff = true;
 	game.fadeSpeed = 2;
 	game.mode = "local";
+	game.regionSelected = -1;
 	game.lieuSelected = -1;
-
+	game.personnageSelected = -1;
 
 	game.jqCanvas = $(game.canvas);
 
@@ -23,8 +24,8 @@ function load()
 	{
 		ctx.fillStyle = "black";
 		ctx.fillRect(0,0,game.width,game.height);
-	}
-	game.clearCanvas(game.ctx)
+	};
+	game.clearCanvas(game.ctx);
 
 	$.ajax("ajax/ajaxGame.php",
 		{
@@ -45,12 +46,14 @@ function load()
 function mainInitialisation()
 {
 
-	game.region = game.xhrDatas['Region']
+	game.region = game.xhrDatas['Region'];
 	game.regions = game.xhrDatas['Regions'];
 	game.idPersoActuel = game.xhrDatas['IDPersoActuel'];
+	game.lieuxDecouverts = game.xhrDatas['LieuxDecouverts'];
+	game.personnagesDansRegion = game.xhrDatas['PersonnagesDansRegion'];
 
-	game.imageLieu = new Image();
-	game.imageLieu.src = "images/lieux/lieu_"+game.region['ID']+".png";
+	game.imageRegion = new Image();
+	game.imageRegion.src = "images/Regions/region_"+game.region['ID']+".png";
 
 	game.imageMap = new Image();
 	game.imageMap.src = "images/island_map.png";
@@ -60,7 +63,7 @@ function mainInitialisation()
 
 	// Initialisations des filtres
 	game.imagesFiltre = {};
-	game.imagesFiltreDisabled = {}
+	game.imagesFiltreDisabled = {};
 	for(var i = 1; i <= 10; i++)
 	{
 		game.imagesFiltre[i] = new Image();
@@ -69,9 +72,11 @@ function mainInitialisation()
 		game.imagesFiltreDisabled[i].src = "images/filtresMap/filtre_"+i+"_disabled.png";
 	}
 
-	initialisationPolygonesLieux();
+	initialisationPolygonesRegions();
+	initialisationAccessibiliteRegions();
+	initialisationLieuxVisibles();
+	initialisationPersonnages();
 	initialisationsEvents();
-	initialisationAccessibiliteLieux();
 
 	var now = (+new Date);
 	game.oldDate = now;
@@ -86,14 +91,21 @@ function run()
 
 	requestAnimationFrame(run);
 	game.clearCanvas(game.ctx);
+	game.clearCanvas(game.canvasDetectionLieux.ctx);
+	game.clearCanvas(game.canvasDetectionPersonnages.ctx);
+
 
 	if(game.mode == "local")
+	{
 		drawRegion(game.ctx);
+		drawLieux(game.ctx);
+		drawPersonnages(game.ctx);
+	}
 	else if(game.mode == "map")
 	{
 		drawMap(game.ctx);
 		drawFiltre(game.ctx);
-		drawPortrait(game.ctx)
+		drawPortrait(game.ctx);
 	}
 		
 
@@ -105,7 +117,7 @@ function run()
 
 function drawRegion(ctx)
 {
-	var image = game.imageLieu;
+	var image = game.imageRegion;
 	ctx.drawImage(image,0,0,image.width,image.height,0,0,image.width,image.height);
 }
 
@@ -117,20 +129,20 @@ function drawMap(ctx)
 
 function drawFiltre(ctx)
 {
-	if(game.lieuSelected != -1)
+	if(game.regionSelected != -1)
 	{
-		var image = game.imagesFiltre[game.lieuSelected];
+		var image = game.imagesFiltre[game.regionSelected];
 
-		if(game.accessibilite[game.lieuSelected] == 2)
-			image = game.imagesFiltreDisabled[game.lieuSelected];
+		if(game.accessibilite[game.regionSelected] == 2)
+			image = game.imagesFiltreDisabled[game.regionSelected];
 
 		ctx.drawImage(image,0,0,image.width,image.height,0,0,image.width,image.height);
 
-		if(game.lieuSelected != game.region.ID)
+		if(game.regionSelected != game.region.ID)
 			game.canvas.style.cursor = "pointer";
 
 		// Draw nom
-		var nom = game.regions[game.lieuSelected]['Nom'];
+		var nom = game.regions[game.regionSelected]['Nom'];
 		ctx.font = "bold 20pt  Calibri";
 		ctx.fillText(nom,30,30);
 	}
@@ -197,79 +209,79 @@ function switchMode()
 	game.isFadeOn = true;
 }
 
-function initialisationPolygonesLieux()
+function initialisationPolygonesRegions()
 {
-	game.polygonesLieux = {}
+	game.polygonesRegions = {};
 
 	// Region 1
-	var lieu = {};
-	lieu.polySides = 9;
-	lieu.polyX = [52,97,222,242,310,332,314,241,125];
-	lieu.polyY  = [254,233,386,427,458,499,551,535,411];
-	game.polygonesLieux[1] = lieu;
+	var region = {};
+	region.polySides = 9;
+	region.polyX = [52,97,222,242,310,332,314,241,125];
+	region.polyY  = [254,233,386,427,458,499,551,535,411];
+	game.polygonesRegions[1] = region;
 
 	// Region 2
-	var lieu = {};
-	lieu.polySides = 9;
-	lieu.polyX = [420,450,504,692,704,678,608,539,524];
-	lieu.polyY = [570,459,437,433,527,555,505,507,575];
-	game.polygonesLieux[2] = lieu;
+	var region = {};
+	region.polySides = 9;
+	region.polyX = [420,450,504,692,704,678,608,539,524];
+	region.polyY = [570,459,437,433,527,555,505,507,575];
+	game.polygonesRegions[2] = region;
 
 	// Region 3
-	var lieu = {};
-	lieu.polySides = 9;
-	lieu.polyX = [518,604,708,753,750,688,590,584,502];
-	lieu.polyY = [82,99,157,233,273,261,204,175,124];
-	game.polygonesLieux[3] = lieu;
+	var region = {};
+	region.polySides = 9;
+	region.polyX = [518,604,708,753,750,688,590,584,502];
+	region.polyY = [82,99,157,233,273,261,204,175,124];
+	game.polygonesRegions[3] = region;
 
 	// Region 4
-	var lieu = {};
-	lieu.polySides = 9;
-	lieu.polyX = [588,739,698,530,513,529,505,513,513,554];
-	lieu.polyY = [205,274,433,433,382,340,313,295,243,228];
-	game.polygonesLieux[4] = lieu;
+	var region = {};
+	region.polySides = 9;
+	region.polyX = [588,739,698,530,513,529,505,513,513,554];
+	region.polyY = [205,274,433,433,382,340,313,295,243,228];
+	game.polygonesRegions[4] = region;
 
 	// Region 5
-	var lieu = {};
-	lieu.polySides = 9;
-	lieu.polyX = [303,417,518,501,580,590,511,482,347];
-	lieu.polyY = [150,70,84,122,172,206,240,220,202];
-	game.polygonesLieux[5] = lieu;
+	var region = {};
+	region.polySides = 9;
+	region.polyX = [303,417,518,501,580,590,511,482,347];
+	region.polyY = [150,70,84,122,172,206,240,220,202];
+	game.polygonesRegions[5] = region;
 
 	// Region 6
-	var lieu = {};
-	lieu.polySides = 9;
-	lieu.polyX = [100,122,294,348,332,351,332,270,159];
-	lieu.polyY = [230,197,153,207,229,260,287,279,315];
-	game.polygonesLieux[6] = lieu;
+	var region = {};
+	region.polySides = 9;
+	region.polyX = [100,122,294,348,332,351,332,270,159];
+	region.polyY = [230,197,153,207,229,260,287,279,315];
+	game.polygonesRegions[6] = region;
 
 	// Region 7
-	var lieu = {};
-	lieu.polySides = 8;
-	lieu.polyX = [160,271,331,386,387,403,295,242];
-	lieu.polyY = [317,280,289,341,384,402,449,425];
-	game.polygonesLieux[7] = lieu;
+	var region = {};
+	region.polySides = 8;
+	region.polyX = [160,271,331,386,387,403,295,242];
+	region.polyY = [317,280,289,341,384,402,449,425];
+	game.polygonesRegions[7] = region;
 
 	// Region 8
-	var lieu = {};
-	lieu.polySides = 10;
-	lieu.polyX = [298,405,460,439,438,421,423,288,315,329];
-	lieu.polyY = [448,405,450,480,529,550,576,570,548,502];
-	game.polygonesLieux[8] = lieu;
+	var region = {};
+	region.polySides = 10;
+	region.polyX = [298,405,460,439,438,421,423,288,315,329];
+	region.polyY = [448,405,450,480,529,550,576,570,548,502];
+	game.polygonesRegions[8] = region;
 
 	// Region 9
-	var lieu = {};
-	lieu.polySides = 7;
-	lieu.polyX = [390,504,530,515,532,462,388];
-	lieu.polyY = [344,312,346,387,433,450,382];
-	game.polygonesLieux[9] = lieu;
+	var region = {};
+	region.polySides = 7;
+	region.polyX = [390,504,530,515,532,462,388];
+	region.polyY = [344,312,346,387,433,450,382];
+	game.polygonesRegions[9] = region;
 
 	// Region 10
-	var lieu = {};
-	lieu.polySides = 9;
-	lieu.polyX = [348,489,514,514,500,387,331,350,333];
-	lieu.polyY = [202,223,245,300,315,343,285,255,223];
-	game.polygonesLieux[10] = lieu;
+	var region = {};
+	region.polySides = 9;
+	region.polyX = [348,489,514,514,500,387,331,350,333];
+	region.polyY = [202,223,245,300,315,343,285,255,223];
+	game.polygonesRegions[10] = region;
 
 	// Initialisation coordonées portraits
 	game.coordonneesPortraits = {};
@@ -312,28 +324,30 @@ function mouseMove(e)
 	game.mouseY = e.pageY-game.jqCanvas.offset().top;
 
 	if(game.mode == 'map')
+		verificationSourisSurRegion();
+	else if(game.mode == 'local')
 		verificationSourisSurLieu();
 }
 
-function verificationSourisSurLieu()
+function verificationSourisSurRegion()
 {
 	var x = game.mouseX;
 	var y = game.mouseY;
 
-	game.lieuSelected = -1;
+	game.regionSelected = -1;
 
-	for(var i in game.polygonesLieux)
+	for(var i in game.polygonesRegions)
 	{
-		var lieu = game.polygonesLieux[i];
-		var point = pointDansPolygone(lieu,x,y);
+		var region = game.polygonesRegions[i];
+		var point = pointDansPolygone(region,x,y);
 		if(point == 1)
 		{
-			game.lieuSelected = i;
+			game.regionSelected = i;
 			break;
 		}
 	}
 
-	if(game.lieuSelected == -1 || game.lieuSelected == game.region.ID)
+	if(game.regionSelected == -1 || game.regionSelected == game.region.ID)
 		game.canvas.style.cursor = "default";
 }
 
@@ -342,29 +356,29 @@ function mouseUp(e)
 	game.mouseX = e.pageX-game.jqCanvas.offset().left-0.5;
 	game.mouseY = e.pageY-game.jqCanvas.offset().top;
 
-	if(game.lieuSelected != -1)
+	if(game.regionSelected != -1)
 	{
-		clickSurLieu();
+		clickSurRegion();
 	}
 }
 
-function clickSurLieu()
+function clickSurRegion()
 {
-	if(game.lieuSelected != -1 && game.lieuSelected != game.region.ID)
+	if(game.regionSelected != -1 && game.regionSelected != game.region.ID)
 	{
-		if(game.accessibilite[game.lieuSelected] == 1)
+		if(game.accessibilite[game.regionSelected] == 1)
 		{
 			var popup = document.getElementById("popup_validation_voyage");
 			var zoneNom = document.getElementById("name_region");
 			var input = document.getElementById("inputIdRegion"); 
 			if(zoneNom != null)
 			{
-				zoneNom.innerHTML = game.regions[game.lieuSelected]['Nom'];
-				input.value = game.lieuSelected;
+				zoneNom.innerHTML = game.regions[game.regionSelected]['Nom'];
+				input.value = game.regionSelected;
 			}		
 			popup.style.display = "block";
 		}
-		else if(game.accessibilite[game.lieuSelected] == 2)
+		else if(game.accessibilite[game.regionSelected] == 2)
 		{
 			var popup = document.getElementById("popup_interdiction_voyage");
 			popup.style.display = "block";
@@ -372,10 +386,10 @@ function clickSurLieu()
 	}
 }
 
-function initialisationAccessibiliteLieux()
+function initialisationAccessibiliteRegions()
 {
 	var region = game.region;
-	//0 : lieu actuel, //1: lieu accessible, //2: Lieu innaccesible
+	//0 : region actuel, //1: region accessible, //2: region innaccesible
 	game.accessibilite = {};
 	for(var i = 1; i <= 10; i++ )
 	{
@@ -388,5 +402,145 @@ function initialisationAccessibiliteLieux()
 	}
 }
 
+function initialisationLieuxVisibles()
+{
+	var urlImagesLieux = "images/lieux/Region_"+game.region.ID+"/";
+	for(var IDLieu in game.lieuxDecouverts)
+	{
+		var lieu = game.lieuxDecouverts[IDLieu];
+		lieu.image = new Image();
+		lieu.image.src = urlImagesLieux+"lieu_"+lieu.IDTypeLieu+".png";
+		lieu.imageHover = new Image();
+		lieu.imageHover.src = urlImagesLieux+"lieu_"+lieu.IDTypeLieu+"_hover.png";
+	}
+
+	// Création d'un canvas qui servira a la detection de pixel non transparents pour le hover des régions
+	game.canvasDetectionLieux = document.createElement("canvas");
+	game.canvasDetectionLieux.width = game.canvas.width;
+	game.canvasDetectionLieux.height = game.canvas.height;
+	game.canvasDetectionLieux.ctx = game.canvasDetectionLieux.getContext("2d"); 
+}
+
+function drawLieux(ctx)
+{
+	for(var IDLieu in game.lieuxDecouverts)
+	{
+		var lieu = game.lieuxDecouverts[IDLieu];
+		var image = (game.lieuSelected != -1 && game.lieuSelected.ID == IDLieu) ? lieu.imageHover : lieu.image;
+
+		if(image.width > 0)
+			ctx.drawImage(image,0,0,image.width,image.height,0,0,image.width,image.height);
+	}
+}
+
+function verificationSourisSurLieu()
+{
+	var x = game.mouseX;
+	var y = game.mouseY;
+
+	game.lieuSelected = -1;
+	game.personnageSelected = -1;
+
+	// Detection au pixel non transparent des lieux et des personnages
+
+	// Personnages
+	for(var i in game.personnagesDansRegion)
+		{
+			var personnage = game.personnagesDansRegion[i];
+			var image = personnage.image;
+			var ratio = personnage.ratio;
+
+			if(image.width > 0)
+			{
+				var x2 = x-personnage.x;
+				var y2 = y-personnage.y;
+
+				if(x2 >= 0 && x2 <= game.canvasDetectionPersonnages.width && y2 >= 0 && y2 <= game.canvasDetectionPersonnages.height)
+				{
+					game.canvasDetectionPersonnages.ctx.drawImage(image, 0, 0, image.width,image.height,0,0,image.width*ratio,image.height*ratio);
+					var id = game.canvasDetectionPersonnages.ctx.getImageData(0,0, image.width, image.height);  //Get the pi
+					var alpha = id.data[(y2*image.width+x2)*4+3]; // Recupere l'alpha entre 0 et 255
+
+					if(alpha > 0) // Detection
+					{
+						game.personnageSelected = personnage;
+						game.canvas.style.cursor = "pointer";
+						break;
+					}
+					else
+						game.clearCanvas(game.canvasDetectionPersonnages.ctx);
+				}
+			}
+		}
+
+	// Si pas de personnage, on tente de detecter un lieu
+	if(game.personnageSelected == -1)
+	{
+		for(var i in game.lieuxDecouverts)
+		{
+			var lieu = game.lieuxDecouverts[i];
+			var image = lieu.image;
+
+			if(image.width > 0)
+			{
+				game.canvasDetectionLieux.ctx.drawImage(image, 0, 0);
+				var id = game.canvasDetectionLieux.ctx.getImageData(0,0, image.width, image.height);  //Get the pi
+				var alpha = id.data[(y*image.width+x)*4+3]; // Recupere l'alpha entre 0 et 255
+
+				if(alpha > 0) // Detection
+				{
+					game.lieuSelected = lieu;
+					game.canvas.style.cursor = "pointer";
+					break;
+				}
+				else
+					game.clearCanvas(game.canvasDetectionLieux.ctx);
+			}
+		}
+	}
+	if(game.lieuSelected == -1 && game.personnageSelected == -1)
+		game.canvas.style.cursor = "default";
+/*	else
+		console.log("Detection lieu "+game.lieuSelected.ID);*/
+}
+
+function initialisationPersonnages()
+{
+	var urlImagesPersonnages = "images/Personnage_full/";
+	var ratio = 0.25;
+	var w = 300*ratio;
+	var	h = 500*ratio;
+	for(var IDPersonnage in game.personnagesDansRegion)
+	{
+		var personnage = game.personnagesDansRegion[IDPersonnage];
+		personnage.image = new Image();
+		personnage.image.src = urlImagesPersonnages+"Personnage_Full_"+personnage.IDHeros+".png";
+		personnage.imageHover = new Image();
+		personnage.imageHover.src = urlImagesPersonnages+"Personnage_Full_"+personnage.IDHeros+"_hover.png";
+
+		// Coordonées
+		personnage.ratio = ratio;
+		personnage.x = Math.floor((Math.random() * (game.canvas.width-personnage.image.width*personnage.ratio)) + 0);
+		personnage.y = Math.floor((Math.random() * (game.canvas.height-personnage.image.height*personnage.ratio)) + 0);
+	}
+
+	// Création d'un canvas qui servira a la detection de pixel non transparents pour le hover des régions
+	game.canvasDetectionPersonnages = document.createElement("canvas");
+	game.canvasDetectionPersonnages.width = w;
+	game.canvasDetectionPersonnages.height = h;
+	game.canvasDetectionPersonnages.ctx = game.canvasDetectionPersonnages.getContext("2d"); 
+}
+
+function drawPersonnages(ctx)
+{
+	for(var IDPersonnage in game.personnagesDansRegion)
+	{
+		var personnage = game.personnagesDansRegion[IDPersonnage];
+		var image = (game.personnageSelected != -1 && game.personnageSelected.IDHeros == IDPersonnage) ? personnage.imageHover : personnage.image;
+
+		if(image.width > 0)
+			ctx.drawImage(image,0,0,image.width,image.height,personnage.x,personnage.y,image.width*personnage.ratio,image.height*personnage.ratio);
+	}
+}
 
 load();

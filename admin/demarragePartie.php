@@ -1,17 +1,15 @@
 <?php
 session_start();
 include_once("../prive/config.php");
-
-// Connection base
 $mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
-	mysqli_set_charset($mysqli, "utf8");
-
+mysqli_set_charset($mysqli, "utf8");
 
 $requete = "START TRANSACTION";
 $retour = mysqli_query($mysqli,$requete);
+$necessiteRollback = true;
 
-$idPartie = $_POST["IDPartie"];
-$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$idPartie."' AND Etat = 'en_creation' LIMIT 1";
+$IDPartie = $_POST["IDPartie"];
+$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$IDPartie."' AND Etat = 'en_creation' LIMIT 1";
 $retour = mysqli_query($mysqli,$requete);
 if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
@@ -32,13 +30,13 @@ if(mysqli_num_rows($retour))
 	if($pret)
 	{
 		// Autorisation Démarrage de la partie	
-		$requete = "UPDATE ".$PT."parties SET DateDemarrage = CURDATE(), Etat = 'en_cours', Jour=1 WHERE ID = '".$idPartie."'";
+		$requete = "UPDATE ".$PT."parties SET DateDemarrage = CURDATE(), Etat = 'en_cours', Jour=1 WHERE ID = '".$IDPartie."'";
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
-		$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$idPartie."' AND Etat = 'en_cours' LIMIT 1";
+		$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$IDPartie."' AND Etat = 'en_cours' LIMIT 1";
 		$retour = mysqli_query($mysqli,$requete);
-		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+		if (!$retour) die('Requête invalide : ' . mysql_error($mysqli));
 		$partie = mysqli_fetch_assoc($retour);
 
 		// Determination du cycle en cours
@@ -52,9 +50,9 @@ if(mysqli_num_rows($retour))
 		//Manuel:
 		$cycle = 0;
 
-		$requete = "UPDATE ".$PT."parties SET Cycle = '".$cycle."' WHERE ID = '".$idPartie."'";
+		$requete = "UPDATE ".$PT."parties SET Cycle = '".$cycle."' WHERE ID = '".$IDPartie."'";
 		$retour = mysqli_query($mysqli,$requete);
-		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+		if (!$retour) die('Requête invalide : ' . mysqli_error());
 
 		$partie['Cycle'] = $cycle;
 		$_SESSION['PartieEnCours'] = $partie;
@@ -70,22 +68,22 @@ if(mysqli_num_rows($retour))
 			$pa = $heros['PaMax'];
 			$pm = $heros['PmMax'];
 
-			$requete = "INSERT INTO ".$PT."personnages (Joueur, IDHeros, IDPartie, PvActuel, PvMax, FaimActuel, FaimMax, SoifActuel, SoifMax, FatigueActuel, FatigueMax, PaActuel, PaMax, PmActuel, PmMax) VALUES ('".$partie['Joueur'.$i]."', '".$i."','".$idPartie."' ,'".$pv."', '".$pv."', '".$faim."', '".$faim."', '".$soif."', '".$soif."', '".$fatigue."','".$fatigue."','".$pa."','".$pa."','".$pm."','".$pm."')";
+			$requete = "INSERT INTO ".$PT."personnages (Joueur, IDHeros, IDPartie, PvActuel, PvMax, FaimActuel, FaimMax, SoifActuel, SoifMax, FatigueActuel, FatigueMax, PaActuel, PaMax, PmActuel, PmMax) VALUES ('".$partie['Joueur'.$i]."', '".$i."','".$IDPartie."' ,'".$pv."', '".$pv."', '".$faim."', '".$faim."', '".$soif."', '".$soif."', '".$fatigue."','".$fatigue."','".$pa."','".$pa."','".$pm."','".$pm."')";
 			$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) die('Requête création perso invalide : ' . mysqli_error($mysqli));
 
 			if($i == $_SESSION['IDPersoActuel'])
 			{
-				$idInsert = mysqli_insert_id($mysqli);
-				$requete = "SELECT * FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = ".$idPartie." LIMIT 1";
+				$idInsert = mysql_insert_id();
+				$requete = "SELECT * FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = ".$IDPartie." LIMIT 1";
 				$retour = mysqli_query($mysqli,$requete);
 				if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
 
-				$_SESSION['Personnage'] = mysqli_fetch_assoc($retour);
+				$_SESSION['Personnage'] = mysqli_fetch_assoc($mysqli,$retour);
 			}
 		}
 
-		// Repartition des personnages dans les differents lieux
+		// Repartition des personnages dans les differents régions
 		// un groupe de 3, un groupe de 2 et trois groupes de 1
 		$groupe3 = array();
 		$groupe2 = array();
@@ -114,7 +112,7 @@ if(mysqli_num_rows($retour))
 			$lieu2 = rand(1,8);
 
 
-		// Repartition aleatoire dans les lieux
+		// Repartition aleatoire dans les régions (montagne et volcan exclues)
 		$lieuxSeul = array();
 		for($idJoueur = 1; $idJoueur <= 8; $idJoueur++)
 		{
@@ -134,15 +132,67 @@ if(mysqli_num_rows($retour))
 				$lieuxSeul[] = $idLieu;
 			}
 
-			$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idLieu."', DateArriveeLieu = NOW() WHERE IDHeros = '".$idJoueur."' AND idPartie = '".$idPartie."'";
+			$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idLieu."', DateArriveeLieu = NOW() WHERE IDHeros = '".$idJoueur."' AND idPartie = '".$IDPartie."'";
 			$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
 		}
 
+		// Génération des lieux
+
+		// Emplacements de campement
+		genererLieu($mysqli,2,$IDPartie,1,true);
+		genererLieu($mysqli,2,$IDPartie,2,true);
+		genererLieu($mysqli,2,$IDPartie,3,true);
+
+		// Création des bancs de poisson
+		$regionsPoisson = array(1,2,3);
+		$IDBancsPoissonsDansRegion = array();
+		for($i = 0; $i < count($regionsPoisson);$i++)
+			$IDBancsPoissonsDansRegion[$i] = genererLieu($mysqli,1,$IDPartie,$regionsPoisson[$i],false);
+	
+		// Initialisation des bancs de poisson
+		$listeNbPoissons = array(rand(5,9),rand(12,18),rand(21,23));
+		for($i = 0; $i < count($regionsPoisson);$i++)
+		{
+			$r = rand(0,count($listeNbPoissons)-1);
+			$nbPoissons = $listeNbPoissons[$r];
+			array_splice($listeNbPoissons, $r,true);
+			initialiserBancPoisson($mysqli,$IDBancsPoissonsDansRegion[$i],$IDPartie,$nbPoissons);
+		}
+
+		// Sources d'eau
+		$listeRegionsSource = array(4,5,6,7,8);
+		for($i=0;$i<3;$i++)
+		{
+			$r = rand(0,count($listeRegionsSource)-1);
+			$IDRegion = $listeRegionsSource[$r];
+			array_splice($listeRegionsSource, $r,true);
+			$IDLieu = genererLieu($mysqli,5,$IDPartie,$IDRegion,false);
+			initialiserSourceEau($mysqli,$IDLieu,$IDPartie,($i > 0));
+		}
+
+		// Village Voodoo
+		genererLieu($mysqli,6,$IDPartie,rand(4,8),false);
+		// Idole Voodoo
+		genererLieu($mysqli,7,$IDPartie,rand(4,8),false);
+		// Antre de la bête
+		genererLieu($mysqli,8,$IDPartie,rand(4,8),false);
+		// Epave d'avion
+		genererLieu($mysqli,9,$IDPartie,rand(4,8),false);
+		// Epave Santa Marina
+		genererLieu($mysqli,4,$IDPartie,rand(1,3),false);
+		// Antenne Radio
+		genererLieu($mysqli,10,$IDPartie,9,false);
+		// Autel Voodoo
+		genererLieu($mysqli,11,$IDPartie,10,true);
+		// Coulée de lave
+		genererLieu($mysqli,12,$IDPartie,10,true);
+
 		$requete = "COMMIT";
 		$retour = mysqli_query($mysqli,$requete);
 
-		//header('Location: game.php');
+		$necessiteRollback = false;
+
 		header('Location: index.php');
 	}
 	else
@@ -151,7 +201,59 @@ if(mysqli_num_rows($retour))
 else
 	trigger_error("Erreur creation partie not found");
 
-$requete = "ROLLBACK";
-$retour = mysqli_query($mysqli,$requete);
+if($necessiteRollback)
+{
+	$requete = "ROLLBACK";
+	$retour = mysqli_query($mysqli,$requete);
+	echo "<h1>ROLLBACK</h1>";
+}
+
+// Genere un lieu et retourne l'id du lieu dans la table Lieu
+function genererLieu($mysqli,$IDTypeLieu,$IDPartie,$IDRegion,$estDecouvert)
+{
+	global $PT;
+
+	echo "</br>Création lieu ".$IDTypeLieu." dans la région ".$IDRegion;
+
+	$etatDecouverte = $estDecouvert ? "Visible" : "ADecouvrir" ;
+	$requete = "INSERT INTO ".$PT."lieux (IDTypeLieu,IDPartie,IDRegion,EtatDecouverte) VALUES (".$IDTypeLieu.",".$IDPartie.",".$IDRegion.",'".$etatDecouverte."')";
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide : '.$requete . mysqli_error($mysqli));
+	return mysqli_insert_id($mysqli);
+}
+
+function initialiserBancPoisson($mysqli,$IDLieu,$IDPartie,$nbPoissons)
+{
+	global $PT;
+
+	echo "</br>Initialisation banc poisson ID lieu ".$IDLieu." avec ".$nbPoissons." poisson";
+
+	$requete = "INSERT INTO ".$PT."parametresBancsPoissons (IDPartie,IDLieu,NbPoissons) VALUES (".$IDPartie.",".$IDLieu.",".$nbPoissons.")";
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide : '.$requete . mysqli_error($mysqli));
+
+	$IDBancPoisson = mysqli_insert_id($mysqli);
+
+	$requete = "UPDATE ".$PT."lieux SET IDParametrageLieu = ".$IDBancPoisson." WHERE ID = ".$IDLieu;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
+}
+
+function initialiserSourceEau($mysqli,$IDLieu,$IDPartie,$estPotable)
+{
+	global $PT;
+
+	echo "</br>Initialisation Source eau IDlieu ".$IDLieu."";
+
+	$requete = "INSERT INTO ".$PT."parametresSourcesEau (IDPartie,IDLieu,EstPotable) VALUES (".$IDPartie.",".$IDLieu.",'".($estPotable ? 'o' : 'n')."')";
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
+
+	$IDSource = mysqli_insert_id($mysqli);
+
+	$requete = "UPDATE ".$PT."lieux SET IDParametrageLieu = ".$IDSource." WHERE ID = ".$IDLieu;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
+}
 
 ?>

@@ -10,7 +10,7 @@ function updateHorloge()
 	s--;
 	if(s < 0)
 	{
-		m--
+		m--;
 		s = 59;
 	}
 

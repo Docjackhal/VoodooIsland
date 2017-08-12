@@ -10,9 +10,9 @@ else
 		header('Location: lobby.php');
 	else
 	{
-		$IDPersoActuel = $_SESSION['IDPersonnage'];
 		include_once("updateInformationsSession.php");
 		updateInformationsSession();
+		$IDPersoActuel = $_SESSION['IDPersonnage'];
 
 		// Heures et cycles
 		// Determination du jour et cycle actif
