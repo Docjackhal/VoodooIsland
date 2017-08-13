@@ -74,6 +74,11 @@
 						<input type="hidden" name="IDPartie" value="<?php echo $partie["ID"];?>"/>
 						<input class="boutonAdministrer" type="submit" value="Administrer"></input>
 					</form>
+
+					<form method="POST" action="reinitialiserPartie.php">
+						<input type="hidden" name="IDPartie" value="<?php echo $partie["ID"];?>"/>
+						<input class="boutonAdministrer" type="submit" value="Reinitialiser"></input>
+					</form>
 					<?php
 				}
 				else if($nbJoueursDansPartie == count($listeHeros))

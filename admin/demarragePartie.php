@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("../prive/config.php");
+include_once("../fonctionsItems.php");
 $mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
 mysqli_set_charset($mysqli, "utf8");
 
@@ -70,16 +71,44 @@ if(mysqli_num_rows($retour))
 
 			$requete = "INSERT INTO ".$PT."personnages (Joueur, IDHeros, IDPartie, PvActuel, PvMax, FaimActuel, FaimMax, SoifActuel, SoifMax, FatigueActuel, FatigueMax, PaActuel, PaMax, PmActuel, PmMax) VALUES ('".$partie['Joueur'.$i]."', '".$i."','".$IDPartie."' ,'".$pv."', '".$pv."', '".$faim."', '".$faim."', '".$soif."', '".$soif."', '".$fatigue."','".$fatigue."','".$pa."','".$pa."','".$pm."','".$pm."')";
 			$retour = mysqli_query($mysqli,$requete);
-			if (!$retour) die('Requête création perso invalide : ' . mysqli_error($mysqli));
+			if (!$retour) die('Requête création perso invalide : ' . mysqli_error($mysqli));		
 
-			if($i == $_SESSION['IDPersoActuel'])
+			//Génération des objets de depart
+			switch($i)
 			{
-				$idInsert = mysql_insert_id();
-				$requete = "SELECT * FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = ".$IDPartie." LIMIT 1";
-				$retour = mysqli_query($mysqli,$requete);
-				if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
-
-				$_SESSION['Personnage'] = mysqli_fetch_assoc($mysqli,$retour);
+				case 1:	// Kurt Williams
+					ajouterItem($mysqli,$IDPartie,1,$i,"personnage",-1); // Couteau
+					break;
+				case 2:	// Hanna Vilhelm
+					ajouterItem($mysqli,$IDPartie,12,$i,"personnage",-1); // Trousse de secours
+					ajouterItem($mysqli,$IDPartie,12,$i,"personnage",-1); // Trousse de secours
+					ajouterItem($mysqli,$IDPartie,25,$i,"personnage",-1); // Kit d'analyse d'eau
+					break;
+				case 3:	// John Fisherman
+					ajouterItem($mysqli,$IDPartie,13,$i,"personnage",-1); // Bouteille d'eau
+					break;
+				case 4:	// Sergeï Moskovski
+					ajouterItem($mysqli,$IDPartie,1,$i,"personnage",-1); // Couteau
+					ajouterItem($mysqli,$IDPartie,16,$i,"personnage",-1); // Vodka
+					ajouterItem($mysqli,$IDPartie,17,$i,"personnage",-1); // Conserve
+					ajouterItem($mysqli,$IDPartie,17,$i,"personnage",-1); // Conserve
+					ajouterItem($mysqli,$IDPartie,17,$i,"personnage",-1); // Conserve
+					ajouterItem($mysqli,$IDPartie,17,$i,"personnage",-1); // Conserve
+					break;
+				case 5:	// Enzo Lombardi
+					ajouterItem($mysqli,$IDPartie,13,$i,"personnage",-1); // Bouteille d'eau
+					break;
+				case 6:	// Abby Lopez
+					ajouterItem($mysqli,$IDPartie,33,$i,"personnage",-1); // Clé à molete
+					ajouterItem($mysqli,$IDPartie,30,$i,"personnage",-1); // Radio
+					ajouterItem($mysqli,$IDPartie,30,$i,"personnage",-1); // Radio
+					break;
+				case 7:	// Kenny
+					ajouterItem($mysqli,$IDPartie,1,$i,"personnage",-1); // Couteau
+					break;
+				case 8:	//Yuri Lin
+					ajouterItem($mysqli,$IDPartie,13,$i,"personnage",-1); // Bouteille d'eau
+					break;
 			}
 		}
 

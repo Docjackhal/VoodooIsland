@@ -86,9 +86,7 @@ function envoyerMessage(idCanal)
 		{
 			//alert(datas.responseText);
 		}
-	})
-
-
+	});
 }
 
 function SwitchPopupVoyage()
@@ -108,3 +106,57 @@ function SwitchPopupInterdictionVoyage()
 	else
 		popup.style.display = "block";
 }
+
+function initialiserPopupZoomItem(IDTypeItem,IDItem)
+{
+	var popupZoomItem = $("#popup_zoomItem");
+
+	var typeItem = game.typesItems[IDTypeItem];
+	var item = game.inventaire[IDTypeItem][IDItem];
+
+	$("#popup_zoomItem_titre").html(typeItem["NomFR"]);
+	$("#popup_zoomItem_image").attr("src","images/items/item_"+IDTypeItem+".png");
+	$("#popup_zoomItem_description").html(typeItem["DescriptionFR"]);
+
+	popupZoomItem.css("display","block");
+	popupZoomItem.css("opacity",0);
+	popupZoomItem.animate({opacity: 1},300);
+}
+
+// Binds
+$(document).ready(function()
+{
+	// Inventaire
+	var popupInventaire = $("#popup_inventaire");
+	$("#bloc_menu_bas_0").click(function()
+	{
+		popupInventaire.css("display","block");
+		popupInventaire.css("opacity",0);
+		popupInventaire.animate({opacity: 1},300);
+	});
+
+	$("#popup_inventaire_close").click(function()
+	{
+		popupInventaire.animate({opacity: 0},300,function(){
+			$(this).css("display","none");
+		});
+	});
+
+	// Zoom Item
+	var popupZoomItem = $("#popup_zoomItem");
+	$(".bloc_inventaire").click(function()
+	{
+		var blocItem = $(this);
+		var IDTypeItem = $(this).attr("IDTypeItem");
+		var IDItem = $(this).attr("IDItem");
+
+		initialiserPopupZoomItem(IDTypeItem,IDItem);
+	});
+
+	$("#popup_zoomItem_close").click(function()
+	{
+		popupZoomItem.animate({opacity: 0},300,function(){
+			$(this).css("display","none");
+		});
+	});
+});

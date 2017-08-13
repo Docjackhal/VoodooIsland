@@ -5,7 +5,7 @@ function updateInformationsSession()
 
 	// Connexion a la base
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
-	mysqli_set_charset($mysqli, "ANSI");
+	mysqli_set_charset($mysqli, "utf8");
 
 	$IDPartie = $_SESSION['IDPartieEnCours'];
 
@@ -58,7 +58,7 @@ function updateInformationsSession()
 	$_SESSION["LieuxDansRegion"] = array();
 	$requete = "SELECT * FROM ".$PT."lieux WHERE IDPartie = ".$IDPartie." AND IDRegion = ".$IDRegion;
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+	if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
 
 	while($lieu = mysqli_fetch_assoc($retour))
 	{
@@ -73,7 +73,7 @@ function updateInformationsSession()
 				$requete2 = "SELECT * FROM ".$PT."parametresBancsPoissons WHERE IDLieu = ".$IDLieu;
 				$retour2 = mysqli_query($mysqli,$requete2);
 				if (!$retour2) 
-					die('Requête invalide : '.$requete2 . mysql_error($mysqli));
+					die('Requête invalide : '.$requete2 . mysqli_error($mysqli));
 				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"] = mysqli_fetch_assoc($retour2);
 			}
 			break;
@@ -82,7 +82,7 @@ function updateInformationsSession()
 				$requete2 = "SELECT * FROM ".$PT."parametresSourcesEau WHERE IDLieu = ".$IDLieu;
 				$retour2 = mysqli_query($mysqli,$requete2);
 				if (!$retour2) 
-					die('Requête invalide : '.$requete2 . mysql_error($mysqli));
+					die('Requête invalide : '.$requete2 . mysqli_error($mysqli));
 				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"] = mysqli_fetch_assoc($retour2);
 			}
 			break;
@@ -98,6 +98,22 @@ function updateInformationsSession()
 	{
 		$IDHeros = $personnage["IDHeros"];
 		$_SESSION["PersonnagesDansRegion"][$IDHeros] = $personnage;
+	}
+
+	// Récupération des objets dans l'inventaire du joueur, triés par IDTypeItem
+	$_SESSION["Inventaire"] = array();
+	$requete = "SELECT * FROM ".$PT."items WHERE IDPartie = ".$IDPartie." AND TypeInventaire = 'personnage' AND IDProprietaire = ".$_SESSION['IDPersonnage'];
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+	while($item = mysqli_fetch_assoc($retour))
+	{
+		$IDItem = $item["ID"];
+		$IDTypeItem = $item["IDTypeItem"];
+
+		if(empty($_SESSION["Inventaire"][$IDTypeItem]))
+			$_SESSION["Inventaire"][$IDTypeItem] = array();
+
+		$_SESSION["Inventaire"][$IDTypeItem][$IDItem] = $item;
 	}
 }
 ?>

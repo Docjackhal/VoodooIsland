@@ -45,12 +45,13 @@ function load()
 
 function mainInitialisation()
 {
-
 	game.region = game.xhrDatas['Region'];
 	game.regions = game.xhrDatas['Regions'];
 	game.idPersoActuel = game.xhrDatas['IDPersoActuel'];
 	game.lieuxDecouverts = game.xhrDatas['LieuxDecouverts'];
 	game.personnagesDansRegion = game.xhrDatas['PersonnagesDansRegion'];
+	game.inventaire = game.xhrDatas['Inventaire'];
+	game.typesItems = game.xhrDatas['TypesItems'];
 
 	game.imageRegion = new Image();
 	game.imageRegion.src = "images/Regions/region_"+game.region['ID']+".png";

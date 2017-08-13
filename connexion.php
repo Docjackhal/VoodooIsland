@@ -53,6 +53,23 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 				$_SESSION['Regions'][$region['ID']] = $region;
 
 
+			// Récupération de la liste des TypesItems
+			$_SESSION["TypesItems"] = array();
+			$requete = "SELECT * FROM ".$PT."typeItems";
+			$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
+			while($typeItem = mysqli_fetch_assoc($retour))
+				$_SESSION["TypesItems"][$typeItem["ID"]] = $typeItem;
+
+				// Récupération des types de lieu dans la liste
+				$_SESSION["TypeLieux"] = array();
+				$requete = "SELECT * FROM ".$PT."typeLieux";
+				$retour = mysqli_query($mysqli,$requete);
+				if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
+				while($typeLieu = mysqli_fetch_assoc($retour))
+					$_SESSION["TypeLieux"][$typeLieu["ID"]] = $typeLieu;
+
+
 			// Connexion terminée, redirection
 			header('Location: index.php');
 	}

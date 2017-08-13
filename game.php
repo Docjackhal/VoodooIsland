@@ -93,19 +93,6 @@ function genererBarreStatistique($nomStat)
 	return $div;	
 }
 
-function genererInventaire()
-{
-	$div = "";
-	$tailleInventaire = 5;
-	for($i = 0; $i < $tailleInventaire; $i++)
-	{
-		$div .= "<div class='slot_inventaire' id='slot_inventaire_".$i."'>".$i;
-		$div .= "</div>";
-	}
-
-	return $div;
-}
-
 function genererTchat($idCanal)
 {
 	$content = "";
@@ -135,6 +122,21 @@ function genererTchat($idCanal)
 	return $content;
 }
 
+function genererHTMLInventaireJoueur()
+{
+	$html = "";
+	/*for($i=0;$i<70;$i++)*/ // Test
+	foreach($_SESSION["Inventaire"] as $IDTypeItem => $listeItemsDeType)
+	{
+		foreach($listeItemsDeType as $IDItem => $item)
+		{
+			$html .= "<div class='bloc_inventaire' id='bloc_inventaire_".$IDItem."' IDTypeItem='".$IDTypeItem."' IDItem='".$IDItem."'>";
+				$html .= "<img src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
+			$html .= "</div>";
+		}
+	}
+	return $html;
+}
 
 ?>
 
@@ -186,8 +188,14 @@ function genererTchat($idCanal)
 				<div id='zone_lieu'><span><?php echo $_SESSION['Regions'][$_SESSION['RegionActuelle']]['Nom']; ?></span></div>
 				<div id='btn_voyager' onclick='switchMode();'>Voyager</div>
 			</div>
-			<div id='bloc_inventaire'>
-				<?php echo genererInventaire(); ?>
+			<div id='menu_bas'>
+				<div class='bloc_menu_bas' id="bloc_menu_bas_0">
+					<img src="images/UI/icone_inventaire.png" width="150" height="150" align="middle"/>
+				</div>
+				<div class='bloc_menu_bas' id="bloc_menu_bas_1"></div>
+				<div class='bloc_menu_bas' id="bloc_menu_bas_2"></div>
+				<div class='bloc_menu_bas' id="bloc_menu_bas_3"></div>
+				<div class='bloc_menu_bas' id="bloc_menu_bas_4"></div>
 			</div>
 			<div id='popup_validation_voyage'>
 				<div class='popup_voyage_content'>
@@ -247,6 +255,23 @@ function genererTchat($idCanal)
 			</div>
 		</div>
 
+		<!-- Popup Inventaire -->
+		<div id="popup_inventaire">	
+			<div id="popup_inventaire_titre">Inventaire</div>
+			<div id="popup_inventaire_close" class="popup_close">X</div>
+			<div id="popup_inventaire_contenu"><?php echo genererHTMLInventaireJoueur();?></div>
+		</div>
+
+		<div id="popup_zoomItem">
+			<div id="popup_zoomItem_titre">Titre</div>
+			<div id="popup_zoomItem_close" class="popup_close">X</div>
+			<div id="popup_zoomItem_contenu">
+				<div id="popup_zoomItem_ZoneImage">
+					<img id="popup_zoomItem_image" src='images/items/item_1.png' width='130px' height='110px' align='middle'/>
+				</div>
+			</div>
+			<div id="popup_zoomItem_description">blablabla</div>
+		</div>
 
 	</div>
 
