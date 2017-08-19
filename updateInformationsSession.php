@@ -53,6 +53,14 @@ function updateInformationsSession()
 			$_SESSION['Tchats'][$message['Canal']][] = $message;
 		}
 	}
+
+	// MAJ des variables de la partie
+	$_SESSION["Variables"] = array();
+	$requete = "SELECT IDVariable,Valeur FROM ".$PT."variables WHERE IDPartie = ".$IDPartie;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+	while($variable = mysqli_fetch_assoc($retour))
+		$_SESSION["Variables"][$variable["IDVariable"]] = $variable["Valeur"];
 	
 	// Récupération Lieux Région
 	$_SESSION["LieuxDansRegion"] = array();

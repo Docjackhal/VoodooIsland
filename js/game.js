@@ -107,6 +107,16 @@ function SwitchPopupInterdictionVoyage()
 		popup.style.display = "block";
 }
 
+function SwitchPopupValidationExploration()
+{
+	var popup = document.getElementById("popup_validation_exploration");
+	if(popup.style.display == "block")
+		popup.style.display = "none";
+	else
+		popup.style.display = "block";
+}
+
+
 function initialiserPopupZoomItem(IDTypeItem,IDItem)
 {
 	var popupZoomItem = $("#popup_zoomItem");
@@ -121,6 +131,13 @@ function initialiserPopupZoomItem(IDTypeItem,IDItem)
 	popupZoomItem.css("display","block");
 	popupZoomItem.css("opacity",0);
 	popupZoomItem.animate({opacity: 1},300);
+}
+
+function fermerPopupMessage()
+{
+	$("#popup_message").animate({opacity: 0},300,function(){
+		$(this).css("display","none");
+	});
 }
 
 // Binds

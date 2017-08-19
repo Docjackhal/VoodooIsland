@@ -69,6 +69,15 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 				while($typeLieu = mysqli_fetch_assoc($retour))
 					$_SESSION["TypeLieux"][$typeLieu["ID"]] = $typeLieu;
 
+			// Récupération de la table des evenements
+			$_SESSION['Evenements'] = array();
+			$requete = "SELECT * FROM ".$PT."parametresEvenements";
+			$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+
+			while($event = mysqli_fetch_assoc($retour))
+				$_SESSION['Evenements'][$event['ID']] = $event;	
+
 
 			// Connexion terminée, redirection
 			header('Location: index.php');

@@ -5,9 +5,12 @@ if(empty($_SESSION))
 else
 {
 	include_once("prive/config.php");
+	include_once("updateInformationsSession.php");
 
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
 	mysqli_set_charset($mysqli, "utf8");
+
+	updateInformationsSession();
 
 	if(!isset($_GET['action']))
 		die();
@@ -28,6 +31,7 @@ else
 	// Action 0: Rejoindre une partie
 	// Action 1: Annuler selection personnage
 	// Action 2: Voyager
+	// Action 3: Explorer la région
 }
 
 function UpdateDateAndTime()
@@ -48,4 +52,11 @@ function UpdateDateAndTime()
 	$_SESSION['Heures'] = $heures;
 	$_SESSION['Cycle'] = $cycle;
 }
+
+// Récupere la valeur d'une variable de la partie, ou -1 si n'est pas définie
+function getVariable($IDVariable)
+{
+	return (!empty($_SESSION["Variables"][$IDVariable])) ? $_SESSION["Variables"][$IDVariable] : -1;
+}
+
 ?>

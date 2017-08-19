@@ -189,11 +189,13 @@ function fadeOn(ctx)
 		if(game.mode == "map")
 		{
 			document.getElementById("btn_voyager").innerHTML = "Voyager";
+			document.getElementById("btn_explorer").style.display = "block";
 			game.mode = "local";
 		}		
 		else
 		{
 			document.getElementById("btn_voyager").innerHTML = "Annuler";
+			document.getElementById("btn_explorer").style.display = "none";
 			game.mode = "map";
 		}
 			

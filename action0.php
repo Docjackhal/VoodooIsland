@@ -118,5 +118,10 @@ switch($idAction)
 			trigger_error("Tentative de voyage: Region innexistante");
 	}
 	break;
+	case 3: // Explorer la région
+	{
+		$_SESSION["Message"] = "test message";
+	}
+	break;
 }
 ?>

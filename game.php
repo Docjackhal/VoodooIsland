@@ -138,6 +138,31 @@ function genererHTMLInventaireJoueur()
 	return $html;
 }
 
+function getCoutDeplacement()
+{
+	return 1;
+}
+
+function AP($cout)
+{
+	echo "<div class='iconeCoutAP";
+	if($cout > $_SESSION["PaActuel"])
+		echo " iconeCoutInsufisant";
+	echo "'>";
+	echo $cout;
+	echo "</div>";
+}
+
+function PM($cout)
+{
+	echo "<div class='iconeCoutPM";
+	if($cout > $_SESSION["PmActuel"])
+		echo " iconeCoutInsufisant";
+	echo "'>";
+	echo $cout;
+	echo "</div>";
+}
+
 ?>
 
 <html>
@@ -186,7 +211,8 @@ function genererHTMLInventaireJoueur()
 			<div id='bloc_canvas'>
 				<canvas id='canvas'></canvas>
 				<div id='zone_lieu'><span><?php echo $_SESSION['Regions'][$_SESSION['RegionActuelle']]['Nom']; ?></span></div>
-				<div id='btn_voyager' onclick='switchMode();'>Voyager</div>
+				<div id='btn_voyager' onclick='switchMode();'>Voyager <?php PM(getCoutDeplacement());?></div>
+				<div id='btn_explorer' onclick='SwitchPopupValidationExploration();'>Explorer <?php AP(2);?></div>
 			</div>
 			<div id='menu_bas'>
 				<div class='bloc_menu_bas' id="bloc_menu_bas_0">
@@ -198,15 +224,15 @@ function genererHTMLInventaireJoueur()
 				<div class='bloc_menu_bas' id="bloc_menu_bas_4"></div>
 			</div>
 			<div id='popup_validation_voyage'>
-				<div class='popup_voyage_content'>
+				<div class='popup_content'>
 					<?php
-						if($_SESSION['PmActuel'] > 0)
+						if($_SESSION['PmActuel'] >= getCoutDeplacement())
 						{
 							echo "Voulez-vous voyager jusqu'à </br><span id='name_region'>".$region['Nom']."</span> ?" ;	
 							echo "<div class='content_button'>";
 							echo "<form METHOD=post ACTION='action.php?action=2'>";
 							echo "<input type='hidden' name='idRegion' id='inputIdRegion'></input>";
-							echo "<input type='submit' class='submit submit_popup' onclick='SwitchPopupVoyage()' value='Voyager'></input>";
+							echo "<input type='submit' class='submit submit_popup' onclick='SwitchPopupVoyage()' value='Voyager (".getCoutDeplacement()."Pm)'></input>";
 							echo "</form>";
 							echo "<button class='submit submit_popup' onclick='SwitchPopupVoyage()'>Fermer</button>";
 							
@@ -218,19 +244,46 @@ function genererHTMLInventaireJoueur()
 							echo "<div class='content_button'>";
 							echo "<button class='submit submit_popup' onclick='SwitchPopupVoyage()'>Fermer</button>";
 							echo "</div>";
-						}
-											
+						}										
 					?>
 				</div>
 			</div>	
 			<div id='popup_interdiction_voyage'>
-				<div class='popup_voyage_content'>
+				<div class='popup_content'>
 					Cette région n'est pas accessible depuis l'endroit où vous vous trouvez.
 					<div class='content_button'>
 						<button class='submit submit_popup' onclick='SwitchPopupInterdictionVoyage()'>Fermer</button>
 					</div>";
 				</div>
-			</div>			
+			</div>
+			<div id='popup_validation_exploration'>
+				<div class='popup_content'>
+					Voulez-vous explorer cette zone?
+					<div class='content_button'>
+						<form METHOD=post ACTION='action.php?action=3'>
+							<input type='submit' class='submit submit_popup' value='Explorer (2AP)'></input>
+						</form>
+						<button class='submit submit_popup' onclick='SwitchPopupValidationExploration()'>Annuler</button>
+					</div>
+				</div>
+			</div>		
+
+			<?php
+				if(!empty($_SESSION["Message"]))
+				{
+					?>
+					<div id='popup_message'>
+						<div class='popup_content'>
+							<?php echo $_SESSION["Message"];?>
+							<div class='content_button'>
+								<button class='submit submit_popup' onclick='fermerPopupMessage()'>Daccord</button>
+							</div>
+						</div>
+					</div>	
+					<?php
+					$_SESSION["Message"] = "";
+				}	
+			?>	
 		</div>
 
 		<!-- Bloc Tchat droit -->
