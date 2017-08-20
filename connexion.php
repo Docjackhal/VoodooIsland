@@ -76,7 +76,10 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
 			while($event = mysqli_fetch_assoc($retour))
+			{
+				$event["EstSimple"] = $event["EstSimple"] == 'o';
 				$_SESSION['Evenements'][$event['ID']] = $event;	
+			}
 
 
 			// Connexion terminée, redirection

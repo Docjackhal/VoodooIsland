@@ -95,7 +95,7 @@ switch($idAction)
 			$idRegionCible = $_POST['idRegion'];
 
 			// Verification des PM
-			if($_SESSION['PmActuel'] > 0)
+			if($_SESSION['PmActuel'] >= getCoutDeplacement())
 			{
 				// Verification de la liaison entre la zone
 				$regionCible = $_SESSION['Regions'][$_POST['idRegion']];
@@ -103,12 +103,13 @@ switch($idAction)
 				if($regionCible['Lien1'] == $idRegionActuelle || $regionCible['Lien2'] == $idRegionActuelle || $regionCible['Lien3'] == $idRegionActuelle || $regionCible['Lien4'] == $idRegionActuelle || $regionCible['Lien5'] == $idRegionActuelle)
 				{
 					// Voyage accepté
-					$requete = "UPDATE ".$PT."personnages SET PmActuel = PmActuel -1, RegionActuelle = '".$idRegionCible."' WHERE IDHeros = '".$_SESSION['IDPersonnage']."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
+					$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idRegionCible."' WHERE IDHeros = '".$_SESSION['IDPersonnage']."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
 					$retour = mysqli_query($mysqli,$requete);
 					if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
 					$_SESSION['RegionActuelle'] = $idRegionCible;
-					$_SESSION['PmActuel']--;
+					
+					updateCarac($mysqli,$_SESSION["IDPersonnage"],"Pm",-getCoutDeplacement());
 				}
 			}
 			else
@@ -120,7 +121,22 @@ switch($idAction)
 	break;
 	case 3: // Explorer la région
 	{
-		$_SESSION["Message"] = "test message";
+		if($_SESSION["PaActuel"] >= getCoutExploration())
+		{
+			$eventsPossibles = getEvenementsPossibles($mysqli);
+			if(!empty($eventsPossibles))
+			{
+				$eventChoisi = choisiEvenementDansListe($eventsPossibles);
+				if($eventChoisi["EstSimple"])
+					effectueResultatEvenementSimple($mysqli,$eventChoisi);
+			}
+			else
+				$_SESSION["Message"] = "Malheuresement, vous n'avez rien trouvé.";
+
+			updateCarac($mysqli,$_SESSION["IDPersonnage"],"Pa",-getCoutExploration());
+		}
+		else
+			$_SESSION["Message"] = "Vous n'avez plus assez d'actions pour faire ça !";
 	}
 	break;
 }

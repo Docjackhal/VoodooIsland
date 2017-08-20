@@ -5,12 +5,13 @@ if(empty($_SESSION))
 else
 {
 	include_once("prive/config.php");
+	include_once("fonctionsGlobales.php");
+	include_once("updateInformationsSession.php");
 
 	if($_SESSION['IDPartieEnCours'] == -1 || $_SESSION['PartieEnCours']['Etat'] == 'en_creation')
 		header('Location: lobby.php');
 	else
 	{
-		include_once("updateInformationsSession.php");
 		updateInformationsSession();
 		$IDPersoActuel = $_SESSION['IDPersonnage'];
 
@@ -68,6 +69,7 @@ else
 		$region = $_SESSION['Regions'][$_SESSION['RegionActuelle']];		
 	}
 
+// ----------------------- Fonctions Graphiques ---------------------------
 function genererBarreStatistique($nomStat)
 {
 	$personnage = $_SESSION['Heros'][$_SESSION['IDPersonnage']];
@@ -138,11 +140,6 @@ function genererHTMLInventaireJoueur()
 	return $html;
 }
 
-function getCoutDeplacement()
-{
-	return 1;
-}
-
 function AP($cout)
 {
 	echo "<div class='iconeCoutAP";
@@ -163,6 +160,7 @@ function PM($cout)
 	echo "</div>";
 }
 
+// ----------------------- Fin Fonctions Graphiques ---------------------------
 ?>
 
 <html>
@@ -212,7 +210,7 @@ function PM($cout)
 				<canvas id='canvas'></canvas>
 				<div id='zone_lieu'><span><?php echo $_SESSION['Regions'][$_SESSION['RegionActuelle']]['Nom']; ?></span></div>
 				<div id='btn_voyager' onclick='switchMode();'>Voyager <?php PM(getCoutDeplacement());?></div>
-				<div id='btn_explorer' onclick='SwitchPopupValidationExploration();'>Explorer <?php AP(2);?></div>
+				<div id='btn_explorer' onclick='SwitchPopupValidationExploration();'>Explorer <?php AP(getCoutExploration());?></div>
 			</div>
 			<div id='menu_bas'>
 				<div class='bloc_menu_bas' id="bloc_menu_bas_0">
@@ -261,7 +259,7 @@ function PM($cout)
 					Voulez-vous explorer cette zone?
 					<div class='content_button'>
 						<form METHOD=post ACTION='action.php?action=3'>
-							<input type='submit' class='submit submit_popup' value='Explorer (2AP)'></input>
+							<input type='submit' class='submit submit_popup' value='Explorer (<?php echo getCoutExploration();?>AP)'></input>
 						</form>
 						<button class='submit submit_popup' onclick='SwitchPopupValidationExploration()'>Annuler</button>
 					</div>
@@ -269,6 +267,7 @@ function PM($cout)
 			</div>		
 
 			<?php
+			// Popup Message Simple
 				if(!empty($_SESSION["Message"]))
 				{
 					?>
@@ -282,6 +281,26 @@ function PM($cout)
 					</div>	
 					<?php
 					$_SESSION["Message"] = "";
+				}
+
+			//Popup Evenement
+				if(!empty($_SESSION["PopupEvenement"]))
+				{
+					$titre = $_SESSION["PopupEvenement"]["Titre"];
+					$message = $_SESSION["PopupEvenement"]["Message"];
+					$texteBouton = (isset($_SESSION["PopupEvenement"]["TexteBouton"])) ? $_SESSION["PopupEvenement"]["TexteBouton"] : "Daccord";
+					?>
+					<div id='popup_evenement'>
+						<div class='popup_content'>
+							<div class="titreEvenement"><?php echo $titre;?></div>
+							<div class="messageEvenement"><?php echo $message;?></div>
+							<div class='content_button'>
+								<button class='submit submit_popup' onclick='fermerPopupEvenement()'><?php echo $texteBouton;?></button>
+							</div>
+						</div>
+					</div>	
+					<?php
+					//$_SESSION["PopupEvenement"] = array();
 				}	
 			?>	
 		</div>

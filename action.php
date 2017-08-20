@@ -6,11 +6,16 @@ else
 {
 	include_once("prive/config.php");
 	include_once("updateInformationsSession.php");
+	include_once("fonctionsItems.php");
+	include_once("fonctionsVariables.php");
+	include_once("fonctionsEvents.php");
+	include_once("fonctionsGlobales.php");
 
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
 	mysqli_set_charset($mysqli, "utf8");
 
 	updateInformationsSession();
+	updateDateAndTime();
 
 	if(!isset($_GET['action']))
 		die();
@@ -33,30 +38,4 @@ else
 	// Action 2: Voyager
 	// Action 3: Explorer la région
 }
-
-function UpdateDateAndTime()
-{
-	$currentTimestamp = time("Y-m-d H:i:s");
-	$dateDebutPartie = $_SESSION['PartieEnCours']['DateDemarrage'];
-	$timestampDebutPartie = strtotime($dateDebutPartie);
-	$diffTimestamp = $currentTimestamp - $timestampDebutPartie;
-
-	// Conversion en jour
-	$jour = ceil($diffTimestamp/(60*60*24));
-	
-	// Conversion en cycle	
-	$heures = floor($diffTimestamp/(60*60));
-	$cycle = floor($heures/3);
-
-	$_SESSION['Jour'] = $jour;
-	$_SESSION['Heures'] = $heures;
-	$_SESSION['Cycle'] = $cycle;
-}
-
-// Récupere la valeur d'une variable de la partie, ou -1 si n'est pas définie
-function getVariable($IDVariable)
-{
-	return (!empty($_SESSION["Variables"][$IDVariable])) ? $_SESSION["Variables"][$IDVariable] : -1;
-}
-
 ?>

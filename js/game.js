@@ -140,6 +140,13 @@ function fermerPopupMessage()
 	});
 }
 
+function fermerPopupEvenement()
+{
+	$("#popup_evenement").animate({opacity: 0},300,function(){
+		$(this).css("display","none");
+	});
+}
+
 // Binds
 $(document).ready(function()
 {
