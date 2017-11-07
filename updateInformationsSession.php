@@ -58,7 +58,7 @@ function updateInformationsSession()
 	$_SESSION["Variables"] = array();
 	$requete = "SELECT IDVariable,Valeur FROM ".$PT."variables WHERE IDPartie = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+	if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
 	while($variable = mysqli_fetch_assoc($retour))
 		$_SESSION["Variables"][$variable["IDVariable"]] = $variable["Valeur"];
 	

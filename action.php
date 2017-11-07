@@ -4,6 +4,7 @@ if(empty($_SESSION))
 	header('Location: accueil.php');
 else
 {
+	include_once("fonctionsLangue.php");
 	include_once("prive/config.php");
 	include_once("updateInformationsSession.php");
 	include_once("fonctionsItems.php");
@@ -37,5 +38,6 @@ else
 	// Action 1: Annuler selection personnage
 	// Action 2: Voyager
 	// Action 3: Explorer la région
+	// Action 4: Répondre a un evenement complexe
 }
 ?>

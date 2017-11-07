@@ -2,6 +2,8 @@
 ob_start();
 session_start();
 
+include_once("fonctionsLangue.php");
+
 if(empty($_SESSION))
 	 header('Location: accueil.php');
 else

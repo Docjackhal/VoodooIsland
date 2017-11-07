@@ -4,6 +4,7 @@ if(empty($_SESSION))
 	header('Location: accueil.php');
 else
 {
+	include_once("fonctionsLangue.php");
 	include_once("prive/config.php");
 	include_once("fonctionsGlobales.php");
 	include_once("updateInformationsSession.php");
@@ -283,24 +284,75 @@ function PM($cout)
 					$_SESSION["Message"] = "";
 				}
 
-			//Popup Evenement
+			//Popup Evenement simple
 				if(!empty($_SESSION["PopupEvenement"]))
 				{
 					$titre = $_SESSION["PopupEvenement"]["Titre"];
 					$message = $_SESSION["PopupEvenement"]["Message"];
-					$texteBouton = (isset($_SESSION["PopupEvenement"]["TexteBouton"])) ? $_SESSION["PopupEvenement"]["TexteBouton"] : "Daccord";
+					$texteBouton = (isset($_SESSION["PopupEvenement"]["TexteReponse"])) ? $_SESSION["PopupEvenement"]["TexteReponse"] : "Daccord";
 					?>
 					<div id='popup_evenement'>
 						<div class='popup_content'>
+							<div class="titrePopupEvenement">! Événement !</div>
 							<div class="titreEvenement"><?php echo $titre;?></div>
 							<div class="messageEvenement"><?php echo $message;?></div>
+
+							<?php
+							// Liste des items gagnés
+								if(!empty($_SESSION["PopupEvenement"]["GainsItems"]))
+								{
+									echo "<div class='popupEvenement_listeGainsItems'>";
+										echo "<div class='popupEvenement_listeGainsItems_titre'>Gains:</div>";
+										foreach($_SESSION["PopupEvenement"]["GainsItems"] as $IDItem => $IDTypeItem)
+										{
+											$blocItemGagne = "<div class='bloc_inventaire' id='bloc_inventaire_".$IDTypeItem."' IDTypeItem='".$IDTypeItem."' IDItem='".$IDItem."'>";
+												$blocItemGagne .= "<img src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
+											$blocItemGagne .= "</div>";
+											echo $blocItemGagne;
+										}
+									echo "</div>";
+								}
+							?>
+
+
 							<div class='content_button'>
 								<button class='submit submit_popup' onclick='fermerPopupEvenement()'><?php echo $texteBouton;?></button>
 							</div>
 						</div>
 					</div>	
 					<?php
-					//$_SESSION["PopupEvenement"] = array();
+					$_SESSION["PopupEvenement"] = array();
+				}	
+
+				//Popup Evenement Complexe
+				if(!empty($_SESSION["PopupEvenementComplexe"]))
+				{
+					$titre = $_SESSION["PopupEvenementComplexe"]["Titre"];
+					$message = $_SESSION["PopupEvenementComplexe"]["Message"];
+					?>
+					<div id='popup_evenement_complexe'>
+						<div class='popup_content'>				
+							<div class="titrePopupEvenement">! Événement !</div>
+							<div class="titreEvenement"><?php echo $titre;?></div>
+							<div class="messageEvenement"><?php echo $message;?></div>
+
+							<?php
+								foreach($_SESSION["PopupEvenementComplexe"]["Choix"] as $nbChoix => $texteChoix)
+								{
+									?>
+									<div class='content_button'>
+										<form METHOD=post ACTION='action.php?action=4'>
+											<input type="hidden" name="IDEvent" value="<?php echo $_SESSION["PopupEvenementComplexe"]["IDEvent"];?>"/>
+											<input type="hidden" name="IDReponse" value="<?php echo  $nbChoix;?>"/>
+											<input type="submit" class='submit submit_popup submit_popup_eventComplexe' value="<?php echo $texteChoix;?>"/>
+										</form>
+									</div>
+									<?php
+								}					
+							?>
+						</div>
+					</div>	
+					<?php
 				}	
 			?>	
 		</div>

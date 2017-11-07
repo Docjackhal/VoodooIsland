@@ -129,6 +129,8 @@ switch($idAction)
 				$eventChoisi = choisiEvenementDansListe($eventsPossibles);
 				if($eventChoisi["EstSimple"])
 					effectueResultatEvenementSimple($mysqli,$eventChoisi);
+				else
+					effectueResultatEvenementComplexe($mysqli,$eventChoisi);
 			}
 			else
 				$_SESSION["Message"] = "Malheuresement, vous n'avez rien trouvé.";
@@ -137,6 +139,15 @@ switch($idAction)
 		}
 		else
 			$_SESSION["Message"] = "Vous n'avez plus assez d'actions pour faire ça !";
+	}
+	break;
+	case 4: // Répondre a un evenement complexe
+	{
+		$IDEvent = $_POST["IDEvent"];
+		$IDReponse = $_POST["IDReponse"];
+
+		$_SESSION["PopupEvenementComplexe"] = array(); // Destruction de la popup de choix complexe
+		effectueResultatChoixEvenementComplexe($mysqli,$IDEvent,$IDReponse);
 	}
 	break;
 }

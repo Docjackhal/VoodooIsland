@@ -436,7 +436,7 @@ body
 	background-color: grey;
 }
 
-#game #popup_validation_voyage, #game #popup_interdiction_voyage, #game #popup_validation_exploration, #game #popup_message , #game #popup_evenement
+#game #popup_validation_voyage, #game #popup_interdiction_voyage, #game #popup_validation_exploration, #game #popup_message , #game #popup_evenement , #game #popup_evenement_complexe
 {
 	background-color: white;
 	border: 4px solid black;
@@ -446,28 +446,28 @@ body
 	width: 475px;
 	height: 125px;
 	margin-left: 160px;
-	top: 250px;
+	top: 180px;
 	display: none;
 }
 
-#game #popup_message , #game #popup_evenement
+#game #popup_message , #game #popup_evenement, #game #popup_evenement_complexe
 {
 	display: block;
 }
 
-#game #popup_evenement
+#game #popup_evenement, #game #popup_evenement_complexe
 {
 	height: auto;
 }
 
-#game #popup_evenement .titreEvenement
+#game #popup_evenement .titreEvenement, #game #popup_evenement_complexe .titreEvenement
 {
 	text-decoration: underline black;
 	font-weight: bold;
 	font-size:22px;
 }
 
-#game #popup_evenement .messageEvenement
+#game #popup_evenement .messageEvenement, #game #popup_evenement_complex .messageEvenement
 {
 	font-style: italic;
 	margin-top:10px;
@@ -476,9 +476,11 @@ body
 #game .popup_content
 {
 	width: 100%;
-	text-align: center;
-	height: 40%;
-	margin-top: 15px;
+    text-align: center;
+    height: auto;
+    min-height: 40%;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #game .popup_content .content_button
@@ -586,10 +588,36 @@ body
 	float:left;
 }
 
-#game #popup_inventaire .bloc_inventaire:hover
+#game  .bloc_inventaire:hover
 {
 	background-color:black;
 	cursor:pointer;
+}
+
+#game #popup_evenement .popupEvenement_listeGainsItems
+{
+	margin-top: 10px;
+    width: 75px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#game #popup_evenement .popupEvenement_listeGainsItems .bloc_inventaire
+{
+	border:2px solid black;
+	width:64px;
+	height:55px;
+}
+
+
+#game #popup_evenement .popupEvenement_listeGainsItems .popupEvenement_listeGainsItems_titre
+{
+	font-style: italic;
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 #game #popup_zoomItem
@@ -637,4 +665,31 @@ body
 #game .iconeCoutInsufisant
 {
 	color: red;
+}
+
+#game #popup_evenement_complexe .submit_popup_eventComplexe
+{
+	width: 80%;
+    height: auto;
+    min-height: 50px;
+     margin-top: -5px;
+
+}
+
+#game #popup_evenement .messageEvenement, #game #popup_evenement_complexe .messageEvenement
+{
+	   width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+#game .titrePopupEvenement
+{
+	color: red;
+    font-style: italic;
+    font-size: 30px;
+    margin-bottom: 20px;
 }
