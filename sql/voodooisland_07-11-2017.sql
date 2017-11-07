@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.3
--- https://www.phpmyadmin.net/
+-- version 4.4.15.8
+-- https://www.phpmyadmin.net
 --
--- Host: mysql51-44.perso
--- Generation Time: Nov 07, 2017 at 06:28 PM
--- Server version: 5.5.55-0+deb7u1-log
--- PHP Version: 5.6.30-0+deb8u1
+-- Client :  localhost
+-- Généré le :  Dim 20 Août 2017 à 17:07
+-- Version du serveur :  5.6.31
+-- Version de PHP :  5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,16 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `arthurribase37`
+-- Base de données :  `voodooisland`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__accounts`
+-- Structure de la table `VI__accounts`
 --
 
-CREATE TABLE `VI__accounts` (
+CREATE TABLE IF NOT EXISTS `VI__accounts` (
   `ID` int(11) NOT NULL,
   `Login` varchar(21) NOT NULL,
   `Password` varchar(21) NOT NULL,
@@ -36,10 +34,10 @@ CREATE TABLE `VI__accounts` (
   `DateInscription` datetime NOT NULL,
   `IDPartieEnCours` int(11) NOT NULL DEFAULT '-1',
   `NombrePartiesJouees` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__accounts`
+-- Contenu de la table `VI__accounts`
 --
 
 INSERT INTO `VI__accounts` (`ID`, `Login`, `Password`, `Email`, `DateInscription`, `IDPartieEnCours`, `NombrePartiesJouees`) VALUES
@@ -51,16 +49,15 @@ INSERT INTO `VI__accounts` (`ID`, `Login`, `Password`, `Email`, `DateInscription
 (6, 'test5', 'test5', 'test5', '2017-04-18 21:30:33', 1, 1),
 (7, 'test6', 'test6', 'test6', '2017-04-18 21:30:44', 1, 1),
 (8, 'test7', 'test7', 'test7', '2017-04-18 21:30:55', 1, 1),
-(9, 'test8', 'test8', 'test8', '2017-04-18 21:31:05', 1, 1),
-(10, 'Ninjaretelle', 'test528', 'c3henaut@gmail.com', '2017-11-03 11:54:10', -1, 0);
+(9, 'test8', 'test8', 'test8', '2017-04-18 21:31:05', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__heros`
+-- Structure de la table `VI__heros`
 --
 
-CREATE TABLE `VI__heros` (
+CREATE TABLE IF NOT EXISTS `VI__heros` (
   `ID` int(11) NOT NULL,
   `Sexe` enum('h','f') NOT NULL DEFAULT 'f',
   `Titre` varchar(21) NOT NULL,
@@ -79,13 +76,13 @@ CREATE TABLE `VI__heros` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__heros`
+-- Contenu de la table `VI__heros`
 --
 
 INSERT INTO `VI__heros` (`ID`, `Sexe`, `Titre`, `Nom`, `Prenom`, `Age`, `Origine`, `Profession`, `Biographie`, `FaimMax`, `SoifMax`, `FatigueMax`, `PvMax`, `PaMax`, `PmMax`) VALUES
 (1, 'h', 'Capitaine', 'Williams', 'Kurt', 46, 'USA', 'Militaire', 'Kurt Williams est rentré dans l’armée américaine à l’âge de 16 ans. Par ses talents de leader, son don pour le combat et son charisme, il est rapidement monté en grade et est aujourd’hui capitaine. Son expérience sur le terrain est une chance pour le reste du groupe. Il est inégalé au combat au corps à corps et ses capacités de survie sont supérieures à la moyenne. \nKurt Williams est indiscutablement un élément fort du groupe, tant que personne ne remet en question son autorité...\n\nCitation: “Le plus grand problème durant une guerre, ce sont les civils”.', 10, 10, 10, 6, 4, 4),
 (2, 'f', 'Docteur', 'Vilhelm', 'Hanna', 31, 'Suède', 'Médecin', 'Ayant obtenu son diplome à l’âge de 24 ans seulement, le docteur Vilhelm a connut ensuite une carrière fulgurante. Réputée pour ses découvertes en biologie monocélulaire, elle est aujourd’hui, à l’âge de 31 ans seulement, une des plus grande spécialiste en matière de virus et maladies de notre ère. Athlétique et bonne vivante, Hanna est un atout majeur pour la survie du groupe, malgrès les dangers encore inconnus de cette île. Elle est végétarienne. Heuresement que c’est une île tropicale.   Citation: “La plupart d’entre vous seront plus utiles une fois mort.”', 10, 10, 10, 6, 4, 4),
-(3, 'h', 'Professeur', 'Fisherman', 'John', 35, 'Angleterre', 'Professeur d\'histoire', 'Professeur d’histoire à l’université d’Oxford, John est avant tout un voyageur passionné. Incollable sur l’histoire des tribus d’Amérique du sud et sur les croyances locales et vêtu de son chapeau fétiche, il est l’un des seuls survivants à être plus enjoué à l’idée d’aller découvrir les trésors dont regorge l’île, plutôt que de survivre à ses multiples dangers.  Son humour british, ses connaissances et son enthousiasme en font un solide pilier pour le moral du groupe.  Citation: “C’est un peu comme un devoir de vacances, n’est-il pas?”', 10, 10, 10, 6, 4, 4),
+(3, 'h', 'Professeur', 'Fisherman', 'John', 35, 'Angleterre', 'Professeur d''histoire', 'Professeur d’histoire à l’université d’Oxford, John est avant tout un voyageur passionné. Incollable sur l’histoire des tribus d’Amérique du sud et sur les croyances locales et vêtu de son chapeau fétiche, il est l’un des seuls survivants à être plus enjoué à l’idée d’aller découvrir les trésors dont regorge l’île, plutôt que de survivre à ses multiples dangers.  Son humour british, ses connaissances et son enthousiasme en font un solide pilier pour le moral du groupe.  Citation: “C’est un peu comme un devoir de vacances, n’est-il pas?”', 10, 10, 10, 6, 4, 4),
 (4, 'h', '', 'Moskovski', 'Sergei', 52, 'Russie', 'Chef cuisinier', 'Avant d’être embauché comme chef cuistot à bord du Santa Marina, Sergeï travaillait comme chercheur agro-industriel dans l’armée soviétique, d’où ses difficultés à bien s’entendre avec le capitaine Williams.  Sur Voodoo Island, Sergeï va de nouveau devoir rationner et confectionner de nouveaux repas pour les survivants, avec les moyens du bord... Comme au bon vieux temps, comme il le dit lui -même.  “ Avec de la vodka, même le sable se mange”.', 10, 10, 10, 6, 4, 4),
 (5, 'h', '', 'Lombardi', 'Enzo', 16, 'Italie', 'Mousse', 'Enzo est le plus jeune des survivants. Il n’était qu’un simple mousse à bord du Santa Marina. Pourquoi donc a-t-il été épargné? Enzo est victime d’un sentiment d’infériorité grandissant à côté des autres survivants, et pourtant, ce jeune homme charmant et plein de ressources est capable de beaucoup, pourvu qu’on l’aide un peu à avoir confiance en lui.   Citation: “Si je survis, je serai un homme. Mais en suis-je capable?”', 10, 10, 10, 6, 4, 4),
 (6, 'f', '', 'Lopez', 'Abby', 26, 'Mexique', 'Mécanicienne', 'Depuis qu’elle est gamine, Abby est une fana de mécanique. Aucun engin n’a de secret pour elle, de la voiture à l’avion. Bien que la technologie ne soit pas présente partout ici, elle se fera une joie de récupérer un maximum de débris afin de construire de fantastiques machines. Ses talents et ses connaissances pourraient bien être les seules chance de survie du groupe.   Citation: “Quand une femme est plus forte qu’eux sur leur propre terrain, les mecs ne savent plus où se mettre. J’adore ça!”', 10, 10, 10, 6, 4, 4),
@@ -95,10 +92,10 @@ INSERT INTO `VI__heros` (`ID`, `Sexe`, `Titre`, `Nom`, `Prenom`, `Age`, `Origine
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__items`
+-- Structure de la table `VI__items`
 --
 
-CREATE TABLE `VI__items` (
+CREATE TABLE IF NOT EXISTS `VI__items` (
   `ID` int(11) NOT NULL,
   `IDTypeItem` int(11) NOT NULL,
   `Parametre1` int(11) NOT NULL DEFAULT '-1',
@@ -106,10 +103,10 @@ CREATE TABLE `VI__items` (
   `IDPartie` int(11) NOT NULL,
   `IDProprietaire` int(11) NOT NULL,
   `TypeInventaire` enum('personnage','campement') NOT NULL DEFAULT 'personnage'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__items`
+-- Contenu de la table `VI__items`
 --
 
 INSERT INTO `VI__items` (`ID`, `IDTypeItem`, `Parametre1`, `NombreCycles`, `IDPartie`, `IDProprietaire`, `TypeInventaire`) VALUES
@@ -133,58 +130,25 @@ INSERT INTO `VI__items` (`ID`, `IDTypeItem`, `Parametre1`, `NombreCycles`, `IDPa
 (35, 3, 0, 0, 1, 1, 'personnage'),
 (36, 3, 0, 0, 1, 1, 'personnage'),
 (37, 3, 0, 0, 1, 1, 'personnage'),
-(38, 3, 0, 0, 1, 1, 'personnage'),
-(39, 3, 0, 0, 1, 1, 'personnage'),
-(40, 3, 0, 0, 1, 1, 'personnage'),
-(41, 3, 0, 0, 1, 1, 'personnage'),
-(42, 3, 0, 0, 1, 1, 'personnage'),
-(43, 3, 0, 0, 1, 1, 'personnage'),
-(44, 3, 0, 0, 1, 1, 'personnage'),
-(45, 3, 0, 0, 1, 1, 'personnage'),
-(46, 3, 0, 0, 1, 1, 'personnage'),
-(47, 3, 0, 0, 1, 1, 'personnage'),
-(48, 3, 0, 0, 1, 1, 'personnage'),
-(49, 3, 0, 0, 1, 1, 'personnage'),
-(50, 3, 0, 0, 1, 1, 'personnage'),
-(51, 3, 0, 0, 1, 1, 'personnage'),
-(52, 3, 0, 0, 1, 1, 'personnage'),
-(53, 3, 0, 0, 1, 1, 'personnage'),
-(54, 3, 0, 0, 1, 1, 'personnage'),
-(55, 3, 0, 0, 1, 1, 'personnage'),
-(56, 3, 0, 0, 1, 1, 'personnage'),
-(57, 32, 0, 0, 1, 1, 'personnage'),
-(58, 31, 0, 0, 1, 1, 'personnage'),
-(59, 21, 0, 0, 1, 1, 'personnage'),
-(60, 21, 0, 0, 1, 1, 'personnage'),
-(61, 21, 0, 0, 1, 1, 'personnage'),
-(62, 21, 0, 0, 1, 1, 'personnage'),
-(63, 32, 0, 0, 1, 1, 'personnage'),
-(64, 3, 0, 0, 1, 1, 'personnage'),
-(65, 21, 0, 0, 1, 1, 'personnage'),
-(66, 31, 0, 0, 1, 1, 'personnage'),
-(67, 21, 0, 0, 1, 1, 'personnage'),
-(68, 3, 0, 0, 1, 1, 'personnage'),
-(69, 21, 0, 0, 1, 1, 'personnage'),
-(70, 21, 0, 0, 1, 1, 'personnage'),
-(71, 21, 0, 0, 1, 1, 'personnage');
+(38, 3, 0, 0, 1, 1, 'personnage');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__lieux`
+-- Structure de la table `VI__lieux`
 --
 
-CREATE TABLE `VI__lieux` (
+CREATE TABLE IF NOT EXISTS `VI__lieux` (
   `ID` int(11) NOT NULL,
   `IDTypeLieu` int(11) NOT NULL,
   `IDParametrageLieu` int(11) NOT NULL DEFAULT '-1',
   `IDPartie` int(11) NOT NULL,
   `IDRegion` int(11) NOT NULL DEFAULT '-1',
   `EtatDecouverte` enum('ADecouvrir','Visible') NOT NULL DEFAULT 'ADecouvrir'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=328 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__lieux`
+-- Contenu de la table `VI__lieux`
 --
 
 INSERT INTO `VI__lieux` (`ID`, `IDTypeLieu`, `IDParametrageLieu`, `IDPartie`, `IDRegion`, `EtatDecouverte`) VALUES
@@ -209,18 +173,18 @@ INSERT INTO `VI__lieux` (`ID`, `IDTypeLieu`, `IDParametrageLieu`, `IDPartie`, `I
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__parametresBancsPoissons`
+-- Structure de la table `VI__parametresBancsPoissons`
 --
 
-CREATE TABLE `VI__parametresBancsPoissons` (
+CREATE TABLE IF NOT EXISTS `VI__parametresBancsPoissons` (
   `ID` int(11) NOT NULL,
   `IDPartie` int(11) NOT NULL,
   `IDLieu` int(11) NOT NULL,
   `NbPoissons` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__parametresBancsPoissons`
+-- Contenu de la table `VI__parametresBancsPoissons`
 --
 
 INSERT INTO `VI__parametresBancsPoissons` (`ID`, `IDPartie`, `IDLieu`, `NbPoissons`) VALUES
@@ -240,16 +204,13 @@ INSERT INTO `VI__parametresBancsPoissons` (`ID`, `IDPartie`, `IDLieu`, `NbPoisso
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__parametresEvenements`
+-- Structure de la table `VI__parametresEvenements`
 --
 
-CREATE TABLE `VI__parametresEvenements` (
+CREATE TABLE IF NOT EXISTS `VI__parametresEvenements` (
   `ID` int(11) NOT NULL,
   `TitreFR` varchar(50) NOT NULL,
   `DescriptionFR` text NOT NULL,
-  `TexteChoix1` text COMMENT 'Sur un event simple, remplacera le bouton "ok" si non null',
-  `TexteChoix2` text,
-  `TexteChoix3` text,
   `EstSimple` enum('o','n') NOT NULL DEFAULT 'o' COMMENT 'Si non, l''event propose des choix multiples au joueur',
   `TypeRegion` enum('plage','jungle','montagne','volcan','toutes') NOT NULL DEFAULT 'toutes',
   `Poids` int(11) NOT NULL COMMENT 'Plus cette valeur est elevée plus l''event a des chances d''apparaitre',
@@ -261,34 +222,31 @@ CREATE TABLE `VI__parametresEvenements` (
   `Condition2_ValeurA` int(11) DEFAULT NULL,
   `Condition2_Operateur` enum('>','>=','==','!=','<','<=') DEFAULT NULL,
   `Condition2_ValeurB` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__parametresEvenements`
+-- Contenu de la table `VI__parametresEvenements`
 --
 
-INSERT INTO `VI__parametresEvenements` (`ID`, `TitreFR`, `DescriptionFR`, `TexteChoix1`, `TexteChoix2`, `TexteChoix3`, `EstSimple`, `TypeRegion`, `Poids`, `Condition1_Type`, `Condition1_ValeurA`, `Condition1_Operateur`, `Condition1_ValeurB`, `Condition2_Type`, `Condition2_ValeurA`, `Condition2_Operateur`, `Condition2_ValeurB`) VALUES
-(1, 'Un truc qui brille', 'Vous observez un scintillement sur le sable. En vous rapprochant, vous découvrez une vieille pelle en acier à moitié enterrée.', 'Super !', NULL, NULL, 'o', 'plage', 10, 'variable', 1, '<', 3, NULL, NULL, NULL, NULL),
-(2, 'La vieille marmitte', 'En fouillant dans le sable, vous déterrez une vieille marmite. Elle semble intacte et vous permettra de faire la cuisine dans votre futur campement.', 'Génial !', NULL, NULL, 'o', 'plage', 10, 'variable', 2, '!=', 1, NULL, NULL, NULL, NULL),
-(3, 'Une toile rudimentaire', 'Vous découvrez une morceau de tissu dépassant du sable. En fouillant plus profondément, vous découvrez une toile un peu déchirée, mais relativement grande, idéale pour construire un abri rudimentaire.', 'Cool !', NULL, NULL, 'o', 'plage', 10, 'variable', 3, '!=', 1, NULL, NULL, NULL, NULL),
-(4, 'Ho la belle coco', 'Vous trouvez une belle noix de coco au pied d’un cocotier.', 'Miam !', NULL, NULL, 'o', 'plage', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'Sous les cocotiers', 'Vous vous trouvez sous l’ombre d’un grand cocotier. Il semble y avoir des noix de coco au sommet, mais les récupérer ne sera pas simple.', 'Essayer de grimper en haut du cocotier', 'Donner un grand coup au cocotier', 'Abandonner et repartir', 'n', 'plage', 500, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `VI__parametresEvenements` (`ID`, `TitreFR`, `DescriptionFR`, `EstSimple`, `TypeRegion`, `Poids`, `Condition1_Type`, `Condition1_ValeurA`, `Condition1_Operateur`, `Condition1_ValeurB`, `Condition2_Type`, `Condition2_ValeurA`, `Condition2_Operateur`, `Condition2_ValeurB`) VALUES
+(1, 'Un truc qui brille', 'Vous observez un scintillement sur le sable. En vous rapprochant, vous découvrez une vieille pelle en acier à moitié enterrée.', 'o', 'plage', 10, 'variable', 1, '<', 3, NULL, NULL, NULL, NULL),
+(2, 'La vieille marmitte', 'En fouillant dans le sable, vous déterrez une vieille marmite. Elle semble intacte et vous permettra de faire la cuisine dans votre futur campement.', 'o', 'plage', 10, 'variable', 2, '!=', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__parametresSourcesEau`
+-- Structure de la table `VI__parametresSourcesEau`
 --
 
-CREATE TABLE `VI__parametresSourcesEau` (
+CREATE TABLE IF NOT EXISTS `VI__parametresSourcesEau` (
   `ID` int(11) NOT NULL,
   `IDLieu` int(11) NOT NULL,
   `IDPartie` int(11) NOT NULL,
   `EstPotable` enum('o','n') NOT NULL DEFAULT 'o'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__parametresSourcesEau`
+-- Contenu de la table `VI__parametresSourcesEau`
 --
 
 INSERT INTO `VI__parametresSourcesEau` (`ID`, `IDLieu`, `IDPartie`, `EstPotable`) VALUES
@@ -308,10 +266,10 @@ INSERT INTO `VI__parametresSourcesEau` (`ID`, `IDLieu`, `IDPartie`, `EstPotable`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__parties`
+-- Structure de la table `VI__parties`
 --
 
-CREATE TABLE `VI__parties` (
+CREATE TABLE IF NOT EXISTS `VI__parties` (
   `ID` int(11) NOT NULL,
   `Joueur1` int(11) NOT NULL DEFAULT '-1',
   `Joueur2` int(11) NOT NULL DEFAULT '-1',
@@ -325,10 +283,10 @@ CREATE TABLE `VI__parties` (
   `Jour` int(11) NOT NULL,
   `Etat` enum('en_creation','en_cours') NOT NULL DEFAULT 'en_creation',
   `DateDemarrage` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__parties`
+-- Contenu de la table `VI__parties`
 --
 
 INSERT INTO `VI__parties` (`ID`, `Joueur1`, `Joueur2`, `Joueur3`, `Joueur4`, `Joueur5`, `Joueur6`, `Joueur7`, `Joueur8`, `Cycle`, `Jour`, `Etat`, `DateDemarrage`) VALUES
@@ -338,10 +296,10 @@ INSERT INTO `VI__parties` (`ID`, `Joueur1`, `Joueur2`, `Joueur3`, `Joueur4`, `Jo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__personnages`
+-- Structure de la table `VI__personnages`
 --
 
-CREATE TABLE `VI__personnages` (
+CREATE TABLE IF NOT EXISTS `VI__personnages` (
   `IDHeros` int(11) NOT NULL,
   `IDPartie` int(11) NOT NULL,
   `Joueur` int(11) NOT NULL,
@@ -363,7 +321,7 @@ CREATE TABLE `VI__personnages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__personnages`
+-- Contenu de la table `VI__personnages`
 --
 
 INSERT INTO `VI__personnages` (`IDHeros`, `IDPartie`, `Joueur`, `EstVoodoo`, `FaimActuel`, `FaimMax`, `SoifActuel`, `SoifMax`, `FatigueActuel`, `FatigueMax`, `PvActuel`, `PvMax`, `PaActuel`, `PaMax`, `PmActuel`, `PmMax`, `RegionActuelle`, `DateArriveeLieu`) VALUES
@@ -379,10 +337,10 @@ INSERT INTO `VI__personnages` (`IDHeros`, `IDPartie`, `Joueur`, `EstVoodoo`, `Fa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__regions`
+-- Structure de la table `VI__regions`
 --
 
-CREATE TABLE `VI__regions` (
+CREATE TABLE IF NOT EXISTS `VI__regions` (
   `ID` int(11) NOT NULL,
   `Nom` varchar(21) NOT NULL,
   `Type` enum('plage','jungle','montagne','volcan') NOT NULL,
@@ -394,17 +352,17 @@ CREATE TABLE `VI__regions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__regions`
+-- Contenu de la table `VI__regions`
 --
 
 INSERT INTO `VI__regions` (`ID`, `Nom`, `Type`, `Lien1`, `Lien2`, `Lien3`, `Lien4`, `Lien5`) VALUES
 (1, 'Plage ouest', 'plage', 6, 7, 8, -1, -1),
 (2, 'Plage sud', 'plage', 8, 9, 4, -1, -1),
 (3, 'Plage nord', 'plage', 5, 4, -1, -1, -1),
-(4, 'Jungle de l\'est', 'jungle', 5, 3, 2, 9, -1),
+(4, 'Jungle de l''est', 'jungle', 5, 3, 2, 9, -1),
 (5, 'Jungle du nord', 'jungle', 3, 4, -1, 6, -1),
 (6, 'Jungle du nord-ouest', 'jungle', 5, -1, 7, 1, -1),
-(7, 'Jungle de l\'ouest', 'jungle', 6, -1, 9, 8, 1),
+(7, 'Jungle de l''ouest', 'jungle', 6, -1, 9, 8, 1),
 (8, 'Jungle du sud', 'jungle', 1, 7, 9, 2, -1),
 (9, 'Montagne', 'montagne', 10, 4, 2, 8, 7),
 (10, 'Volcan', 'volcan', -1, -1, 9, -1, -1);
@@ -412,10 +370,10 @@ INSERT INTO `VI__regions` (`ID`, `Nom`, `Type`, `Lien1`, `Lien2`, `Lien3`, `Lien
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__tchats`
+-- Structure de la table `VI__tchats`
 --
 
-CREATE TABLE `VI__tchats` (
+CREATE TABLE IF NOT EXISTS `VI__tchats` (
   `ID` int(11) NOT NULL,
   `Auteur` varchar(21) NOT NULL,
   `IDPartie` int(11) NOT NULL,
@@ -427,75 +385,75 @@ CREATE TABLE `VI__tchats` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__typeItems`
+-- Structure de la table `VI__typeItems`
 --
 
-CREATE TABLE `VI__typeItems` (
+CREATE TABLE IF NOT EXISTS `VI__typeItems` (
   `ID` int(11) NOT NULL,
   `NomFR` varchar(30) NOT NULL,
   `DescriptionFR` text NOT NULL,
   `Categorie` enum('arme','consommable','divers') NOT NULL DEFAULT 'divers'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__typeItems`
+-- Contenu de la table `VI__typeItems`
 --
 
 INSERT INTO `VI__typeItems` (`ID`, `NomFR`, `DescriptionFR`, `Categorie`) VALUES
-(1, 'Couteau', 'Une arme tranchante augmentant vos dégâts de 3 lors des affrontements contre les prédateurs ou d\'autres joueurs. Le couteau est également utile pour la cuisine ou d\'autres actions, comme dépecer des carcasses d\'animaux.', 'arme'),
-(2, 'Harpon', 'Une arme perçante augmentant vos dégâts de 3 lors des affrontements contre les prédateurs ou d\'autres joueurs. Le harpon augmente également fortement les résultats de la pêche.', 'arme'),
+(1, 'Couteau', 'Une arme tranchante augmentant vos dégâts de 3 lors des affrontements contre les prédateurs ou d''autres joueurs. Le couteau est également utile pour la cuisine ou d''autres actions, comme dépecer des carcasses d''animaux.', 'arme'),
+(2, 'Harpon', 'Une arme perçante augmentant vos dégâts de 3 lors des affrontements contre les prédateurs ou d''autres joueurs. Le harpon augmente également fortement les résultats de la pêche.', 'arme'),
 (3, 'Pelle', 'La pelle vous permet de déterrer des objets sur les plages. Augmente également les dégâts de 1 lors des affrontements.', 'arme'),
 (4, 'Poisson cru', 'Un poisson fraîchement pêché. Peut être cuisiné au campement. Attention, manger cru peut rendre malade !', 'consommable'),
 (5, 'Poisson cuit', 'Un poisson cuit a point, il semble délicieux.', 'consommable'),
-(6, 'Poisson brûlé', 'Un poisson totalement brûlé, oeuvre d\'un piètre cuisinier. Ne présente pas de risque quand on le mange, mais rassasie beaucoup moins.', 'consommable'),
+(6, 'Poisson brûlé', 'Un poisson totalement brûlé, oeuvre d''un piètre cuisinier. Ne présente pas de risque quand on le mange, mais rassasie beaucoup moins.', 'consommable'),
 (7, 'Poisson succulent', 'Un poisson extraordinairement bien cuit. Les compliments au chef !', 'consommable'),
-(8, 'Poisson pourri', 'Ce poisson dégage une odeur particulièrement pestilentielle. Le manger est fortement déconseillé. Peut empoisonner une source d\'eau pure.', 'consommable'),
-(9, 'Tortue', 'Peut-être cuisinée par un chef cuisiner équipé d\'un couteau pour obtenir de bons steaks de tortue. Immangeable en l\'état.', 'consommable'),
+(8, 'Poisson pourri', 'Ce poisson dégage une odeur particulièrement pestilentielle. Le manger est fortement déconseillé. Peut empoisonner une source d''eau pure.', 'consommable'),
+(9, 'Tortue', 'Peut-être cuisinée par un chef cuisiner équipé d''un couteau pour obtenir de bons steaks de tortue. Immangeable en l''état.', 'consommable'),
 (10, 'Steack de tortue', 'Un steak de tortue cuisiné par un chef cuisinier. Plat typiquement local !', 'consommable'),
-(11, 'Tortue (pourrie)', 'Cette tortue est totalement avariée. Son cadavre pourrait empoisonner une source d\'eau pure s\'il était jeté dedans.', 'consommable'),
-(12, 'Trousse de secours', 'Ce steak de tortue dégage une odeur pestilenciel. Le manger sera à vos risques et péril. Pourrait contaminer une source d\'eau pure s\'il était jeté dedans.', 'consommable'),
-(13, 'Bouteille d\'eau', 'Une bouteille remplie d\'eau, idéal pour se désaltérer. Prenez tout de même garde à sa provenance. La consommer vous permettra de récupérer une bouteille vide.', 'consommable'),
-(14, 'Bouteille vide', 'Une bouteille vide. Il est possible de la remplir d\'eau à une source.', 'divers'),
-(15, 'Bouteille d\'eau (impure)', 'Une bouteille remplie d\'eau, idéal pour se désaltérer. Prenez tout de même garde à sa provenance. La consommer vous permettra de récupérer une bouteille vide.', 'consommable'),
+(11, 'Tortue (pourrie)', 'Cette tortue est totalement avariée. Son cadavre pourrait empoisonner une source d''eau pure s''il était jeté dedans.', 'consommable'),
+(12, 'Trousse de secours', 'Ce steak de tortue dégage une odeur pestilenciel. Le manger sera à vos risques et péril. Pourrait contaminer une source d''eau pure s''il était jeté dedans.', 'consommable'),
+(13, 'Bouteille d''eau', 'Une bouteille remplie d''eau, idéal pour se désaltérer. Prenez tout de même garde à sa provenance. La consommer vous permettra de récupérer une bouteille vide.', 'consommable'),
+(14, 'Bouteille vide', 'Une bouteille vide. Il est possible de la remplir d''eau à une source.', 'divers'),
+(15, 'Bouteille d''eau (impure)', 'Une bouteille remplie d''eau, idéal pour se désaltérer. Prenez tout de même garde à sa provenance. La consommer vous permettra de récupérer une bouteille vide.', 'consommable'),
 (16, 'Bouteille de vodka', 'Une bouteille de vodka en provenance de Russie. Dangereux pour les non-initiés.', 'consommable'),
-(17, 'Boite de conserve', 'Une boîte de conserve contenant une portion à cuisiner. 100% adaptée aux végétariens. Nécessite d\'être cuisinée.', 'consommable'),
-(18, 'Portion cuisinée', 'Un plat issu d\'une boite de conserve, préparée avec amour et adapté aux végétariens.', 'consommable'),
-(19, 'Portion cuisinée (périmée)', 'Cette portion dégage une odeur pestilentielle. Peut rendre malade en la mangeant, mais ne risque pas d\'empoisonner une source d\'eau.', 'divers'),
+(17, 'Boite de conserve', 'Une boîte de conserve contenant une portion à cuisiner. 100% adaptée aux végétariens. Nécessite d''être cuisinée.', 'consommable'),
+(18, 'Portion cuisinée', 'Un plat issu d''une boite de conserve, préparée avec amour et adapté aux végétariens.', 'consommable'),
+(19, 'Portion cuisinée (périmée)', 'Cette portion dégage une odeur pestilentielle. Peut rendre malade en la mangeant, mais ne risque pas d''empoisonner une source d''eau.', 'divers'),
 (20, 'Fruit', 'Un fruit. Miam !', 'divers'),
 (21, 'Noix de coco', 'Une noix de coco locale. A manger et à boire en un seul repas !', 'consommable'),
-(22, 'Morceau de viande', 'Un morceau de viande cru. Peut-être cuisiné. Immangeable en l\'état.', 'consommable'),
+(22, 'Morceau de viande', 'Un morceau de viande cru. Peut-être cuisiné. Immangeable en l''état.', 'consommable'),
 (23, 'Steack cuisiné', 'Un bon steak grillé. Miam !', 'consommable'),
-(24, 'Steack cuisiné (périmé)', 'Ce steak dégage une forte odeur de pourri. Peut rendre malade et peut empoisonner une source d\'eau pure.', 'consommable'),
-(25, 'Kit d\'analyse d\'eau', 'Un kit d\'analyse permettant de détécter la présente de poison ou de microbes dans une source d\'eau. Réutilisable tant qu\'il n\'est pas contaminé.', 'divers'),
-(26, 'Kit d\'analyse d\'eau contaminé', 'Ce kit d\'analyse à été contaminé par une source impure. L\'utiliser à nouveau risque de contaminer les sources analysées.', 'divers'),
+(24, 'Steack cuisiné (périmé)', 'Ce steak dégage une forte odeur de pourri. Peut rendre malade et peut empoisonner une source d''eau pure.', 'consommable'),
+(25, 'Kit d''analyse d''eau', 'Un kit d''analyse permettant de détécter la présente de poison ou de microbes dans une source d''eau. Réutilisable tant qu''il n''est pas contaminé.', 'divers'),
+(26, 'Kit d''analyse d''eau contaminé', 'Ce kit d''analyse à été contaminé par une source impure. L''utiliser à nouveau risque de contaminer les sources analysées.', 'divers'),
 (27, 'Statuette Vodoo', 'Une étrange statuette en bois.', 'divers'),
 (28, 'Bois', 'Un bout de bois, qui peut servir pour alimenter un feu ou assembler des objets.', 'divers'),
 (29, 'Silex', 'Un morceau de silex, excellent pour allumer un feu.', 'divers'),
-(30, 'Radio', 'Une radio, permettant de dialoguer avec d\'autres radios sur l\'ile. Une antenne radio doit être opérationnel pour que ce canal fonctionne.', 'divers'),
+(30, 'Radio', 'Une radio, permettant de dialoguer avec d''autres radios sur l''ile. Une antenne radio doit être opérationnel pour que ce canal fonctionne.', 'divers'),
 (31, 'Toile déchirée', 'Une grande bâche en toile un peu déchirée. Idéale pour construire un campement primitif.', 'divers'),
 (32, 'Vieille marmitte', 'Une vieille marmitte, qui une fois installée dans un campement permettra de préparer à manger.', 'divers'),
-(33, 'Clé à molette', 'Une clé à molette. Augmente les dégats de 1 lors d\'affrontement et augmente l’efficacité des réparations.', 'divers'),
+(33, 'Clé à molette', 'Une clé à molette. Augmente les dégats de 1 lors d''affrontement et augmente l’efficacité des réparations.', 'divers'),
 (34, 'Batterie', 'Une batterie éléctrique. Elle semble en état de marche.', 'divers'),
 (35, 'Caméra', 'Une caméra ayant souffert, mais qui semble encore en état de fonctionnement.', 'divers'),
-(36, 'Peau de bête', 'Une peau de bête permettant d\'assembler des objets.', 'divers'),
-(37, 'Palmes', 'Une paire de palme permettant d\'explorer des zones inaccessibles, comme la partie submergée d\'une épave de bateau.', 'divers'),
+(36, 'Peau de bête', 'Une peau de bête permettant d''assembler des objets.', 'divers'),
+(37, 'Palmes', 'Une paire de palme permettant d''explorer des zones inaccessibles, comme la partie submergée d''une épave de bateau.', 'divers'),
 (38, 'Sonde', 'Une sonde météorologique. Peut être combinée pour créer un ballon météo.', 'divers'),
-(39, 'Ballon météorologique', 'Un ballon météorologique permettant d\'améliorer l\'antenne radio.', 'divers'),
-(40, 'Steack de tortue (pourri)', 'Un steak de tortue à l\'odeur pestilentiel. Peut rendre malade et peut contaminer une source d\'eau pure.', 'consommable');
+(39, 'Ballon météorologique', 'Un ballon météorologique permettant d''améliorer l''antenne radio.', 'divers'),
+(40, 'Steack de tortue (pourri)', 'Un steak de tortue à l''odeur pestilentiel. Peut rendre malade et peut contaminer une source d''eau pure.', 'consommable');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__typeLieux`
+-- Structure de la table `VI__typeLieux`
 --
 
-CREATE TABLE `VI__typeLieux` (
+CREATE TABLE IF NOT EXISTS `VI__typeLieux` (
   `ID` int(11) NOT NULL,
   `NomFR` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__typeLieux`
+-- Contenu de la table `VI__typeLieux`
 --
 
 INSERT INTO `VI__typeLieux` (`ID`, `NomFR`) VALUES
@@ -503,11 +461,11 @@ INSERT INTO `VI__typeLieux` (`ID`, `NomFR`) VALUES
 (2, 'Emplacement de campement'),
 (3, 'Campement'),
 (4, 'Epave du Santa Marina'),
-(5, 'Source d\'eau'),
+(5, 'Source d''eau'),
 (6, 'Village Voodoo'),
 (7, 'Idole Voodoo'),
 (8, 'Antre de la Bête'),
-(9, 'Epave d\'avion'),
+(9, 'Epave d''avion'),
 (10, 'Antenne radio'),
 (11, 'Autel Voodoo'),
 (12, 'Coulée de lave');
@@ -515,163 +473,160 @@ INSERT INTO `VI__typeLieux` (`ID`, `NomFR`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__variables`
+-- Structure de la table `VI__variables`
 --
 
-CREATE TABLE `VI__variables` (
+CREATE TABLE IF NOT EXISTS `VI__variables` (
   `IDPartie` int(11) NOT NULL,
   `IDVariable` int(11) NOT NULL,
   `Valeur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VI__variables`
+-- Contenu de la table `VI__variables`
 --
 
 INSERT INTO `VI__variables` (`IDPartie`, `IDVariable`, `Valeur`) VALUES
-(1, 1, 2),
-(1, 2, 1),
-(1, 3, 1);
+(1, 1, 1);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables exportées
 --
 
 --
--- Indexes for table `VI__accounts`
+-- Index pour la table `VI__accounts`
 --
 ALTER TABLE `VI__accounts`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__heros`
+-- Index pour la table `VI__heros`
 --
 ALTER TABLE `VI__heros`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `ID` (`ID`);
 
 --
--- Indexes for table `VI__items`
+-- Index pour la table `VI__items`
 --
 ALTER TABLE `VI__items`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__lieux`
+-- Index pour la table `VI__lieux`
 --
 ALTER TABLE `VI__lieux`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__parametresBancsPoissons`
+-- Index pour la table `VI__parametresBancsPoissons`
 --
 ALTER TABLE `VI__parametresBancsPoissons`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__parametresEvenements`
+-- Index pour la table `VI__parametresEvenements`
 --
 ALTER TABLE `VI__parametresEvenements`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__parametresSourcesEau`
+-- Index pour la table `VI__parametresSourcesEau`
 --
 ALTER TABLE `VI__parametresSourcesEau`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__parties`
+-- Index pour la table `VI__parties`
 --
 ALTER TABLE `VI__parties`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__personnages`
+-- Index pour la table `VI__personnages`
 --
 ALTER TABLE `VI__personnages`
   ADD UNIQUE KEY `HerosByParty` (`IDHeros`,`IDPartie`);
 
 --
--- Indexes for table `VI__regions`
+-- Index pour la table `VI__regions`
 --
 ALTER TABLE `VI__regions`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__tchats`
+-- Index pour la table `VI__tchats`
 --
 ALTER TABLE `VI__tchats`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__typeItems`
+-- Index pour la table `VI__typeItems`
 --
 ALTER TABLE `VI__typeItems`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__typeLieux`
+-- Index pour la table `VI__typeLieux`
 --
 ALTER TABLE `VI__typeLieux`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__variables`
+-- Index pour la table `VI__variables`
 --
 ALTER TABLE `VI__variables`
   ADD UNIQUE KEY `ID1` (`IDPartie`,`IDVariable`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
--- AUTO_INCREMENT for table `VI__accounts`
+-- AUTO_INCREMENT pour la table `VI__accounts`
 --
 ALTER TABLE `VI__accounts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT for table `VI__items`
+-- AUTO_INCREMENT pour la table `VI__items`
 --
 ALTER TABLE `VI__items`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
--- AUTO_INCREMENT for table `VI__lieux`
+-- AUTO_INCREMENT pour la table `VI__lieux`
 --
 ALTER TABLE `VI__lieux`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=328;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=328;
 --
--- AUTO_INCREMENT for table `VI__parametresBancsPoissons`
+-- AUTO_INCREMENT pour la table `VI__parametresBancsPoissons`
 --
 ALTER TABLE `VI__parametresBancsPoissons`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
--- AUTO_INCREMENT for table `VI__parametresEvenements`
+-- AUTO_INCREMENT pour la table `VI__parametresEvenements`
 --
 ALTER TABLE `VI__parametresEvenements`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `VI__parametresSourcesEau`
+-- AUTO_INCREMENT pour la table `VI__parametresSourcesEau`
 --
 ALTER TABLE `VI__parametresSourcesEau`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
 --
--- AUTO_INCREMENT for table `VI__parties`
+-- AUTO_INCREMENT pour la table `VI__parties`
 --
 ALTER TABLE `VI__parties`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `VI__typeItems`
+-- AUTO_INCREMENT pour la table `VI__typeItems`
 --
 ALTER TABLE `VI__typeItems`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
--- AUTO_INCREMENT for table `VI__typeLieux`
+-- AUTO_INCREMENT pour la table `VI__typeLieux`
 --
 ALTER TABLE `VI__typeLieux`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;COMMIT;
-
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
