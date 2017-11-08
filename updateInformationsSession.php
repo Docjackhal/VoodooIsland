@@ -61,6 +61,15 @@ function updateInformationsSession()
 	if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
 	while($variable = mysqli_fetch_assoc($retour))
 		$_SESSION["Variables"][$variable["IDVariable"]] = $variable["Valeur"];
+
+
+	// Récupération de la liste des lieux découverts par le joueur
+	$_SESSION["LieuxDecouverts"] = array();
+	$requete = "SELECT IDLieu FROM ".$PT."lieuxDecouverts WHERE IDPersonnage = ".$_SESSION['IDPersonnage'];
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+	while($lieuDecouvert = mysqli_fetch_assoc($retour))
+		$_SESSION["LieuxDecouverts"][$lieuDecouvert["IDLieu"]] = true;
 	
 	// Récupération Lieux Région
 	$_SESSION["LieuxDansRegion"] = array();
@@ -73,7 +82,10 @@ function updateInformationsSession()
 		$IDLieu = $lieu["ID"];
 		$_SESSION["LieuxDansRegion"][$IDLieu] = $lieu;
 
-		// Récupération des infos propres aux types de lieu
+		if($lieu["EtatDecouverte"] == "ADecouvrir"  && empty($_SESSION["LieuxDecouverts"][$IDLieu]))
+			continue;
+
+		// Récupération des infos propres aux types de lieu (si découvert)
 		switch($lieu["IDTypeLieu"])
 		{
 			case 1: // Banc de poisson

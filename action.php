@@ -10,6 +10,7 @@ else
 	include_once("fonctionsItems.php");
 	include_once("fonctionsVariables.php");
 	include_once("fonctionsEvents.php");
+	include_once("fonctionsLieux.php");
 	include_once("fonctionsGlobales.php");
 
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 

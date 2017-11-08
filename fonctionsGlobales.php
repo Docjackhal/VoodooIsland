@@ -96,4 +96,6 @@ function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
 	if (!$retour2) die('Requête invalide : ' . mysqli_error($mysqli));
 }
 
+
+
 ?>

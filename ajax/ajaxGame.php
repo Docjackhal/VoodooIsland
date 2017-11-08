@@ -19,7 +19,7 @@ switch($_GET['action'])
 		$lieuxDecouverts = array();
 		foreach($_SESSION['LieuxDansRegion'] as $IDLieu => $lieu)
 		{
-			if($lieu["EtatDecouverte"] == "Visible" ||true)
+			if($lieu["EtatDecouverte"] == "Visible" || !empty($_SESSION["LieuxDecouverts"][$IDLieu]))
 				$lieuxDecouverts[$IDLieu] = $lieu;
 		}
 		$result['LieuxDecouverts'] = $lieuxDecouverts;

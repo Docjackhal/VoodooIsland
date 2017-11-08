@@ -693,3 +693,14 @@ body
     font-size: 30px;
     margin-bottom: 20px;
 }
+
+#game .blocImageLieu
+{
+	margin-top: 10px;
+}
+
+#game .blocImageLieu img
+{
+	border: 2px solid green;
+    border-radius: 10px;
+}

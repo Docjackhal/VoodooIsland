@@ -6,6 +6,7 @@ else
 {
 	include_once("fonctionsLangue.php");
 	include_once("prive/config.php");
+	include_once("fonctionsLieux.php");
 	include_once("fonctionsGlobales.php");
 	include_once("updateInformationsSession.php");
 
@@ -310,6 +311,16 @@ function PM($cout)
 											$blocItemGagne .= "</div>";
 											echo $blocItemGagne;
 										}
+									echo "</div>";
+								}
+
+							//Lieux découverts
+								if(!empty($_SESSION["PopupEvenement"]["LieuDecouvert"]))
+								{
+									$IDLieu = $_SESSION["PopupEvenement"]["LieuDecouvert"];
+									$IDTypeLieu = $_SESSION["LieuxDansRegion"][$IDLieu]["IDTypeLieu"];
+									echo "<div class='blocImageLieu'>";
+										echo "<img src='images/lieux/Visuels/visuels_".$IDTypeLieu.".png' width='400px' height='150px' align='middle'/>";
 									echo "</div>";
 								}
 							?>

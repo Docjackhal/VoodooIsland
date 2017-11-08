@@ -30,6 +30,8 @@ function getEvenementsPossibles($mysqli)
 
 			if($type == "variable")
 				$a = getVariable($valeurA);
+			else if($type == "lieuDecouvert")
+				$a = !empty($_SESSION["LieuxDecouverts"][getIDLieuDeTypeDansRegion($valeurA)]);
 		
 			$conditionValide = true;
 			switch($operateur)
@@ -115,6 +117,7 @@ function effectueResultatEvenementSimple($mysqli,$event)
 
 	$_SESSION["PopupEvenement"] = array();
 	$_SESSION["PopupEvenement"]["GainsItems"] = array();
+	$_SESSION["PopupEvenement"]["LieuDecouvert"] = -1;
 
 
 	switch($IDEvent)
@@ -146,6 +149,16 @@ function effectueResultatEvenementSimple($mysqli,$event)
 			$idItem = gainItem($mysqli,21,0); // Noix de coco
 			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 21;
 			break;
+		}
+		case 6: // Eaux poissoneuses
+		{
+			$IDLieu = getIDLieuDeTypeDansRegion(1);
+			decouvrirLieu($mysqli, $IDLieu); // Decouverte banc de poisson
+			$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDLieu;
+		}
+		case 7: // Le crabe rancunnier
+		{
+			//TODO: Perte PV ou autre
 		}
 	}
 
