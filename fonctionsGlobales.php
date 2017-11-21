@@ -96,6 +96,18 @@ function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
 	if (!$retour2) die('Requête invalide : ' . mysqli_error($mysqli));
 }
 
+// Renvoi le nombre de voodoo dans la partie
+function getNombreVoodoos($mysqli)
+{
+	global $PT;
+	$requete = "SELECT count(*) as NB FROM ".$PT."personnages WHERE EstVoodoo = 'o' AND IDPartie = ".$_SESSION["IDPartie"];
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+
+	$infosParties = mysqli_fetch_assoc($retour);
+	return $infosParties["NB"];
+}
+
 
 
 ?>

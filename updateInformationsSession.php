@@ -10,7 +10,7 @@ function updateInformationsSession()
 	$IDPartie = $_SESSION['IDPartieEnCours'];
 
 	// Caractéristiques joueurs
-	$requete = "SELECT IDHeros, FaimActuel, SoifActuel, FatigueActuel, PvActuel, PaActuel, PmActuel, RegionActuelle, DateArriveeLieu FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = '".$IDPartie."' LIMIT 1";
+	$requete = "SELECT * FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = '".$IDPartie."' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('RequÃªte invalide : ' . mysqli_error($mysqli));
 	$personnage = mysqli_fetch_assoc($retour);
@@ -24,6 +24,11 @@ function updateInformationsSession()
 	$_SESSION['RegionActuelle'] = $personnage['RegionActuelle'];
 	$_SESSION['DateArriveeLieu'] = $personnage['DateArriveeLieu'];
 	$_SESSION['IDPersonnage'] = $personnage['IDHeros'];
+	$_SESSION['EstVoodoo'] = ($personnage['EstVoodoo'] == 'o');
+	$_SESSION['EstCapture'] = ($personnage['EstCapture'] == 'o');
+	$_SESSION['DateCapture'] = $personnage['DateCapture'];
+	$_SESSION['RiteEnCours'] = ($personnage['RiteEnCours'] == 'o');
+	$_SESSION['DateDebutRite'] = $personnage['DateDebutRite'];
 
 	$IDRegion = $_SESSION['RegionActuelle'];
 

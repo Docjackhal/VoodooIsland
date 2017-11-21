@@ -15,7 +15,7 @@ function getEvenementsPossibles($mysqli)
 
 		// Test des conditions
 		$conditionsValidees = true;
-		for($i = 1; $i <= 2; $i++)
+		for($i = 1; $i <= 3; $i++)
 		{
 			$type = $event["Condition".$i."_Type"];
 			$operateur = $event["Condition".$i."_Operateur"];
@@ -28,10 +28,24 @@ function getEvenementsPossibles($mysqli)
 			$a = $valeurA;
 			$b = $valeurB;
 
-			if($type == "variable")
-				$a = getVariable($valeurA);
-			else if($type == "lieuDecouvert")
-				$a = !empty($_SESSION["LieuxDecouverts"][getIDLieuDeTypeDansRegion($valeurA)]);
+			switch($type)
+			{
+				case "variable":
+					$a = getVariable($valeurA);
+					break;
+				case "lieuDecouvert":
+					$a = !empty($_SESSION["LieuxDecouverts"][getIDLieuDeTypeDansRegion($valeurA)]);
+					break;
+				case "estvoodoo":
+					$a = $_SESSION['EstVoodoo'];
+					break;
+				case "nombreCaptures":
+					$a = getNombrePersonnagesCapturesDansVillage($mysqli);
+					break;
+				case "riteEnCours":
+					$a = (getIDPersonnageRiteEnCours($mysqli) != -1);
+					break;
+			}
 		
 			$conditionValide = true;
 			switch($operateur)
@@ -160,6 +174,13 @@ function effectueResultatEvenementSimple($mysqli,$event)
 		{
 			//TODO: Perte PV ou autre
 		}
+		case 8: // Le village caché: Capture
+		{
+			capturerJoueurDansVillage($mysqli,$_SESSION["IDPersonnage"]);
+			$IDLieu = getIDLieuDeTypeDansRegion(6); // Decouverte village caché
+			decouvrirLieu($mysqli, $IDLieu); 
+			$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDLieu;
+		}
 	}
 
 	// Popup Event
@@ -246,6 +267,39 @@ function effectueResultatChoixEvenementComplexe($mysqli,$IDEvent,$IDReponse)
 				case 3:// Partir
 					break;
 			}
+			break;
+		}
+		case 9: // Village caché: sauvetage !
+		{
+			switch($IDReponse)
+			{
+				case 1:  //Essayer de le secourir
+				{
+					if($de100 <= 50) //Réussi
+					{
+						//TODO: Libérer
+						$message = lang("Evenement_".$IDEvent."_Message_Choix_".$IDReponse."_A");
+						$texteReponse = lang("Super!");
+					}
+					else // echec
+					{
+						capturerJoueurDansVillage($mysqli,$_SESSION["IDPersonnage"]);
+						$message = lang("Evenement_".$IDEvent."_Message_Choix_".$IDReponse."_B");
+						$texteReponse = lang("Flute!");
+					}
+					break;
+				}
+				case 2: // Partir
+				{
+					$texteReponse = lang("Desole...");
+					break;
+				}
+			}
+
+			$IDLieu = getIDLieuDeTypeDansRegion(6); // decouverte village
+			decouvrirLieu($mysqli, $IDLieu);
+			$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDLieu;
+
 			break;
 		}
 	}
