@@ -68,8 +68,9 @@ if(mysqli_num_rows($retour))
 			$pv = $heros['PvMax'];
 			$pa = $heros['PaMax'];
 			$pm = $heros['PmMax'];
+			$mp = $heros['MPMax'];
 
-			$requete = "INSERT INTO ".$PT."personnages (Joueur, IDHeros, IDPartie, PvActuel, PvMax, FaimActuel, FaimMax, SoifActuel, SoifMax, FatigueActuel, FatigueMax, PaActuel, PaMax, PmActuel, PmMax) VALUES ('".$partie['Joueur'.$i]."', '".$i."','".$IDPartie."' ,'".$pv."', '".$pv."', '".$faim."', '".$faim."', '".$soif."', '".$soif."', '".$fatigue."','".$fatigue."','".$pa."','".$pa."','".$pm."','".$pm."')";
+			$requete = "INSERT INTO ".$PT."personnages (Joueur, IDHeros, IDPartie, PvActuel, PvMax, MPActuel, MPMax, FaimActuel, FaimMax, SoifActuel, SoifMax, FatigueActuel, FatigueMax, PaActuel, PaMax, PmActuel, PmMax) VALUES ('".$partie['Joueur'.$i]."', '".$i."','".$IDPartie."' ,'".$pv."', '".$pv."','".$mp."', '".$mp."', '".$faim."', '".$faim."', '".$soif."', '".$soif."', '".$fatigue."','".$fatigue."','".$pa."','".$pa."','".$pm."','".$pm."')";
 			$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) die('Requête création perso invalide : ' . mysqli_error($mysqli));		
 

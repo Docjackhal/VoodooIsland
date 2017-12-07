@@ -40,6 +40,7 @@ function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
 	$pa = $_SESSION['PaActuel'];
 	$pm = $_SESSION['PmActuel'];
 	$pv = $_SESSION['PvActuel'];
+	$mp = $_SESSION['MPActuel'];
 
 	switch($carac)
 	{
@@ -61,6 +62,9 @@ function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
 		case "Fatigue":
 			$fatigue += $modificateur;
 			break;
+		case "MP":
+			$mp += $modificateur;
+			break;
 	}
 
 	// Lissage des caractéristiques
@@ -80,6 +84,10 @@ function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
 		$pv = $heros["PvMax"];
 	else if($pv < 0)
 		$pv = 0;
+	if($mp > $heros["MPMax"])
+		$mp = $heros["MPMax"];
+	else if($mp < 0)
+		$mp = 0;
 	if($faim > $heros["FaimMax"])
 		$faim = $heros["FaimMax"];
 	else if($faim < 0)
@@ -91,7 +99,7 @@ function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
 
 
 	// Update final
-	$requete2 = "UPDATE  ".$PT."personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."' WHERE IDHeros= '".$IDPersonnage."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
+	$requete2 = "UPDATE  ".$PT."personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."',MPActuel = '".$mp."' WHERE IDHeros= '".$IDPersonnage."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
 	$retour2 = mysqli_query($mysqli,$requete2);
 	if (!$retour2) die('Requête invalide : ' . mysqli_error($mysqli));
 }

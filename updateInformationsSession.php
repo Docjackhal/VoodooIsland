@@ -21,6 +21,16 @@ function updateInformationsSession()
 	$_SESSION['PvActuel'] = $personnage['PvActuel'];
 	$_SESSION['PaActuel'] = $personnage['PaActuel'];
 	$_SESSION['PmActuel'] = $personnage['PmActuel'];
+	$_SESSION['MPActuel'] = $personnage['MPActuel'];
+
+	$_SESSION['FaimMax'] = $personnage['FaimMax'];
+	$_SESSION['SoifMax'] = $personnage['SoifMax'];
+	$_SESSION['FatigueMax'] = $personnage['FatigueMax'];
+	$_SESSION['PvMax'] = $personnage['PvMax'];
+	$_SESSION['PaMax'] = $personnage['PaMax'];
+	$_SESSION['PmMax'] = $personnage['PmMax'];
+	$_SESSION['MPMax'] = $personnage['MPMax'];
+
 	$_SESSION['RegionActuelle'] = $personnage['RegionActuelle'];
 	$_SESSION['DateArriveeLieu'] = $personnage['DateArriveeLieu'];
 	$_SESSION['IDPersonnage'] = $personnage['IDHeros'];
@@ -140,5 +150,13 @@ function updateInformationsSession()
 
 		$_SESSION["Inventaire"][$IDTypeItem][$IDItem] = $item;
 	}
+
+	// Récupération des conditions
+	$_SESSION["Conditions"] = array();
+	$requete = "SELECT * FROM ".$PT."conditions WHERE IDPartie = ".$IDPartie." AND IDPersonnage = ".$_SESSION['IDPersonnage'];
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+	while($condition = mysqli_fetch_assoc($retour))
+		$_SESSION["Inventaire"][$condition["IDCondition"]] = $condition;
 }
 ?>

@@ -61,13 +61,13 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 			while($typeItem = mysqli_fetch_assoc($retour))
 				$_SESSION["TypesItems"][$typeItem["ID"]] = $typeItem;
 
-				// Récupération des types de lieu dans la liste
-				$_SESSION["TypeLieux"] = array();
-				$requete = "SELECT * FROM ".$PT."typeLieux";
-				$retour = mysqli_query($mysqli,$requete);
-				if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
-				while($typeLieu = mysqli_fetch_assoc($retour))
-					$_SESSION["TypeLieux"][$typeLieu["ID"]] = $typeLieu;
+			// Récupération des types de lieu dans la liste
+			$_SESSION["TypeLieux"] = array();
+			$requete = "SELECT * FROM ".$PT."typeLieux";
+			$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
+			while($typeLieu = mysqli_fetch_assoc($retour))
+				$_SESSION["TypeLieux"][$typeLieu["ID"]] = $typeLieu;
 
 			// Récupération de la table des evenements
 			$_SESSION['Evenements'] = array();
@@ -80,6 +80,14 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 				$event["EstSimple"] = $event["EstSimple"] == 'o';
 				$_SESSION['Evenements'][$event['ID']] = $event;	
 			}
+
+			// Récupération de la liste des TypesItems
+			$_SESSION["ParametresConditions"] = array();
+			$requete = "SELECT * FROM ".$PT."parametresConditions";
+			$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
+			while($typeCondition = mysqli_fetch_assoc($retour))
+				$_SESSION["ParametresConditions"][$typeCondition["ID"]] = $typeCondition;
 
 
 			// Connexion terminée, redirection
