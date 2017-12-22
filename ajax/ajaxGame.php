@@ -14,6 +14,7 @@ switch($_GET['action'])
 		$result['PersonnagesDansRegion'] =  $_SESSION["PersonnagesDansRegion"];
 		$result['Inventaire'] =  $_SESSION["Inventaire"];
 		$result['TypesItems'] =  $_SESSION["TypesItems"];
+		$result['ParametresConditions'] =  $_SESSION["ParametresConditions"];
 
 		// Lieux découverts
 		$lieuxDecouverts = array();

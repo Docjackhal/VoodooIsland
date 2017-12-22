@@ -169,7 +169,7 @@ function PM($cout)
 <head>
 <title>Voodoo Island - Game</title>
 <link href="style/game.css" rel="stylesheet" type="text/css"/>
-
+<link rel="icon" type="image/png" href="images/fav.png" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
 </head>
@@ -192,16 +192,21 @@ function PM($cout)
 			<div id='image_personnage' style='background-image:url(images/Personnage_portrait/Personnage_Portrait_<?php echo $IDPersoActuel; ?>.png);'></div>
 			<div id='metier_personnage'><?php echo $_SESSION['Heros'][$IDPersoActuel]['Metier']?></div>
 
-			<div id='bloc_stat'>
-				<div class='stat_personnage' id='stat_sante'><?php echo genererBarreStatistique("Pv"); ?></div>
-				<div class='stat_personnage' id='stat_fatigue'><?php echo genererBarreStatistique("Fatigue"); ?></div>
-				<div class='stat_personnage' id='stat_faim'><?php echo genererBarreStatistique("Faim"); ?></div>
-				<div class='stat_personnage' id='stat_soif'><?php echo genererBarreStatistique("Soif"); ?></div>
+			<div id='bloc_etats'>
+				<?php
+					foreach($_SESSION["Conditions"] as $IDCondition=>$condition)
+					{
+						$parametresCondition = $_SESSION["ParametresConditions"][$IDCondition];
+						echo "<div class='bloc_condition bloc_condition_".$parametresCondition["Type"]."' IDCondition='".$IDCondition."' id='bloc_condition_".$IDCondition."' style='background-image:url(images/Conditions/condition_".$IDCondition.".png);'></div>";
+					}
+				?>		
 			</div>
 
-			<div id='bloc_main_points'>
+			<div id='bloc_stat'>
 				<div class='stat_personnage' id='stat_pa'><?php echo genererBarreStatistique("Pa"); ?></div>
 				<div class='stat_personnage' id='stat_pm'><?php echo genererBarreStatistique("Pm"); ?></div>
+				<div class='stat_personnage' id='stat_sante'><?php echo genererBarreStatistique("Pv"); ?></div>
+				<div class='stat_personnage' id='stat_mp'><?php echo genererBarreStatistique("MP"); ?></div>
 			</div>
 
 		</div>
@@ -406,6 +411,14 @@ function PM($cout)
 				</div>
 			</div>
 			<div id="popup_zoomItem_description">blablabla</div>
+		</div>
+
+		<!-- Popup Condition/Etats -->
+		<div id="popup_condition">
+			<div class='condition_icone'></div>
+			<div class='condition_titre'>Titre</div>
+			<div class='condition_description'>Description</div>
+			<div id="popup_condition_close" class="popup_close">X</div>
 		</div>
 
 	</div>

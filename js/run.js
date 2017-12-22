@@ -52,6 +52,7 @@ function mainInitialisation()
 	game.personnagesDansRegion = game.xhrDatas['PersonnagesDansRegion'];
 	game.inventaire = game.xhrDatas['Inventaire'];
 	game.typesItems = game.xhrDatas['TypesItems'];
+	game.parametresConditions = game.xhrDatas['ParametresConditions'];
 
 	game.imageRegion = new Image();
 	game.imageRegion.src = "images/Regions/region_"+game.region['ID']+".png";

@@ -175,6 +175,7 @@ body
 	width: 100px;
 	margin-width:10px;
 	float: left;
+	padding-top: 5px;
 }
 
 #game #bloc_personnage .stat_barre
@@ -217,6 +218,12 @@ body
 	background-color: blue;
 }
 
+#game #bloc_personnage #stat_mp .stat_barre_filter
+{
+	background-color: purple;
+}
+
+
 #game #bloc_personnage #stat_Pa .stat_barre_filter, #game .iconeCoutAP
 {
 	background-color: #8A2BE2;
@@ -238,10 +245,49 @@ body
 	text-align: center;
 }
 
-#game #bloc_personnage #bloc_main_points
+#game #bloc_personnage #bloc_etats
 {
-	width: auto;
-	height: auto;
+	width:auto;
+	height: 175px;
+    border-bottom: 4px solid black;
+    overflow-y:scroll;
+    background-color: grey;
+}
+
+.bloc_condition
+{
+	border:2px solid black;
+	width:57px;
+	height:55px;
+	float:left;
+}
+
+.bloc_condition:hover
+{
+	border:2px solid white;
+	cursor:pointer;
+}
+
+.bloc_condition_negatif
+{
+	
+}
+
+.bloc_condition_positif
+{
+	
+}
+
+.bloc_condition_negatifMortel
+{
+	animation: negatifMortel 1s infinite;
+	border:2px solid black;
+}
+
+@keyframes negatifMortel { 
+0%   { border:2px solid white; }
+50% { border:2px solid black; } 
+100% { border:2px solid white; } 
 }
 
 #game #bloc_game #bloc_canvas
@@ -436,7 +482,7 @@ body
 	background-color: grey;
 }
 
-#game #popup_validation_voyage, #game #popup_interdiction_voyage, #game #popup_validation_exploration, #game #popup_message , #game #popup_evenement , #game #popup_evenement_complexe
+#game #popup_validation_voyage, #game #popup_interdiction_voyage, #game #popup_validation_exploration, #game #popup_message , #game #popup_evenement , #game #popup_evenement_complexe , #game #popup_condition
 {
 	background-color: white;
 	border: 4px solid black;
@@ -504,6 +550,46 @@ body
 {
 	font-weight: bold;
 	font-size: 20px;
+}
+
+#game #popup_condition
+{
+    margin-left: 220px;
+    margin-top: 175px;
+    min-height: 190px;
+    width: 350px;
+    text-align:center;
+}
+
+#game #popup_condition .condition_icone
+{
+	height:55px;
+	width:55px;
+	border:2px solid black;
+	margin-left: 15px;
+    margin-top: 15px;
+    float:left;
+}
+
+#game #popup_condition .condition_titre
+{
+	font-weight:bold;
+	font-size:30px;
+	margin-top:27px;
+}
+
+#game #popup_condition .condition_description
+{
+	margin-top:40px;
+	font-style: italic;
+}
+
+#game #popup_condition #popup_condition_close
+{
+	top: 28px;
+    left: -151px;
+    border-bottom:1px solid black;
+    border-radius: 0px 20px 0px 20px;
 }
 
 .submit

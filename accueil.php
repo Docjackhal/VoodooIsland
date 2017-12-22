@@ -40,6 +40,7 @@ if(isset($_COOKIE["ConnexionVoodooIsland"]))
 <title>Voodoo Island - Accueil</title>
 <link href='http://fonts.googleapis.com/css?family=Chelsea+Market' rel='stylesheet' type='text/css'>
 <link href="style/accueil.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/png" href="images/fav.png" />
 
 <script type="text/javascript" src="js/accueil.js"></script>
 </head>

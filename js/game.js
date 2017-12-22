@@ -147,6 +147,27 @@ function fermerPopupEvenement()
 	});
 }
 
+function ouvrirPopupCondition(IDCondition)
+{
+	var popupCondition = $("#popup_condition");
+	var parametreCondition = game.parametresConditions[IDCondition];
+
+	$("#popup_condition .condition_titre").html(parametreCondition["NomFR"]);
+	$("#popup_condition .condition_description").html(parametreCondition["DescriptionFR"]);
+	$("#popup_condition .condition_icone").css("background-image","url(images/Conditions/condition_"+IDCondition+".png");
+
+	popupCondition.css("display","block");
+	popupCondition.css("opacity",0);
+	popupCondition.animate({opacity: 1},300);
+}
+
+function fermerPopupCondition()
+{
+	$("#popup_condition").animate({opacity: 0},300,function(){
+		$(this).css("display","none");
+	});
+}
+
 // Binds
 $(document).ready(function()
 {
@@ -182,5 +203,18 @@ $(document).ready(function()
 		popupZoomItem.animate({opacity: 0},300,function(){
 			$(this).css("display","none");
 		});
+	});
+
+	// Condition
+	$(".bloc_condition").click(function()
+	{
+		var blocCondition = $(this);
+		var IDCondition = $(this).attr("IDCondition");
+		ouvrirPopupCondition(IDCondition);
+	});
+
+	$("#popup_condition_close").click(function()
+	{
+		fermerPopupCondition();
 	});
 });

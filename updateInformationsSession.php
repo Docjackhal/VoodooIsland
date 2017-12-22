@@ -157,6 +157,6 @@ function updateInformationsSession()
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
 	while($condition = mysqli_fetch_assoc($retour))
-		$_SESSION["Inventaire"][$condition["IDCondition"]] = $condition;
+		$_SESSION["Conditions"][$condition["IDCondition"]] = $condition;
 }
 ?>
