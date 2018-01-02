@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql51-44.perso
--- Generation Time: Jan 02, 2018 at 11:42 AM
+-- Generation Time: Nov 07, 2017 at 06:28 PM
 -- Server version: 5.5.55-0+deb7u1-log
 -- PHP Version: 5.6.30-0+deb8u1
 
@@ -57,38 +57,6 @@ INSERT INTO `VI__accounts` (`ID`, `Login`, `Password`, `Email`, `DateInscription
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__conditions`
---
-
-CREATE TABLE `VI__conditions` (
-  `IDPartie` int(11) NOT NULL,
-  `IDPersonnage` int(11) NOT NULL,
-  `IDCondition` int(11) NOT NULL,
-  `DureeCondition` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `VI__conditions`
---
-
-INSERT INTO `VI__conditions` (`IDPartie`, `IDPersonnage`, `IDCondition`, `DureeCondition`) VALUES
-(1, 1, 1, -1),
-(1, 1, 2, -1),
-(1, 1, 3, -1),
-(1, 1, 4, -1),
-(1, 1, 5, -1),
-(1, 1, 6, -1),
-(1, 1, 7, -1),
-(1, 1, 8, -1),
-(1, 1, 9, -1),
-(1, 1, 10, -1),
-(1, 1, 11, -1),
-(1, 1, 12, -1),
-(1, 1, 13, -1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `VI__heros`
 --
 
@@ -106,7 +74,6 @@ CREATE TABLE `VI__heros` (
   `SoifMax` int(10) NOT NULL,
   `FatigueMax` int(10) NOT NULL,
   `PvMax` int(6) NOT NULL,
-  `MPMax` int(11) NOT NULL,
   `PaMax` int(4) NOT NULL,
   `PmMax` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -115,15 +82,15 @@ CREATE TABLE `VI__heros` (
 -- Dumping data for table `VI__heros`
 --
 
-INSERT INTO `VI__heros` (`ID`, `Sexe`, `Titre`, `Nom`, `Prenom`, `Age`, `Origine`, `Profession`, `Biographie`, `FaimMax`, `SoifMax`, `FatigueMax`, `PvMax`, `MPMax`, `PaMax`, `PmMax`) VALUES
-(1, 'h', 'Capitaine', 'Williams', 'Kurt', 46, 'USA', 'Militaire', 'Kurt Williams est rentré dans l’armée américaine à l’âge de 16 ans. Par ses talents de leader, son don pour le combat et son charisme, il est rapidement monté en grade et est aujourd’hui capitaine. Son expérience sur le terrain est une chance pour le reste du groupe. Il est inégalé au combat au corps à corps et ses capacités de survie sont supérieures à la moyenne. \nKurt Williams est indiscutablement un élément fort du groupe, tant que personne ne remet en question son autorité...\n\nCitation: “Le plus grand problème durant une guerre, ce sont les civils”.', 10, 10, 10, 10, 10, 4, 4),
-(2, 'f', 'Docteur', 'Vilhelm', 'Hanna', 31, 'Suède', 'Médecin', 'Ayant obtenu son diplome à l’âge de 24 ans seulement, le docteur Vilhelm a connut ensuite une carrière fulgurante. Réputée pour ses découvertes en biologie monocélulaire, elle est aujourd’hui, à l’âge de 31 ans seulement, une des plus grande spécialiste en matière de virus et maladies de notre ère. Athlétique et bonne vivante, Hanna est un atout majeur pour la survie du groupe, malgrès les dangers encore inconnus de cette île. Elle est végétarienne. Heuresement que c’est une île tropicale.   Citation: “La plupart d’entre vous seront plus utiles une fois mort.”', 10, 10, 10, 10, 10, 4, 4),
-(3, 'h', 'Professeur', 'Fisherman', 'John', 35, 'Angleterre', 'Professeur d\'histoire', 'Professeur d’histoire à l’université d’Oxford, John est avant tout un voyageur passionné. Incollable sur l’histoire des tribus d’Amérique du sud et sur les croyances locales et vêtu de son chapeau fétiche, il est l’un des seuls survivants à être plus enjoué à l’idée d’aller découvrir les trésors dont regorge l’île, plutôt que de survivre à ses multiples dangers.  Son humour british, ses connaissances et son enthousiasme en font un solide pilier pour le moral du groupe.  Citation: “C’est un peu comme un devoir de vacances, n’est-il pas?”', 10, 10, 10, 10, 10, 4, 4),
-(4, 'h', '', 'Moskovski', 'Sergei', 52, 'Russie', 'Chef cuisinier', 'Avant d’être embauché comme chef cuistot à bord du Santa Marina, Sergeï travaillait comme chercheur agro-industriel dans l’armée soviétique, d’où ses difficultés à bien s’entendre avec le capitaine Williams.  Sur Voodoo Island, Sergeï va de nouveau devoir rationner et confectionner de nouveaux repas pour les survivants, avec les moyens du bord... Comme au bon vieux temps, comme il le dit lui -même.  “ Avec de la vodka, même le sable se mange”.', 10, 10, 10, 10, 10, 4, 4),
-(5, 'h', '', 'Lombardi', 'Enzo', 16, 'Italie', 'Mousse', 'Enzo est le plus jeune des survivants. Il n’était qu’un simple mousse à bord du Santa Marina. Pourquoi donc a-t-il été épargné? Enzo est victime d’un sentiment d’infériorité grandissant à côté des autres survivants, et pourtant, ce jeune homme charmant et plein de ressources est capable de beaucoup, pourvu qu’on l’aide un peu à avoir confiance en lui.   Citation: “Si je survis, je serai un homme. Mais en suis-je capable?”', 10, 10, 10, 10, 10, 4, 4),
-(6, 'f', '', 'Lopez', 'Abby', 26, 'Mexique', 'Mécanicienne', 'Depuis qu’elle est gamine, Abby est une fana de mécanique. Aucun engin n’a de secret pour elle, de la voiture à l’avion. Bien que la technologie ne soit pas présente partout ici, elle se fera une joie de récupérer un maximum de débris afin de construire de fantastiques machines. Ses talents et ses connaissances pourraient bien être les seules chance de survie du groupe.   Citation: “Quand une femme est plus forte qu’eux sur leur propre terrain, les mecs ne savent plus où se mettre. J’adore ça!”', 10, 10, 10, 10, 10, 4, 4),
-(7, 'h', '', '', 'Kenny', 40, 'Nouvelle-Zélande', 'Repris de justice', 'Kenny est un homme mysterieux, qui en dit très peu sur son passé. Il tait même son nom de famille, comme par honte. On sait juste, par la journaliste Yuri Lin,  qu’il a tué un homme, et qu’il fuit la justice de son pays. C’est un homme discret, torturé et sur le qui-vive. Il fait preuve d’un grand calme, mais un véritable brasier brûle en lui.    Citation: “Ne me posez pas de questions, où nous ne sortirons jamais d’ici vivant”.', 10, 10, 10, 10, 10, 4, 4),
-(8, 'f', '', 'Lin', 'Yuri', 28, 'Japon', 'Journaliste', 'Yuri est une talentueuse reporter spécialisée dans les affaires de meurtre. Fascinée par Kenny, c’est en le filant discrètement qu’elle s’est retrouvée à bord du Santa Marina. Par acquis de conscience, elle ne parlera jamais aux autres de ce qu’elle sait sur lui. Ses talents pour l’enquête et l’investigation font d’elle une excellente exploratrice, mais sa passion et son naturel dominent le reste: elle observe et examine les autres membres du groupe, et garde une trace de cette aventure à travers son journal.', 10, 10, 10, 10, 10, 4, 4);
+INSERT INTO `VI__heros` (`ID`, `Sexe`, `Titre`, `Nom`, `Prenom`, `Age`, `Origine`, `Profession`, `Biographie`, `FaimMax`, `SoifMax`, `FatigueMax`, `PvMax`, `PaMax`, `PmMax`) VALUES
+(1, 'h', 'Capitaine', 'Williams', 'Kurt', 46, 'USA', 'Militaire', 'Kurt Williams est rentré dans l’armée américaine à l’âge de 16 ans. Par ses talents de leader, son don pour le combat et son charisme, il est rapidement monté en grade et est aujourd’hui capitaine. Son expérience sur le terrain est une chance pour le reste du groupe. Il est inégalé au combat au corps à corps et ses capacités de survie sont supérieures à la moyenne. \nKurt Williams est indiscutablement un élément fort du groupe, tant que personne ne remet en question son autorité...\n\nCitation: “Le plus grand problème durant une guerre, ce sont les civils”.', 10, 10, 10, 6, 4, 4),
+(2, 'f', 'Docteur', 'Vilhelm', 'Hanna', 31, 'Suède', 'Médecin', 'Ayant obtenu son diplome à l’âge de 24 ans seulement, le docteur Vilhelm a connut ensuite une carrière fulgurante. Réputée pour ses découvertes en biologie monocélulaire, elle est aujourd’hui, à l’âge de 31 ans seulement, une des plus grande spécialiste en matière de virus et maladies de notre ère. Athlétique et bonne vivante, Hanna est un atout majeur pour la survie du groupe, malgrès les dangers encore inconnus de cette île. Elle est végétarienne. Heuresement que c’est une île tropicale.   Citation: “La plupart d’entre vous seront plus utiles une fois mort.”', 10, 10, 10, 6, 4, 4),
+(3, 'h', 'Professeur', 'Fisherman', 'John', 35, 'Angleterre', 'Professeur d\'histoire', 'Professeur d’histoire à l’université d’Oxford, John est avant tout un voyageur passionné. Incollable sur l’histoire des tribus d’Amérique du sud et sur les croyances locales et vêtu de son chapeau fétiche, il est l’un des seuls survivants à être plus enjoué à l’idée d’aller découvrir les trésors dont regorge l’île, plutôt que de survivre à ses multiples dangers.  Son humour british, ses connaissances et son enthousiasme en font un solide pilier pour le moral du groupe.  Citation: “C’est un peu comme un devoir de vacances, n’est-il pas?”', 10, 10, 10, 6, 4, 4),
+(4, 'h', '', 'Moskovski', 'Sergei', 52, 'Russie', 'Chef cuisinier', 'Avant d’être embauché comme chef cuistot à bord du Santa Marina, Sergeï travaillait comme chercheur agro-industriel dans l’armée soviétique, d’où ses difficultés à bien s’entendre avec le capitaine Williams.  Sur Voodoo Island, Sergeï va de nouveau devoir rationner et confectionner de nouveaux repas pour les survivants, avec les moyens du bord... Comme au bon vieux temps, comme il le dit lui -même.  “ Avec de la vodka, même le sable se mange”.', 10, 10, 10, 6, 4, 4),
+(5, 'h', '', 'Lombardi', 'Enzo', 16, 'Italie', 'Mousse', 'Enzo est le plus jeune des survivants. Il n’était qu’un simple mousse à bord du Santa Marina. Pourquoi donc a-t-il été épargné? Enzo est victime d’un sentiment d’infériorité grandissant à côté des autres survivants, et pourtant, ce jeune homme charmant et plein de ressources est capable de beaucoup, pourvu qu’on l’aide un peu à avoir confiance en lui.   Citation: “Si je survis, je serai un homme. Mais en suis-je capable?”', 10, 10, 10, 6, 4, 4),
+(6, 'f', '', 'Lopez', 'Abby', 26, 'Mexique', 'Mécanicienne', 'Depuis qu’elle est gamine, Abby est une fana de mécanique. Aucun engin n’a de secret pour elle, de la voiture à l’avion. Bien que la technologie ne soit pas présente partout ici, elle se fera une joie de récupérer un maximum de débris afin de construire de fantastiques machines. Ses talents et ses connaissances pourraient bien être les seules chance de survie du groupe.   Citation: “Quand une femme est plus forte qu’eux sur leur propre terrain, les mecs ne savent plus où se mettre. J’adore ça!”', 10, 10, 10, 6, 4, 4),
+(7, 'h', '', '', 'Kenny', 40, 'Nouvelle-Zélande', 'Repris de justice', 'Kenny est un homme mysterieux, qui en dit très peu sur son passé. Il tait même son nom de famille, comme par honte. On sait juste, par la journaliste Yuri Lin,  qu’il a tué un homme, et qu’il fuit la justice de son pays. C’est un homme discret, torturé et sur le qui-vive. Il fait preuve d’un grand calme, mais un véritable brasier brûle en lui.    Citation: “Ne me posez pas de questions, où nous ne sortirons jamais d’ici vivant”.', 10, 10, 10, 6, 4, 4),
+(8, 'f', '', 'Lin', 'Yuri', 28, 'Japon', 'Journaliste', 'Yuri est une talentueuse reporter spécialisée dans les affaires de meurtre. Fascinée par Kenny, c’est en le filant discrètement qu’elle s’est retrouvée à bord du Santa Marina. Par acquis de conscience, elle ne parlera jamais aux autres de ce qu’elle sait sur lui. Ses talents pour l’enquête et l’investigation font d’elle une excellente exploratrice, mais sa passion et son naturel dominent le reste: elle observe et examine les autres membres du groupe, et garde une trace de cette aventure à travers son journal.', 10, 10, 10, 6, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -199,9 +166,7 @@ INSERT INTO `VI__items` (`ID`, `IDTypeItem`, `Parametre1`, `NombreCycles`, `IDPa
 (68, 3, 0, 0, 1, 1, 'personnage'),
 (69, 21, 0, 0, 1, 1, 'personnage'),
 (70, 21, 0, 0, 1, 1, 'personnage'),
-(71, 21, 0, 0, 1, 1, 'personnage'),
-(72, 21, 0, 0, 1, 1, 'personnage'),
-(73, 3, 0, 0, 1, 1, 'personnage');
+(71, 21, 0, 0, 1, 1, 'personnage');
 
 -- --------------------------------------------------------
 
@@ -244,25 +209,6 @@ INSERT INTO `VI__lieux` (`ID`, `IDTypeLieu`, `IDParametrageLieu`, `IDPartie`, `I
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__lieuxDecouverts`
---
-
-CREATE TABLE `VI__lieuxDecouverts` (
-  `IDLieu` int(11) NOT NULL,
-  `IDPersonnage` int(11) NOT NULL,
-  `DateDecouverte` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `VI__lieuxDecouverts`
---
-
-INSERT INTO `VI__lieuxDecouverts` (`IDLieu`, `IDPersonnage`, `DateDecouverte`) VALUES
-(314, 1, '2017-11-08 17:33:21');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `VI__parametresBancsPoissons`
 --
 
@@ -294,38 +240,6 @@ INSERT INTO `VI__parametresBancsPoissons` (`ID`, `IDPartie`, `IDLieu`, `NbPoisso
 -- --------------------------------------------------------
 
 --
--- Table structure for table `VI__parametresConditions`
---
-
-CREATE TABLE `VI__parametresConditions` (
-  `ID` int(11) NOT NULL,
-  `NomFR` varchar(30) NOT NULL,
-  `Type` enum('positif','negatif','negatifMortel') NOT NULL DEFAULT 'negatif',
-  `DescriptionFR` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `VI__parametresConditions`
---
-
-INSERT INTO `VI__parametresConditions` (`ID`, `NomFR`, `Type`, `DescriptionFR`) VALUES
-(1, 'Affamé', 'negatif', 'Vous commencez à avoir faim. Vous devriez manger avant que cela ne devienne un problème.'),
-(2, 'Famine', 'negatifMortel', 'Votre estomac est vide et la faim vous ronge petit à petit. Vous perdez 1 de santé physique à chaque cycle tant que vous ne mangez pas à nouveau.'),
-(3, 'Assoifé', 'negatif', 'Vous commencez à vous déshydrater. Vous devriez boire quelque chose avant que votre corps ne subisse une déshydratation sévère.'),
-(4, 'Déshydratation sévère', 'negatifMortel', 'Vous êtes complètement déshydraté. Sans eau, votre état se dégrade rapidement. Vous perdez 1 de santé physique à chaque cycle qui passe sans remédier à cela.'),
-(5, 'Fatigue', 'negatif', 'Vous vous sentez fatigué. Vous devriez bientôt songer à vous reposer.'),
-(6, 'Epuisé', 'negatifMortel', 'Vous êtes à bout de force. Vous devez absolument dormir avant de faire quoi que ce soit.'),
-(7, 'Malade', 'negatif', 'Vous vous sentez vraiment mal. Vous vous épuisez plus rapidement et vous avez des chances de vomir à chaque cycle. Vous pouvez remédier à cela ou attendre que cela passe...'),
-(8, 'Saignement', 'negatif', 'Vous saignez légèrement. Votre vie n\'est pas en danger, mais vous devriez vous soigner avant que cela n\'empire.'),
-(9, 'Inféction', 'negatifMortel', 'Vous subissez une infection sévère. Votre santé se dégrade très rapidement. Vous perdez 2HP par cycle.'),
-(10, 'Blessure', 'negatif', 'Vous vous êtes salement fait mal. Vous récupérez vos points d\'actions et de mouvement plus lentement. Vous devriez vous soigner raidement avant que cela n\'empire.'),
-(11, 'Dépréssion', 'negatif', 'Vous perdez petit à petit tout espoir. Votre santé mentale diminue de 1 à chaque cycle tant que vous ne vous reprenez pas en main.'),
-(12, 'Emprisonné', 'negatifMortel', 'Vous êtes enfermé dans une cage. Impossible de faire quoi que ce soit à part attendre de l\'aide... ou pire.'),
-(13, 'Cible du rituel', 'negatifMortel', 'Vous êtes la cible d\'un rituel voodoo. Votre esprit cède peu à peu à vos tortionnaires, et vous deviendrez l\'un d\'entre eux si vous n\'êtes pas libéré avant que votre santé mentale n\'atteigne zéro. Vous perdez 1 de santé mentale à chaque cycle.');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `VI__parametresEvenements`
 --
 
@@ -339,34 +253,26 @@ CREATE TABLE `VI__parametresEvenements` (
   `EstSimple` enum('o','n') NOT NULL DEFAULT 'o' COMMENT 'Si non, l''event propose des choix multiples au joueur',
   `TypeRegion` enum('plage','jungle','montagne','volcan','toutes') NOT NULL DEFAULT 'toutes',
   `Poids` int(11) NOT NULL COMMENT 'Plus cette valeur est elevée plus l''event a des chances d''apparaitre',
-  `Condition1_Type` enum('variable','lieuDecouvert','estVoodoo','nombreCaptures','riteEnCours') DEFAULT NULL,
+  `Condition1_Type` enum('variable') DEFAULT NULL,
   `Condition1_ValeurA` int(11) DEFAULT NULL,
   `Condition1_Operateur` enum('>','>=','==','!=','<','<=') DEFAULT NULL,
   `Condition1_ValeurB` int(11) DEFAULT NULL,
-  `Condition2_Type` enum('variable','lieuDecouvert','estVoodoo','nombreCaptures','riteEnCours') DEFAULT NULL,
+  `Condition2_Type` enum('variable') DEFAULT NULL,
   `Condition2_ValeurA` int(11) DEFAULT NULL,
   `Condition2_Operateur` enum('>','>=','==','!=','<','<=') DEFAULT NULL,
-  `Condition2_ValeurB` int(11) DEFAULT NULL,
-  `Condition3_Type` enum('variable','lieuDecouvert','estVoodoo','nombreCaptures','riteEnCours') NOT NULL,
-  `Condition3_ValeurA` int(11) NOT NULL,
-  `Condition3_Operateur` enum('>','>=','==','!=','<','<=') NOT NULL,
-  `Condition3_ValeurB` int(11) NOT NULL
+  `Condition2_ValeurB` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `VI__parametresEvenements`
 --
 
-INSERT INTO `VI__parametresEvenements` (`ID`, `TitreFR`, `DescriptionFR`, `TexteChoix1`, `TexteChoix2`, `TexteChoix3`, `EstSimple`, `TypeRegion`, `Poids`, `Condition1_Type`, `Condition1_ValeurA`, `Condition1_Operateur`, `Condition1_ValeurB`, `Condition2_Type`, `Condition2_ValeurA`, `Condition2_Operateur`, `Condition2_ValeurB`, `Condition3_Type`, `Condition3_ValeurA`, `Condition3_Operateur`, `Condition3_ValeurB`) VALUES
-(1, 'Un truc qui brille', 'Vous observez un scintillement sur le sable. En vous rapprochant, vous découvrez une vieille pelle en acier à moitié enterrée.', 'Super !', NULL, NULL, 'o', 'plage', 10, 'variable', 1, '<', 3, NULL, NULL, NULL, NULL, 'variable', 0, '>', 0),
-(2, 'La vieille marmitte', 'En fouillant dans le sable, vous déterrez une vieille marmite. Elle semble intacte et vous permettra de faire la cuisine dans votre futur campement.', 'Génial !', NULL, NULL, 'o', 'plage', 10, 'variable', 2, '!=', 1, NULL, NULL, NULL, NULL, 'variable', 0, '>', 0),
-(3, 'Une toile rudimentaire', 'Vous découvrez une morceau de tissu dépassant du sable. En fouillant plus profondément, vous découvrez une toile un peu déchirée, mais relativement grande, idéale pour construire un abri rudimentaire.', 'Cool !', NULL, NULL, 'o', 'plage', 10, 'variable', 3, '!=', 1, NULL, NULL, NULL, NULL, 'variable', 0, '>', 0),
-(4, 'Ho la belle coco', 'Vous trouvez une belle noix de coco au pied d’un cocotier.', 'Miam !', NULL, NULL, 'o', 'plage', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'variable', 0, '>', 0),
-(5, 'Sous les cocotiers', 'Vous vous trouvez sous l’ombre d’un grand cocotier. Il semble y avoir des noix de coco au sommet, mais les récupérer ne sera pas simple.', 'Essayer de grimper en haut du cocotier', 'Donner un grand coup au cocotier', 'Abandonner et repartir', 'n', 'plage', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'variable', 0, '>', 0),
-(6, 'Eaux poissonneuses', 'En observant la mer, vous trouvez un coin particulièrement poissonneux. Une zone de pêche idéale.', 'Parfait !', NULL, NULL, 'o', 'plage', 500, 'lieuDecouvert', 1, '!=', 1, NULL, NULL, NULL, NULL, 'variable', 0, '>', 0),
-(7, 'Le crabe rancunier', 'Un moment d\'inattention et vous marchez sur un crabe endormi sous le sable ! Celui-ci vous pince violemment jusqu\'au sang avant de déguerpir dans l’eau.', NULL, NULL, NULL, 'o', 'plage', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'variable', 0, '>', 0),
-(8, 'Le village caché: Capture !', 'En poussant une fougère, vous tombez nez à nez avec un village primitif. Alors que vous tentez de comprendre de quoi il s’agit, vous prenez un lourd coup sur la tête. En vous réveillant, vous vous retrouvez dans une cage suspendue dans l’air, entouré d’autochtones masqués. Ils entament alors un rite voodoo sur vous. Vous ne pouvez qu\'espérer une aide extérieure avant qu’il ne soit trop tard.', 'Au secours !', NULL, NULL, 'o', 'jungle', 2, 'estVoodoo', NULL, '==', 0, 'lieuDecouvert', 6, '!=', 1, 'variable', 0, '>', 0),
-(9, 'Le village caché: sauvetage !', 'En poussant une fougère, vous tombez nez à nez avec un village primitif. Vous observez discrètement les lieux quand vous découvrez une cage avec %HerosName% enfermé ! Que décidez-vous ?', 'Essayer de le secourir', 'Repartir discrètement', NULL, 'n', 'jungle', 5, 'estVoodoo', NULL, '!=', 1, 'lieuDecouvert', 6, '!=', 1, 'variable', 0, '>', 0);
+INSERT INTO `VI__parametresEvenements` (`ID`, `TitreFR`, `DescriptionFR`, `TexteChoix1`, `TexteChoix2`, `TexteChoix3`, `EstSimple`, `TypeRegion`, `Poids`, `Condition1_Type`, `Condition1_ValeurA`, `Condition1_Operateur`, `Condition1_ValeurB`, `Condition2_Type`, `Condition2_ValeurA`, `Condition2_Operateur`, `Condition2_ValeurB`) VALUES
+(1, 'Un truc qui brille', 'Vous observez un scintillement sur le sable. En vous rapprochant, vous découvrez une vieille pelle en acier à moitié enterrée.', 'Super !', NULL, NULL, 'o', 'plage', 10, 'variable', 1, '<', 3, NULL, NULL, NULL, NULL),
+(2, 'La vieille marmitte', 'En fouillant dans le sable, vous déterrez une vieille marmite. Elle semble intacte et vous permettra de faire la cuisine dans votre futur campement.', 'Génial !', NULL, NULL, 'o', 'plage', 10, 'variable', 2, '!=', 1, NULL, NULL, NULL, NULL),
+(3, 'Une toile rudimentaire', 'Vous découvrez une morceau de tissu dépassant du sable. En fouillant plus profondément, vous découvrez une toile un peu déchirée, mais relativement grande, idéale pour construire un abri rudimentaire.', 'Cool !', NULL, NULL, 'o', 'plage', 10, 'variable', 3, '!=', 1, NULL, NULL, NULL, NULL),
+(4, 'Ho la belle coco', 'Vous trouvez une belle noix de coco au pied d’un cocotier.', 'Miam !', NULL, NULL, 'o', 'plage', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'Sous les cocotiers', 'Vous vous trouvez sous l’ombre d’un grand cocotier. Il semble y avoir des noix de coco au sommet, mais les récupérer ne sera pas simple.', 'Essayer de grimper en haut du cocotier', 'Donner un grand coup au cocotier', 'Abandonner et repartir', 'n', 'plage', 500, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -440,10 +346,6 @@ CREATE TABLE `VI__personnages` (
   `IDPartie` int(11) NOT NULL,
   `Joueur` int(11) NOT NULL,
   `EstVoodoo` enum('n','o') NOT NULL DEFAULT 'n',
-  `EstCapture` enum('n','o') NOT NULL DEFAULT 'n',
-  `NombreCyclesDepuisCapture` int(11) NOT NULL DEFAULT '0',
-  `RiteEnCours` enum('n','o') NOT NULL DEFAULT 'n',
-  `NombreCyclesDepuisRite` int(11) NOT NULL DEFAULT '0',
   `FaimActuel` int(11) NOT NULL,
   `FaimMax` int(11) NOT NULL,
   `SoifActuel` int(11) NOT NULL,
@@ -452,8 +354,6 @@ CREATE TABLE `VI__personnages` (
   `FatigueMax` int(11) NOT NULL,
   `PvActuel` int(11) NOT NULL,
   `PvMax` int(11) NOT NULL,
-  `MPActuel` int(11) NOT NULL COMMENT 'Santé mentale',
-  `MPMax` int(11) NOT NULL,
   `PaActuel` int(11) NOT NULL,
   `PaMax` int(11) NOT NULL,
   `PmActuel` int(11) NOT NULL,
@@ -466,15 +366,15 @@ CREATE TABLE `VI__personnages` (
 -- Dumping data for table `VI__personnages`
 --
 
-INSERT INTO `VI__personnages` (`IDHeros`, `IDPartie`, `Joueur`, `EstVoodoo`, `EstCapture`, `NombreCyclesDepuisCapture`, `RiteEnCours`, `NombreCyclesDepuisRite`, `FaimActuel`, `FaimMax`, `SoifActuel`, `SoifMax`, `FatigueActuel`, `FatigueMax`, `PvActuel`, `PvMax`, `MPActuel`, `MPMax`, `PaActuel`, `PaMax`, `PmActuel`, `PmMax`, `RegionActuelle`, `DateArriveeLieu`) VALUES
-(1, 1, 1, 'n', 'o', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 4, 4, 4, 1, '2017-08-13 15:13:47'),
-(2, 1, 2, 'n', 'n', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, 4, 4, 4, 8, '2017-08-13 15:13:47'),
-(3, 1, 5, 'n', 'o', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, 4, 4, 4, 2, '2017-08-13 15:13:47'),
-(4, 1, 3, 'n', 'n', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, 4, 4, 4, 8, '2017-08-13 15:13:47'),
-(5, 1, 6, 'n', 'n', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, 4, 4, 4, 3, '2017-08-13 15:13:47'),
-(6, 1, 7, 'n', 'n', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, 4, 4, 4, 8, '2017-08-13 15:13:47'),
-(7, 1, 8, 'n', 'n', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, 4, 4, 4, 5, '2017-08-13 15:13:47'),
-(8, 1, 9, 'n', 'n', 0, 'n', 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, 4, 4, 4, 6, '2017-08-13 15:13:47');
+INSERT INTO `VI__personnages` (`IDHeros`, `IDPartie`, `Joueur`, `EstVoodoo`, `FaimActuel`, `FaimMax`, `SoifActuel`, `SoifMax`, `FatigueActuel`, `FatigueMax`, `PvActuel`, `PvMax`, `PaActuel`, `PaMax`, `PmActuel`, `PmMax`, `RegionActuelle`, `DateArriveeLieu`) VALUES
+(1, 1, 1, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 0, 4, 4, 4, 3, '2017-08-13 15:13:47'),
+(2, 1, 2, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 4, 4, 4, 4, 8, '2017-08-13 15:13:47'),
+(3, 1, 5, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 4, 4, 4, 4, 2, '2017-08-13 15:13:47'),
+(4, 1, 3, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 4, 4, 4, 4, 8, '2017-08-13 15:13:47'),
+(5, 1, 6, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 4, 4, 4, 4, 3, '2017-08-13 15:13:47'),
+(6, 1, 7, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 4, 4, 4, 4, 8, '2017-08-13 15:13:47'),
+(7, 1, 8, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 4, 4, 4, 4, 5, '2017-08-13 15:13:47'),
+(8, 1, 9, 'n', 10, 10, 10, 10, 10, 10, 6, 6, 4, 4, 4, 4, 6, '2017-08-13 15:13:47');
 
 -- --------------------------------------------------------
 
@@ -629,7 +529,7 @@ CREATE TABLE `VI__variables` (
 --
 
 INSERT INTO `VI__variables` (`IDPartie`, `IDVariable`, `Valeur`) VALUES
-(1, 1, 3),
+(1, 1, 2),
 (1, 2, 1),
 (1, 3, 1);
 
@@ -642,12 +542,6 @@ INSERT INTO `VI__variables` (`IDPartie`, `IDVariable`, `Valeur`) VALUES
 --
 ALTER TABLE `VI__accounts`
   ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `VI__conditions`
---
-ALTER TABLE `VI__conditions`
-  ADD UNIQUE KEY `persoParPartieParCondition` (`IDPartie`,`IDPersonnage`,`IDCondition`);
 
 --
 -- Indexes for table `VI__heros`
@@ -669,21 +563,9 @@ ALTER TABLE `VI__lieux`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `VI__lieuxDecouverts`
---
-ALTER TABLE `VI__lieuxDecouverts`
-  ADD UNIQUE KEY `LieuParPerso` (`IDLieu`,`IDPersonnage`);
-
---
 -- Indexes for table `VI__parametresBancsPoissons`
 --
 ALTER TABLE `VI__parametresBancsPoissons`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `VI__parametresConditions`
---
-ALTER TABLE `VI__parametresConditions`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -753,7 +635,7 @@ ALTER TABLE `VI__accounts`
 -- AUTO_INCREMENT for table `VI__items`
 --
 ALTER TABLE `VI__items`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT for table `VI__lieux`
 --
@@ -765,15 +647,10 @@ ALTER TABLE `VI__lieux`
 ALTER TABLE `VI__parametresBancsPoissons`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 --
--- AUTO_INCREMENT for table `VI__parametresConditions`
---
-ALTER TABLE `VI__parametresConditions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
 -- AUTO_INCREMENT for table `VI__parametresEvenements`
 --
 ALTER TABLE `VI__parametresEvenements`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `VI__parametresSourcesEau`
 --
