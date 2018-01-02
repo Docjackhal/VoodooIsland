@@ -52,8 +52,8 @@
 				$joueur = $joueurs[$personnage["Joueur"]];
 				?>
 					<div class="blocPersonnage" id="blocPersonnage_<?php echo $personnage["IDHeros"];?>">
-						<div class="zoneNom"><?php echo "<b>".$hero["Prenom"]."</b> (".$joueur["Login"].")";?></div>
-						<div class='image_personnage' style='background-image:url(../images/Personnage_Portrait/Personnage_Portrait_<?php echo $hero["ID"]; ?>.png);'></div>
+						<div class="zoneNom"><?php echo "<b>".$hero["Prenom"]."</b> (".$joueur["Login"].")";?> <img class="iconeRdy" width=15px height=15px src='../images/button_Nready.png'/></div>
+						<div class='image_personnage' style='background-image:url(../images/Personnage_portrait/Personnage_Portrait_<?php echo $hero["ID"]; ?>.png);'></div>
 					</div>
 				<?php
 			}
@@ -61,3 +61,5 @@
 		?>
 	</div>
 </div>
+
+<script type="text/javascript" src="admin.js"></script>

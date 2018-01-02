@@ -4,7 +4,7 @@
 	function getCondition($IDCondition)
 	{
 		if(!empty($_SESSION['Conditions'][$IDCondition]))
-			return $_SESSION['Conditions'][$IDCondition]:
+			return $_SESSION['Conditions'][$IDCondition];
 		else
 			return null;
 	}

@@ -13,10 +13,18 @@ $lang["Miam!"] = "Miam !";
 $lang["Desole..."] = "Désolé...";
 $lang["Flute!"] = "Flûte !";
 $lang["Super!"] = "Super !";
-
-
+$lang["Oui"] = "Oui";
+$lang["Non"] = "Non";
 
 // ----------------------------- FIN GENERAL ------------------------------------- //
+
+// ------------------------------- GAME.PHP ------------------------------------- //
+
+$lang["DescriptionConfirmationChangementCycle"] = "Vous allez indiquer au maitre du jeu que vous êtes prêts à passer au prochain cycle. Etes-vous sûrs?";
+
+// ------------------------------- FIN GAME.PHP ------------------------------------- //
+
+
 
 // ------------------------------- EVENEMENTS ------------------------------------- //
 

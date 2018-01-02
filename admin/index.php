@@ -14,6 +14,7 @@
 <link href='http://fonts.googleapis.com/css?family=Chelsea+Market' rel='stylesheet' type='text/css'>
 <link href="../style/accueil.css" rel="stylesheet" type="text/css"/>
 <link href="../style/admin.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../js/jquery.js"></script>
 </head>
 
 <body>

@@ -150,5 +150,12 @@ switch($idAction)
 		effectueResultatChoixEvenementComplexe($mysqli,$IDEvent,$IDReponse);
 	}
 	break;
+	case 5: //Etre prêt a passer au cycle suivant
+	{
+		$requete = "UPDATE ".$PT."personnages SET PretCycleSuivant='o' WHERE IDHeros = '".$_SESSION['IDPersonnage']."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
+		$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) die('Requête invalide : ' . mysqli_error());
+	}
+	break;
 }
 ?>

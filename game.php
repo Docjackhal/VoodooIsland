@@ -68,7 +68,8 @@ else
 
 		$time = $h.'h'.$m.'m'.$s.'s';
 
-		$region = $_SESSION['Regions'][$_SESSION['RegionActuelle']];		
+		$region = $_SESSION['Regions'][$_SESSION['RegionActuelle']];	
+		$estReady = $_SESSION["PretCycleSuivant"];	
 	}
 
 // ----------------------- Fonctions Graphiques ---------------------------
@@ -184,6 +185,8 @@ function PM($cout)
 				<div class='time'><b>Prochain cycle dans: </b><span id='horloge_js'><?php echo $time; ?></span></div>
 				<div id='symbole_soleil' style='background-color:<?php echo $colorDay; ?>'><image src='images/soleils/soleil_<?php echo $cycle; ?>.png'/></div>
 			</div>
+			<div id='btn_rdy_y' style='display:<?php echo(($estReady)?"block":"none");?>'></div>
+			<div id='btn_rdy_n' style='display:<?php echo(($estReady)?"none":"block");?>'></div>
 		</div>
 
 		<!-- Bloc personnage Gauche -->
@@ -419,6 +422,18 @@ function PM($cout)
 			<div class='condition_titre'>Titre</div>
 			<div class='condition_description'>Description</div>
 			<div id="popup_condition_close" class="popup_close">X</div>
+		</div>
+
+		<!-- Popup Confirmation Cycle Suivant -->
+		<div id="popup_confirmationCycle">
+			<div class="confirmationCycle_description"><?php echo $lang["DescriptionConfirmationChangementCycle"];?></div>
+			<div class="ico_btn_ready"></div>
+			<div class="confirmationCycle_blocChoix">
+				<form METHOD=post ACTION='action.php?action=5'>
+					<input class="btnConfirmerCycle btnConfirmerCycleY" type="submit" value="<?php echo $lang["Oui"];?>"/>
+				</form>
+				<div class="btnConfirmerCycle"><?php echo $lang["Non"];?></div>
+			</div>
 		</div>
 
 	</div>

@@ -217,4 +217,19 @@ $(document).ready(function()
 	{
 		fermerPopupCondition();
 	});
+
+	$("#btn_rdy_n").click(function()
+	{
+		var popupConfirmerCycle = $("#popup_confirmationCycle");
+		popupConfirmerCycle.css("display","block");
+		popupConfirmerCycle.css("opacity",0);
+		popupConfirmerCycle.animate({opacity: 1},300);
+	});
+
+	$("#popup_confirmationCycle .btnConfirmerCycle").click(function()
+	{
+		$("#popup_confirmationCycle").animate({opacity: 0},300,function(){
+		$(this).css("display","none");
+		});
+	});
 });

@@ -20,8 +20,8 @@ else
 	updateInformationsSession();
 	updateDateAndTime();
 
-	if(!isset($_GET['action']))
-		die();
+	if(empty($_GET['action']))
+		die("IDAction not defined");
 	else
 	{
 		$idAction = $_GET['action'];
@@ -41,5 +41,6 @@ else
 	// Action 2: Voyager
 	// Action 3: Explorer la région
 	// Action 4: Répondre a un evenement complexe
+	// Action 5: Etre prêt a passer au cycle suivant
 }
 ?>
