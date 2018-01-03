@@ -34,15 +34,18 @@
 	
 ?>
 
-<div>
-	<form action="deconnexionAdminPartie.php">
-		<input id="deconnexion" type="submit" value="retourner à la selection des parties"/>
-	</form>
-</div>
-
 <div id="blocAdminPartie">
 	<div id="title">Partie N° <?php echo $IDPartie;?></div>
 	<div id="jourEtCycle">Jour n° <?php echo $partie["Jour"];?> - Cycle n° <?php echo $partie["Cycle"];?></div>
+
+	<div id="menuTopBar">
+		<form action="deconnexionAdminPartie.php">
+			<input id="deconnexion" class="btnTopBar" type="submit" value="Retour"/>
+		</form>
+		<form onsubmit="return confirm('Etes-vous sûrs de vouloir passer au cycle suivant?');" action="cycleSuivant.php">
+			<input class="btnTopBar" type="submit" value="Passer Cycle"/>
+		</form>
+	</div>
 
 	<div id="blocPersonnages">
 		<?php
@@ -53,7 +56,20 @@
 				?>
 					<div class="blocPersonnage" id="blocPersonnage_<?php echo $personnage["IDHeros"];?>">
 						<div class="zoneNom"><?php echo "<b>".$hero["Prenom"]."</b> (".$joueur["Login"].")";?> <img class="iconeRdy" width=15px height=15px src='../images/button_Nready.png'/></div>
-						<div class='image_personnage' style='background-image:url(../images/Personnage_portrait/Personnage_Portrait_<?php echo $hero["ID"]; ?>.png);'></div>
+
+						<div class="bloc_1">
+							<div class='image_personnage' style='background-image:url(../images/Personnage_portrait/Personnage_Portrait_<?php echo $hero["ID"]; ?>.png);'></div>
+							<div class="bloc_carac">
+								<div class="carac_perso"><span style="color:green;">PA</span>:<span class="PAActuel">?</span>/<span class="PAMax">?</span></div>
+								<div class="carac_perso"><span style="color:cyan;">PM</span>:<span class="PMActuel">?</span>/<span class="PMMax">?</span></div>
+								<div class="carac_perso"><span style="color:red;">PV</span>:<span class="PVActuel">?</span>/<span class="PVMax">?</span></div>
+								<div class="carac_perso"><span style="color:purple;">MP</span>:<span class="MPActuel">?</span>/<span class="MPMax">?</span></div>
+
+								<div class="region_perso">Lieu:<span class="nom_region_perso">???</span></div>
+							</div>
+						</div>
+						<div class="bloc_2">
+						</div>
 					</div>
 				<?php
 			}

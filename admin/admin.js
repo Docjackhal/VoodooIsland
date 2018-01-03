@@ -1,3 +1,23 @@
+// Charge en js les datas du jeu (infos items, regions etc)
+updateGlobalesDatas = function()
+{
+	console.log("UPDATE GLOBAL");
+	$.ajax("adminAjax.php",
+		{
+			data:{"action":"UpdateGlobalDatas"},
+			cache:false,
+			success:function(data)
+			{
+				VI.datas = data;
+				updateInfosPartie();		
+			},
+			error:function(datas)
+			{
+				alert("Ajax error");
+			}
+		});
+}
+
 updateInfosPartie = function()
 {
 	console.log("UPDATE");
@@ -15,7 +35,8 @@ updateInfosPartie = function()
 			}
 		});
 
-	window.setTimeout(updateInfosPartie,3000);
+	var timeToUpdate = 10000;
+	window.setTimeout(updateInfosPartie,timeToUpdate);
 	if (!window.requestAnimationFrame) 
 	{
 			window.requestAnimationFrame = ( function()
@@ -26,16 +47,17 @@ updateInfosPartie = function()
 				window.msRequestAnimationFrame ||
 				function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element )
 				{				
-					window.setTimeout( callback, 3000 / 40 );			
+					window.setTimeout( callback, timeToUpdate / 40 );			
 				};
 			}
 		)();
 	}
 }
 
+var VI = {};
 $(document).ready(function()
 {
-	updateInfosPartie();
+	updateGlobalesDatas();
 });
 
 traiterDonneesUpdatesInfosPartie = function(data)
@@ -43,9 +65,21 @@ traiterDonneesUpdatesInfosPartie = function(data)
 	var personnages = data["Personnages"];
 	for(IDPersonnage in personnages)
 	{
+		var IDDivBlocPerso = "#blocPersonnage_"+IDPersonnage;
 		var personnage = personnages[IDPersonnage];
-		var blocPrincipal = $("#blocPersonnage_"+IDPersonnage);
+		var blocPrincipal = $(IDDivBlocPerso);
 
-		$("#blocPersonnage_"+IDPersonnage+" .iconeRdy").attr("src","../images/"+((personnage["PretCycleSuivant"] == 'o')?"button_ready":"button_Nready")+".png");
+		$(IDDivBlocPerso+" .iconeRdy").attr("src","../images/"+((personnage["PretCycleSuivant"] == 'o')?"button_ready":"button_Nready")+".png");
+		
+		//Carac
+		$(IDDivBlocPerso+" .PAActuel").html(personnage["PaActuel"]);
+		$(IDDivBlocPerso+" .PAMax").html(personnage["PaMax"]);
+		$(IDDivBlocPerso+" .MPActuel").html(personnage["MPActuel"]);
+		$(IDDivBlocPerso+" .MPMax").html(personnage["MPMax"]);
+		$(IDDivBlocPerso+" .PVActuel").html(personnage["PvActuel"]);
+		$(IDDivBlocPerso+" .PVMax").html(personnage["PvMax"]);
+		$(IDDivBlocPerso+" .PMActuel").html(personnage["PmActuel"]);
+		$(IDDivBlocPerso+" .PMMax").html(personnage["PmMax"]);
+		$(IDDivBlocPerso+" .nom_region_perso").html(VI.datas.Regions[personnage["RegionActuelle"]]["Nom"]);
 	}
 }

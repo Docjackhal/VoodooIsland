@@ -91,7 +91,7 @@
 #blocAdminPartie
 {
 	width: 1280px;
-	height: 800px;
+	height: 845px;
 	border: 4px solid black;
 	border-radius: 10px;
 	margin-left: auto;
@@ -103,18 +103,19 @@
 	text-align: center;
 }
 
-#deconnexion
+.btnTopBar
 {
 	font-family: 'Chelsea Market', cursive;
 	text-align: center;
-	font-size: 18px;
-	border: 4px solid black;
-	border-radius: 10px;
+	font-size: 20px;
+	border-right: 2px solid black;
 	cursor: pointer;
 	background-color: white;
+	min-width:75px;
+	float:left;
 }
 
-#deconnexion:hover
+.btnTopBar:hover
 {
 	background-color: red;
 	color: white;
@@ -135,16 +136,57 @@
 #blocAdminPartie #blocPersonnages .blocPersonnage
 {
 	border: 2px solid black;
-	height: 150px;
 	width: 24.5%;
 	float: left;
 }
 
 #blocAdminPartie #blocPersonnages .blocPersonnage .image_personnage
 {
-	width:50%;
+	width:160px;
 	height:130px;
-	border-bottom: 4px solid black;
 	background-size: cover;
 	border-right:2px solid black;
+	float: left;
+}
+
+.blocPersonnage .bloc_carac
+{
+	text-align:center;
+    height: 130px;
+    width: 150px;
+    float: left;
+}
+
+.blocPersonnage .carac_perso
+{
+	float: left;
+	margin-left:13px;
+	margin-top:5px;
+}
+
+.blocPersonnage .bloc_1
+{
+	height:132px;
+	border-bottom:2px solid black;
+}
+
+.blocPersonnage .bloc_2
+{
+	width:100%;
+	height:208px;
+}
+
+#menuTopBar
+{
+    width: 95%;
+    height: 30px;
+    border: 2px solid black;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+#menuTopBar form
+{
+	display:inline;
 }
