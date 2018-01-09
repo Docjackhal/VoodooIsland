@@ -100,8 +100,7 @@ function run()
 	if(game.mode == "local")
 	{
 		drawRegion(game.ctx);
-		drawLieux(game.ctx);
-		drawPersonnages(game.ctx);
+		drawLieuxEtPersonnages(game.ctx)
 	}
 	else if(game.mode == "map")
 	{
@@ -361,33 +360,38 @@ function mouseUp(e)
 	game.mouseY = e.pageY-game.jqCanvas.offset().top;
 
 	if(game.regionSelected != -1)
-	{
-		clickSurRegion();
-	}
+		clickSurRegion(game.regionSelected);
+	else if(game.lieuSelected != -1)
+		clickSurLieu(game.lieuSelected);
 }
 
-function clickSurRegion()
+function clickSurRegion(region)
 {
-	if(game.regionSelected != -1 && game.regionSelected != game.region.ID)
+	if(region != -1 && region != game.region.ID)
 	{
-		if(game.accessibilite[game.regionSelected] == 1)
+		if(game.accessibilite[region] == 1)
 		{
 			var popup = document.getElementById("popup_validation_voyage");
 			var zoneNom = document.getElementById("name_region");
 			var input = document.getElementById("inputIdRegion"); 
 			if(zoneNom != null)
 			{
-				zoneNom.innerHTML = game.regions[game.regionSelected]['Nom'];
-				input.value = game.regionSelected;
+				zoneNom.innerHTML = game.regions[region]['Nom'];
+				input.value = region;
 			}		
 			popup.style.display = "block";
 		}
-		else if(game.accessibilite[game.regionSelected] == 2)
+		else if(game.accessibilite[region] == 2)
 		{
 			var popup = document.getElementById("popup_interdiction_voyage");
 			popup.style.display = "block";
 		}
 	}
+}
+
+function clickSurLieu(lieu)
+{
+	console.log(lieu);
 }
 
 function initialisationAccessibiliteRegions()
@@ -425,18 +429,6 @@ function initialisationLieuxVisibles()
 	game.canvasDetectionLieux.ctx = game.canvasDetectionLieux.getContext("2d"); 
 }
 
-function drawLieux(ctx)
-{
-	for(var IDLieu in game.lieuxDecouverts)
-	{
-		var lieu = game.lieuxDecouverts[IDLieu];
-		var image = (game.lieuSelected != -1 && game.lieuSelected.ID == IDLieu) ? lieu.imageHover : lieu.image;
-
-		if(image.width > 0)
-			ctx.drawImage(image,0,0,image.width,image.height,0,0,image.width,image.height);
-	}
-}
-
 function verificationSourisSurLieu()
 {
 	var x = game.mouseX;
@@ -452,7 +444,6 @@ function verificationSourisSurLieu()
 		{
 			var personnage = game.personnagesDansRegion[i];
 			var image = personnage.image;
-			var ratio = personnage.ratio;
 
 			if(image.width > 0)
 			{
@@ -461,7 +452,7 @@ function verificationSourisSurLieu()
 
 				if(x2 >= 0 && x2 <= game.canvasDetectionPersonnages.width && y2 >= 0 && y2 <= game.canvasDetectionPersonnages.height)
 				{
-					game.canvasDetectionPersonnages.ctx.drawImage(image, 0, 0, image.width,image.height,0,0,image.width*ratio,image.height*ratio);
+					game.canvasDetectionPersonnages.ctx.drawImage(image, 0, 0, image.width,image.height,0,0,image.width,image.height);
 					var id = game.canvasDetectionPersonnages.ctx.getImageData(0,0, image.width, image.height);  //Get the pi
 					var alpha = id.data[(y2*image.width+x2)*4+3]; // Recupere l'alpha entre 0 et 255
 
@@ -510,22 +501,20 @@ function verificationSourisSurLieu()
 
 function initialisationPersonnages()
 {
-	var urlImagesPersonnages = "images/Personnage_full/";
-	var ratio = 0.25;
-	var w = 300*ratio;
-	var	h = 500*ratio;
+	var urlImagesPersonnages = "images/Regions/Region"+game.region['ID']+"/";
+
+	var w = 800;
+	var h = 614;
+
 	for(var IDPersonnage in game.personnagesDansRegion)
 	{
 		var personnage = game.personnagesDansRegion[IDPersonnage];
 		personnage.image = new Image();
-		personnage.image.src = urlImagesPersonnages+"Personnage_Full_"+personnage.IDHeros+".png";
-		personnage.imageHover = new Image();
-		personnage.imageHover.src = urlImagesPersonnages+"Personnage_Full_"+personnage.IDHeros+"_hover.png";
+		personnage.image.src = urlImagesPersonnages+"Perso_"+personnage.IDHeros+".png";
 
 		// Coordonées
-		personnage.ratio = ratio;
-		personnage.x = Math.floor((Math.random() * (game.canvas.width-personnage.image.width*personnage.ratio)) + 0);
-		personnage.y = Math.floor((Math.random() * (game.canvas.height-personnage.image.height*personnage.ratio)) + 0);
+		personnage.x = 0;
+		personnage.y = 0;
 	}
 
 	// Création d'un canvas qui servira a la detection de pixel non transparents pour le hover des régions
@@ -535,15 +524,59 @@ function initialisationPersonnages()
 	game.canvasDetectionPersonnages.ctx = game.canvasDetectionPersonnages.getContext("2d"); 
 }
 
-function drawPersonnages(ctx)
+function drawPersonnage(ctx, IDPersonnage)
 {
-	for(var IDPersonnage in game.personnagesDansRegion)
-	{
-		var personnage = game.personnagesDansRegion[IDPersonnage];
-		var image = (game.personnageSelected != -1 && game.personnageSelected.IDHeros == IDPersonnage) ? personnage.imageHover : personnage.image;
+	var personnage = game.personnagesDansRegion[IDPersonnage];
+	var image = personnage.image;
+	
+	ctx.globalAlpha = (game.personnageSelected != -1 && game.personnageSelected.IDHeros) ? 0.85 : 1;
 
-		if(image.width > 0)
-			ctx.drawImage(image,0,0,image.width,image.height,personnage.x,personnage.y,image.width*personnage.ratio,image.height*personnage.ratio);
+	if(image.width > 0)
+		ctx.drawImage(image,0,0,image.width,image.height,personnage.x,personnage.y,image.width,image.height);
+
+	ctx.globalAlpha = 1;
+}
+
+function drawLieu(ctx, IDLieu)
+{
+	var lieu = game.lieuxDecouverts[IDLieu];
+	var image =  lieu.image;
+	ctx.globalAlpha = (game.lieuSelected != -1 && game.lieuSelected.ID == lieu.ID) ? 0.85 : 1;
+
+	if(image.width > 0)
+		ctx.drawImage(image,0,0,image.width,image.height,0,0,image.width,image.height);
+
+	ctx.globalAlpha = 1;
+}
+
+function drawLieuxEtPersonnages(ctx)
+{
+	var configZindex = game.configZindexRegion["Region"+game.region['ID']];
+
+	for(var i = 0; i < configZindex.length;i++)
+	{
+		var entite = configZindex[i];
+		for(var y in entite)
+		{
+			var typeEntite = y;
+			var numeroEntite = entite[y];
+			if(typeEntite == "perso")
+			{
+				if(game.personnagesDansRegion[numeroEntite] != null)
+					drawPersonnage(ctx,numeroEntite);
+			}
+			else if(typeEntite == "lieu")
+			{
+				for(IDLieu in game.lieuxDecouverts)
+				{
+					if(game.lieuxDecouverts[IDLieu].IDTypeLieu == numeroEntite)
+					{
+						drawLieu(ctx,IDLieu);
+						break;
+					}					
+				}			
+			}
+		}		
 	}
 }
 

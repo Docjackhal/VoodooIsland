@@ -443,8 +443,9 @@ function PM($cout)
 	</div>
 </body>
 
-
 <script type="text/javascript" src="js/run.js"></script>
+<script type="text/javascript" src="js/configZindexRegions.js"></script>
+
 </html>
 
 <?php
