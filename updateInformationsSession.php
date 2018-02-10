@@ -123,6 +123,8 @@ function updateInformationsSession()
 			}
 			break;
 		}
+
+		$_SESSION["LieuxDansRegion"][$IDLieu]["NomFR"] = $_SESSION["TypeLieux"][$lieu["IDTypeLieu"]]["NomFR"];
 	}
 
 	// Récupération des personnages dans la région
