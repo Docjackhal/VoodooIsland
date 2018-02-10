@@ -508,7 +508,7 @@ body
 	background-color: grey;
 }
 
-#game #popup_validation_voyage, #game #popup_interdiction_voyage, #game #popup_validation_exploration, #game #popup_message , #game #popup_evenement , #game #popup_evenement_complexe , #game #popup_condition , #game #popup_confirmationCycle
+.popup
 {
 	background-color: white;
 	border: 4px solid black;
@@ -521,7 +521,6 @@ body
 	top: 180px;
 	display: none;
 }
-
 #game #popup_message , #game #popup_evenement, #game #popup_evenement_complexe
 {
 	display: block;

@@ -256,7 +256,7 @@ function PM($cout)
 					?>
 				</div>
 			</div>	
-			<div id='popup_interdiction_voyage'>
+			<div id='popup_interdiction_voyage' class='popup'>
 				<div class='popup_content'>
 					Cette région n'est pas accessible depuis l'endroit où vous vous trouvez.
 					<div class='content_button'>
@@ -264,7 +264,7 @@ function PM($cout)
 					</div>";
 				</div>
 			</div>
-			<div id='popup_validation_exploration'>
+			<div id='popup_validation_exploration' class='popup'>
 				<div class='popup_content'>
 					Voulez-vous explorer cette zone?
 					<div class='content_button'>
@@ -275,13 +275,21 @@ function PM($cout)
 					</div>
 				</div>
 			</div>		
-
+			<div id='popup_lieu' class='popup'>
+				<div class='popup_content'>
+					<div id="popup_lieu_close" class="popup_close">X</div>
+					<div id='popup_lieu_titre'></div>
+					<div id='popup_lieu_illustration'></div>
+					<div id='popup_lieu_infos'> </div>
+					<div id='popup_lieu_actions'> </div>
+				</div>
+			</div>
 			<?php
 			// Popup Message Simple
 				if(!empty($_SESSION["Message"]))
 				{
 					?>
-					<div id='popup_message'>
+					<div id='popup_message' class='popup'>
 						<div class='popup_content'>
 							<?php echo $_SESSION["Message"];?>
 							<div class='content_button'>
@@ -300,7 +308,7 @@ function PM($cout)
 					$message = $_SESSION["PopupEvenement"]["Message"];
 					$texteBouton = (isset($_SESSION["PopupEvenement"]["TexteReponse"])) ? $_SESSION["PopupEvenement"]["TexteReponse"] : "Daccord";
 					?>
-					<div id='popup_evenement'>
+					<div id='popup_evenement' class='popup'>
 						<div class='popup_content'>
 							<div class="titrePopupEvenement">! Événement !</div>
 							<div class="titreEvenement"><?php echo $titre;?></div>
@@ -349,7 +357,7 @@ function PM($cout)
 					$titre = $_SESSION["PopupEvenementComplexe"]["Titre"];
 					$message = $_SESSION["PopupEvenementComplexe"]["Message"];
 					?>
-					<div id='popup_evenement_complexe'>
+					<div id='popup_evenement_complexe' class='popup'>
 						<div class='popup_content'>				
 							<div class="titrePopupEvenement">! Événement !</div>
 							<div class="titreEvenement"><?php echo $titre;?></div>
@@ -399,13 +407,13 @@ function PM($cout)
 		</div>
 
 		<!-- Popup Inventaire -->
-		<div id="popup_inventaire">	
+		<div id="popup_inventaire" class='popup'>	
 			<div id="popup_inventaire_titre">Inventaire</div>
 			<div id="popup_inventaire_close" class="popup_close">X</div>
 			<div id="popup_inventaire_contenu"><?php echo genererHTMLInventaireJoueur();?></div>
 		</div>
 
-		<div id="popup_zoomItem">
+		<div id="popup_zoomItem" class='popup'>
 			<div id="popup_zoomItem_titre">Titre</div>
 			<div id="popup_zoomItem_close" class="popup_close">X</div>
 			<div id="popup_zoomItem_contenu">
@@ -417,7 +425,7 @@ function PM($cout)
 		</div>
 
 		<!-- Popup Condition/Etats -->
-		<div id="popup_condition">
+		<div id="popup_condition" class='popup'>
 			<div class='condition_icone'></div>
 			<div class='condition_titre'>Titre</div>
 			<div class='condition_description'>Description</div>
@@ -425,7 +433,7 @@ function PM($cout)
 		</div>
 
 		<!-- Popup Confirmation Cycle Suivant -->
-		<div id="popup_confirmationCycle">
+		<div id="popup_confirmationCycle" class='popup'>
 			<div class="confirmationCycle_description"><?php echo $lang["DescriptionConfirmationChangementCycle"];?></div>
 			<div class="ico_btn_ready"></div>
 			<div class="confirmationCycle_blocChoix">
