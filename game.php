@@ -454,6 +454,15 @@ function PM($cout)
 <script type="text/javascript" src="js/run.js"></script>
 <script type="text/javascript" src="js/configZindexRegions.js"></script>
 
+<!--Fragments langues JS-->
+<script>
+	window.lang = {};
+	<?php
+		foreach($lang as $libele=>$content)
+			echo "lang['".$libele."'] = \"".$content."\";";
+	?>
+</script>
+
 </html>
 
 <?php
