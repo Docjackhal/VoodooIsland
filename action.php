@@ -42,5 +42,6 @@ else
 	// Action 3: Explorer la région
 	// Action 4: Répondre a un evenement complexe
 	// Action 5: Etre prêt a passer au cycle suivant
+	// Action 6: Pecher dans un banc de poisson
 }
 ?>

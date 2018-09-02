@@ -191,6 +191,7 @@ function fadeOn(ctx)
 			document.getElementById("btn_voyager").innerHTML = "Voyager";
 			document.getElementById("btn_explorer").style.display = "block";
 			game.mode = "local";
+			game.regionSelected = -1;
 		}		
 		else
 		{
@@ -391,7 +392,7 @@ function clickSurRegion(region)
 
 function clickSurLieu(lieu)
 {
-	console.log(lieu);
+	ouvrirPopupLieu(lieu);
 }
 
 function initialisationAccessibiliteRegions()

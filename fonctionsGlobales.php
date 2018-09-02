@@ -9,6 +9,11 @@ function getCoutExploration()
 	return COUT_EXPLORATION;
 }
 
+function getCoutPeche()
+{
+	return COUT_PECHE;
+}
+
 
 function updateDateAndTime()
 {

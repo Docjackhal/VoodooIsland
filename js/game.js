@@ -168,6 +168,29 @@ function fermerPopupCondition()
 	});
 }
 
+function ouvrirPopupLieu(lieu)
+{
+	console.log(lieu);
+	var IDTypeLieu = lieu.IDTypeLieu;
+	var popupLieu = $("#popup_lieu");
+
+	//Contenu commun
+	popupLieu.find("#popup_lieu_titre").html(lieu.Nom);
+	popupLieu.find("#popup_lieu_illustration").css("background-image","url('images/lieux/Visuels/visuels_"+IDTypeLieu+".png')");
+	popupLieu.find("#popup_lieu_description").html(lieu.Description);
+
+	//Contenu unique (lieux.js)
+	var contenuInfos = genererContenuInfosLieu(lieu);
+	var contenuActions = genererContenuActionLieu(lieu);
+
+	popupLieu.find("#popup_lieu_infos").html(contenuInfos);
+	popupLieu.find("#popup_lieu_actions").html(contenuActions);
+
+	popupLieu.css("display","block");
+	popupLieu.css("opacity",0);
+	popupLieu.animate({opacity: 1},300);
+}
+
 // Binds
 $(document).ready(function()
 {
@@ -216,6 +239,13 @@ $(document).ready(function()
 	$("#popup_condition_close").click(function()
 	{
 		fermerPopupCondition();
+	});
+
+	$("#popup_lieu_close").click(function()
+	{
+		$("#popup_lieu").animate({opacity: 0},300,function(){
+			$(this).css("display","none");
+		});
 	});
 
 	$("#btn_rdy_n").click(function()

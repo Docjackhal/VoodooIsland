@@ -4,6 +4,6 @@
 	function lang($libeleFragment)
 	{
 		global $lang;
-		return (!empty($lang[$libeleFragment])) ? $lang[$libeleFragment] : "STR_NOT_FOUNT: ".$libeleFragment;
+		return (!empty($lang[$libeleFragment])) ? $lang[$libeleFragment] : "STR_NOT_FOUND: ".$libeleFragment;
 	}
 ?>

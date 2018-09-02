@@ -172,6 +172,8 @@ function PM($cout)
 <link href="style/game.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/png" href="images/fav.png" />
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/lang.js"></script>
+<script type="text/javascript" src="js/lieux.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
 </head>
 
@@ -197,11 +199,16 @@ function PM($cout)
 
 			<div id='bloc_etats'>
 				<?php
-					foreach($_SESSION["Conditions"] as $IDCondition=>$condition)
+					if(!empty($_SESSION["Conditions"]))
 					{
-						$parametresCondition = $_SESSION["ParametresConditions"][$IDCondition];
-						echo "<div class='bloc_condition bloc_condition_".$parametresCondition["Type"]."' IDCondition='".$IDCondition."' id='bloc_condition_".$IDCondition."' style='background-image:url(images/Conditions/condition_".$IDCondition.".png);'></div>";
+					foreach($_SESSION["Conditions"] as $IDCondition=>$condition)
+						{
+							$parametresCondition = $_SESSION["ParametresConditions"][$IDCondition];
+							echo "<div class='bloc_condition bloc_condition_".$parametresCondition["Type"]."' IDCondition='".$IDCondition."' id='bloc_condition_".$IDCondition."' style='background-image:url(images/Conditions/condition_".$IDCondition.".png);'></div>";
+						}
 					}
+					else
+						echo "Vous êtes en bonne santé.";
 				?>		
 			</div>
 
@@ -231,7 +238,7 @@ function PM($cout)
 				<div class='bloc_menu_bas' id="bloc_menu_bas_3"></div>
 				<div class='bloc_menu_bas' id="bloc_menu_bas_4"></div>
 			</div>
-			<div id='popup_validation_voyage'>
+			<div id='popup_validation_voyage' class="popup">
 				<div class='popup_content'>
 					<?php
 						if($_SESSION['PmActuel'] >= getCoutDeplacement())
@@ -260,8 +267,8 @@ function PM($cout)
 				<div class='popup_content'>
 					Cette région n'est pas accessible depuis l'endroit où vous vous trouvez.
 					<div class='content_button'>
-						<button class='submit submit_popup' onclick='SwitchPopupInterdictionVoyage()'>Fermer</button>
-					</div>";
+						<button class='submit submit_popup' onclick='SwitchPopupInterdictionVoyage();'>Fermer</button>
+					</div>
 				</div>
 			</div>
 			<div id='popup_validation_exploration' class='popup'>
@@ -276,12 +283,13 @@ function PM($cout)
 				</div>
 			</div>		
 			<div id='popup_lieu' class='popup'>
-				<div class='popup_content'>
-					<div id="popup_lieu_close" class="popup_close">X</div>
+				<div class='popup_content'>	
+					<div id="popup_lieu_close" class="popup_close">X</div>		
 					<div id='popup_lieu_titre'></div>
 					<div id='popup_lieu_illustration'></div>
-					<div id='popup_lieu_infos'> </div>
-					<div id='popup_lieu_actions'> </div>
+					<div id='popup_lieu_description'></div> 					
+					<div id='popup_lieu_infos'></div>
+					<div id='popup_lieu_actions'> </div>				
 				</div>
 			</div>
 			<?php

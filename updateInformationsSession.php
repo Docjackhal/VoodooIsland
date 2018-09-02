@@ -1,4 +1,8 @@
 <?php
+include_once("fonctionsLangue.php");
+include_once("fonctionsGlobales.php");
+include_once("prive/config.php");
+
 function updateInformationsSession()
 {
 	global $mysql_ip, $mysql_user, $mysql_password, $base, $PT;
@@ -111,6 +115,7 @@ function updateInformationsSession()
 				if (!$retour2) 
 					die('Requête invalide : '.$requete2 . mysqli_error($mysqli));
 				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"] = mysqli_fetch_assoc($retour2);
+				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["CoutPeche"] = getCoutPeche();
 			}
 			break;
 			case 5: // Sources d'eau
@@ -124,7 +129,8 @@ function updateInformationsSession()
 			break;
 		}
 
-		$_SESSION["LieuxDansRegion"][$IDLieu]["NomFR"] = $_SESSION["TypeLieux"][$lieu["IDTypeLieu"]]["NomFR"];
+		$_SESSION["LieuxDansRegion"][$IDLieu]["Nom"] = lang("Lieu_".$lieu["IDTypeLieu"]."_Nom");
+		$_SESSION["LieuxDansRegion"][$IDLieu]["Description"] = lang("Lieu_".$lieu["IDTypeLieu"]."_Description");
 	}
 
 	// Récupération des personnages dans la région

@@ -276,8 +276,9 @@ body
 	width:auto;
 	height: 175px;
     border-bottom: 4px solid black;
-    overflow-y:scroll;
-    background-color: grey;
+    overflow-y:auto;
+    background-color: white;
+    text-align: center;
 }
 
 .bloc_condition
@@ -868,4 +869,52 @@ body
 	margin-right:auto;
 	margin-left:auto;
 	margin-top:5px;
+}
+
+#game #popup_lieu
+{
+	height: auto;
+}
+
+#game #popup_lieu #popup_lieu_close
+{
+	margin-top: -4px;
+    margin-left: 440px;
+    font-size: 19px;
+}
+
+#game #popup_lieu #popup_lieu_titre
+{
+	font-weight: bold;
+    border-bottom: 2px solid black;
+    margin-top: -13px;
+}
+
+#game #popup_lieu #popup_lieu_illustration
+{
+	 height: 150px;
+	 border-bottom: 2px solid black;
+}
+
+#game #popup_lieu #popup_lieu_description
+{
+	font-style:italic;
+	margin-bottom: 10px;
+}
+
+.divSubmit
+{
+	border: 2px solid black;
+    border-radius: 20px;
+    width: 130px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.divSubmit:hover
+{
+	background-color: black;
+	color:white;
 }
