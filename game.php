@@ -84,7 +84,13 @@ function genererBarreStatistique($nomStat)
 
 	$div = "<div class='stat_bloc' id='stat_".$nomStat."'>";
 
-		$div .= "<div class='stat_barre' id='stat_barre_".$nomStat."'>";
+		$title = lang("Tooltip_BarresStats_".$nomStat);
+		if($nomStat == "Pa")
+			$title = str_replace("%Number%", GAIN_PA_CYCLE, $title);
+		if($nomStat == "Pm")
+			$title = str_replace("%Number%", GAIN_PM_CYCLE, $title);
+
+		$div .= "<div title=\"".$title."\" class='stat_barre' id='stat_barre_".$nomStat."'>";
 		$div .= "<div class='stat_barre_filter' id='stat_barre_".$nomStat."_filter' style='height:".$pourcentage."%;bottom:".$bottom."px;'></div>";
 		$div .= "</div>";
 
@@ -433,6 +439,7 @@ function PM($cout)
 				</div>
 			</div>
 			<div id="popup_zoomItem_description"></div>
+			<div id="popup_zoomItem_actionsEtInfos"></div>
 		</div>
 
 		<!-- Popup Condition/Etats -->

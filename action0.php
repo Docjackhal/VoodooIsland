@@ -53,6 +53,8 @@ switch($idAction)
 					}
 					else
 						$ref = "lobby.php?";
+
+					mysqli_commit($mysqli);
 				}
 				else
 					$ref = "lobby.php?e=0&t=0";
@@ -85,6 +87,8 @@ switch($idAction)
 			$_SESSION['IDPartieEnCours'] = -1;
 			$_SESSION['PartieEnCours'] = array();
 			$_SESSION['IDPersoActuel'] = -1;
+
+			mysqli_commit($mysqli);
 		}
 	}
 		break;
@@ -110,13 +114,15 @@ switch($idAction)
 					$_SESSION['RegionActuelle'] = $idRegionCible;
 					
 					updateCarac($mysqli,$_SESSION["IDPersonnage"],"Pm",-getCoutDeplacement());
+
+					mysqli_commit($mysqli);
 				}
 			}
 			else
-				trigger_error("Tentative de voyage: PM insuffisants");
+				$_SESSION["Message"] = "<span class='red'>".lang("ErreurPMPourAction")."</span>";
 		}
 		else
-			trigger_error("Tentative de voyage: Region innexistante");
+			$_SESSION["Message"] = "<span class='red'>Erreur: Région innexistante</span>";
 	}
 	break;
 	case 3: // Explorer la région
@@ -136,9 +142,10 @@ switch($idAction)
 				$_SESSION["Message"] = "Malheuresement, vous n'avez rien trouvé.";
 
 			updateCarac($mysqli,$_SESSION["IDPersonnage"],"Pa",-getCoutExploration());
+			mysqli_commit($mysqli);
 		}
 		else
-			$_SESSION["Message"] = "Vous n'avez plus assez d'actions pour faire ça !";
+			$_SESSION["Message"] = "<span class='red'>".lang("ErreurAPPourAction")."</span>";
 	}
 	break;
 	case 4: // Répondre a un evenement complexe
@@ -148,6 +155,7 @@ switch($idAction)
 
 		$_SESSION["PopupEvenementComplexe"] = array(); // Destruction de la popup de choix complexe
 		effectueResultatChoixEvenementComplexe($mysqli,$IDEvent,$IDReponse);
+		mysqli_commit($mysqli);
 	}
 	break;
 	case 5: //Etre prêt a passer au cycle suivant
@@ -155,6 +163,7 @@ switch($idAction)
 		$requete = "UPDATE ".$PT."personnages SET PretCycleSuivant='o' WHERE IDHeros = '".$_SESSION['IDPersonnage']."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide : ' . mysqli_error());
+		mysqli_commit($mysqli);
 	}
 	break;
 	case 6://Pecher dans un banc de poisson
@@ -222,7 +231,7 @@ switch($idAction)
 						//Modification du banc
 						$requete = "UPDATE ".$PT."parametresBancsPoissons SET NbPoissons = NbPoissons-1 WHERE IDLieu = ".$banc["ID"];
 						$retour = mysqli_query($mysqli,$requete);
-						if (!$retour) die('Requête invalide : ' . mysqli_error());
+							if (!$retour) die('Requête invalide : ' . mysqli_error());
 					}
 					else
 					{
@@ -230,16 +239,69 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_6_PecheInfructueuse_Titre");
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_6_PecheInfructueuse_Description");
 					}
+					mysqli_commit($mysqli);
 				}
 				else
-					$_SESSION["Message"] = lang("ErreurAPPourAction");
-
+					$_SESSION["Message"] = "<span class='red'>".lang("ErreurAPPourAction")."</span>";
 			}
 			else
-				$_SESSION["Message"] = "Erreur Pêche: Banc de poisson non découvert.";
+				$_SESSION["Message"] = "<span class='red'>Erreur Pêche: Banc de poisson non découvert.</span>";
 		}
 		else
-			$_SESSION["Message"] = "Erreur Pêche: Banc de poisson introuvable.";
+			$_SESSION["Message"] = "<span class='red'>Erreur Pêche: Banc de poisson introuvable.</span>";
+	}
+	break;
+	case 7://Creuser dans un emplacement de campement
+	{
+		$IDLieu = getIDLieuDeTypeDansRegion(2);
+		if($IDLieu > -1)
+		{
+			$lieu = $_SESSION["LieuxDansRegion"][$IDLieu];
+			if($lieu["IDParametrageLieu"] == -1)
+			{
+				//Verification de la pelle
+				$pellePossedee = (nbItemsDansInventaire(3)>0);
+				if($pellePossedee)
+				{
+					//Verification du cout
+					$cout = COUT_INSTALLATION_CAMPEMENT;
+					if($_SESSION["PaActuel"] >= $cout)
+					{
+						//Tout est ok
+						updateMyCarac($mysqli,"Pa",-$cout);
+
+						//Update du lieu
+						$requete = "UPDATE ".$PT."lieux SET IDParametrageLieu = -2 WHERE ID = ".$IDLieu;
+						$retour = mysqli_query($mysqli,$requete);
+							if (!$retour) die('Requête invalide : ' . mysqli_error());
+
+						$_SESSION["PopupEvenement"] = array();
+						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_7_Creuser_Titre");
+						$_SESSION["PopupEvenement"]["Message"] = lang("Action_7_Creuser_Description");
+
+						mysqli_commit($mysqli);
+					}
+					else
+						$_SESSION["Message"] = "<span class='red'>".lang("ErreurAPPourAction")."</span>";
+				}
+				else
+					$_SESSION["Message"] = "<span class='red'>Erreur : Il vous faut une pelle pour creuser un emplacement de campement.</span>";
+			}
+			else
+				$_SESSION["Message"] = "<span class='red'>Erreur : Emplacement de campement déjà creusé.</span>";
+		}
+		else
+			$_SESSION["Message"] = "<span class='red'>Erreur : Emplacement de campement introuvable.</span>";
+	}
+	break;
+	case 8://Installer un abris dans un emplacement de campement
+	{
+
+	}
+	break;
+	case 9://Installer la cuisine et terminer d'installer un campement
+	{
+
 	}
 	break;
 }

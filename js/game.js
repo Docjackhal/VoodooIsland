@@ -130,6 +130,16 @@ function initialiserPopupZoomItem(IDTypeItem,IDItem)
 	$("#popup_zoomItem_image").attr("src","images/items/item_"+IDTypeItem+".png");
 	$("#popup_zoomItem_description").html(typeItem["Description"]);
 
+	//Infos et actions au cas par cas pour chaque type d'item spécial
+	var infosEtActions = "";
+
+	if(typeItem.Categorie == "consommable")
+	{
+		infosEtActions += "<div>"+(getLang("DureeCycleConsommable")).replace("%Number%","<b>"+item.NombreCycles+"</b>")+"</div>";
+	}
+
+	$("#popup_zoomItem_actionsEtInfos").html(infosEtActions);
+
 	popupZoomItem.css("display","block");
 	popupZoomItem.css("opacity",0);
 	popupZoomItem.animate({opacity: 1},300);
@@ -191,6 +201,19 @@ function ouvrirPopupLieu(lieu)
 	popupLieu.css("display","block");
 	popupLieu.css("opacity",0);
 	popupLieu.animate({opacity: 1},300);
+}
+
+function nbItemsDansInventaire(typeItem)
+{
+	if(game.inventaire[typeItem] == undefined)
+		return 0;
+	else
+	{
+		var nb = 0;
+		for(i in game.inventaire[typeItem])
+			nb++;
+		return nb;
+	}
 }
 
 // Binds

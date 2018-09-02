@@ -100,6 +100,7 @@ function updateInformationsSession()
 	while($lieu = mysqli_fetch_assoc($retour))
 	{
 		$IDLieu = $lieu["ID"];
+		$lieu["Parametres"] = array();
 		$_SESSION["LieuxDansRegion"][$IDLieu] = $lieu;
 
 		if($lieu["EtatDecouverte"] == "ADecouvrir"  && empty($_SESSION["LieuxDecouverts"][$IDLieu]))
@@ -117,7 +118,10 @@ function updateInformationsSession()
 				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"] = mysqli_fetch_assoc($retour2);
 				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["CoutPeche"] = getCoutPeche();
 			}
-			break;
+			break;	
+			case 2: // Emplacement de campement
+				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["CoutInstallation"] = COUT_INSTALLATION_CAMPEMENT;
+			break;		
 			case 5: // Sources d'eau
 			{	
 				$requete2 = "SELECT * FROM ".$PT."parametresSourcesEau WHERE IDLieu = ".$IDLieu;

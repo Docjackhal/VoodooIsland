@@ -15,6 +15,7 @@ switch($_GET['action'])
 		$result['Inventaire'] =  $_SESSION["Inventaire"];
 		$result['TypesItems'] =  $_SESSION["TypesItems"];
 		$result['ParametresConditions'] =  $_SESSION["ParametresConditions"];
+		$result['Variables'] =  $_SESSION["Variables"];
 
 		// Lieux découverts
 		$lieuxDecouverts = array();

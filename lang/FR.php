@@ -21,6 +21,12 @@ $lang["Non"] = "Non";
 // ------------------------------- GAME.PHP ------------------------------------- //
 
 $lang["DescriptionConfirmationChangementCycle"] = "Vous allez indiquer au maitre du jeu que vous êtes prêts à passer au prochain cycle. Etes-vous sûrs?";
+$lang["DureeCycleConsommable"] = "Obtenu il y à %Number% cycles.";
+
+$lang["Tooltip_BarresStats_Pa"] = "Vos Points d'actions. Ils vous permettent d'éffectuer des actions et remontent de %Number% à chaque cycle.";
+$lang["Tooltip_BarresStats_Pm"] = "Vos Points de mouvements. Ils vous permettent de vous déplacer sur l'ile et remontent de %Number% à chaque cycle.";
+$lang["Tooltip_BarresStats_MP"] = "Votre santé mentale (Mental points). Elle représente votre santé psychique. Une valeur basse pourra entrainer de nombreuses complications.";
+$lang["Tooltip_BarresStats_Pv"] = "Votre santé (Points de Vie). Elle représente votre état physique. Une santé basse entrainera de nombreuses complications.";
 
 // ------------------------------- FIN GAME.PHP ------------------------------------- //
 
@@ -58,7 +64,16 @@ $lang["Lieu_1_Pecher"] = "Pêcher";
 
 
 $lang["Lieu_2_Nom"] = "Emplacement de campement";
-$lang["Lieu_2_Description"] = "Un emplacement idéal pour monter un camp de base. Il lui faudrait au moins deux ou trois choses pour être utilisable.";
+$lang["Lieu_2_Description"] = "Un emplacement idéal pour monter un camp de base. Il lui faudrait au moins deux ou trois choses pour être utilisable:Creuser le camp, un abris et de quoi installer une cuisine.";
+$lang["Lieu_2_PelleManquante"] = "Vous n'avez pas de quoi creuser.";
+$lang["Lieu_2_PelleObtenue"] = "Vous avez de quoi creuser.";
+$lang["Lieu_2_ToileManquante"] = "Vous n'avez pas de quoi faire un abris.";
+$lang["Lieu_2_ToileObtenue"] = "Vous avez de quoi faire un abris.";
+$lang["Lieu_2_MarmitteManquante"] = "Vous n'avez pas de quoi cuisiner.";
+$lang["Lieu_2_MarmitteObtenue"] = "Vous avez de quoi cuisiner.";
+$lang["Lieu_2_Creuser"] = "Creuser";
+$lang["Lieu_2_InstallerToile"] = "Installer l'abris";
+$lang["Lieu_2_InstallerMarmitte"] = "Installer la cuisine";
 
 $lang["Lieu_3_Nom"] = "Campement";
 $lang["Lieu_3_Description"] = "Votre base stratégique principale sur l'ile. D'ici, vous pouvez vous reposer, alimenter le feu et faire la cuisine.";
@@ -96,6 +111,7 @@ $lang["Lieu_12_Description"] = "Une ardente coulée de lave s'échappe de la cal
 
 //Pecher
 $lang["ErreurAPPourAction"] = "Vous n'avez pas assez de points d'actions pour faire ça.";
+$lang["ErreurPMPourAction"] = "Vous n'avez pas assez de PM pour voyager.";
 
 $lang["Action_6_PecheInfructueuse_Titre"] = "Pêche infructueuse";
 $lang["Action_6_PecheInfructueuse_Description"] = "Malheuresement, vous n'avez rien attrapé ce coup-ci. Personne ne vous en voudra (sauf vos compagnons peut-être).";
@@ -103,6 +119,9 @@ $lang["Action_6_PechePoissonCru_Titre"] = "Belle prise !";
 $lang["Action_6_PechePoissonCru_Description"] = "Après un glorieux combat, vous sortez de l'eau un beau poisson !";
 $lang["Action_6_PecheTortue_Titre"] = "Une carapace hors de l'eau !";
 $lang["Action_6_PecheTortue_Description"] = "Vous sortez de l'eau une tortue de mer ! C'est encore mieux qu'un poisson, non?";
+
+$lang["Action_7_Creuser_Titre"] = "Travaux de terrassement";
+$lang["Action_7_Creuser_Description"] = "Vous creusez le sable afin de préparer l'installation éventuelle d'un futur campement. Il vous faut maintenant de quoi installer un abri.";
 
 // ------------------------------- FIN ACTIONS ------------------------------------- //
 
