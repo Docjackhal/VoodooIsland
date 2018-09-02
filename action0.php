@@ -157,5 +157,90 @@ switch($idAction)
 		if (!$retour) die('Requête invalide : ' . mysqli_error());
 	}
 	break;
+	case 6://Pecher dans un banc de poisson
+	{
+		$IDBanc = getIDLieuDeTypeDansRegion(1);
+		if($IDBanc != -1)
+		{
+			$banc = $_SESSION["LieuxDansRegion"][$IDBanc];
+			//Verification de la decouverte
+			if(isset($_SESSION["LieuxDecouverts"][$IDBanc]))
+			{
+				//Verification des PA
+				$coutPeche = getCoutPeche();
+				if($_SESSION["PaActuel"] >= getCoutPeche())
+				{
+					//Decrementation des PA
+					updateMyCarac($mysqli,"Pa",-$coutPeche);
+
+					//Tout est ok: Verification du nombre de poissons dans le banc
+					$_SESSION["PopupEvenement"] = array();
+					$nbPoissons = $banc["Parametres"]["NbPoissons"];
+					$poissonPeche = 0;
+					if($nbPoissons > 0)
+					{
+						//Test de pêche
+						$rand = mt_rand(1,100);
+						$chancesSucces = CHANCE_BASE_PECHE;
+
+						if(nbItemsDansInventaire(2) > 0)//Harpon?
+							$chancesSucces += BOOST_HARPON_PECHE;
+
+						if($rand <= $chancesSucces)
+							$poissonPeche = 1;
+
+						//Test tortue
+						if($poissonPeche > 0)
+						{
+							$randTortue = mt_rand(1,100);
+							if($randTortue <= CHANCE_PECHE_TORTUE)
+								$poissonPeche = 2;
+						}
+					}
+					
+					//Resultat
+					if($poissonPeche > 0)
+					{
+						if($poissonPeche == 1) // Poisson cru
+						{
+							//Ajout inventaire
+							$IDItemGain = ajouterItem($mysqli,$IDPartie,4,$_SESSION["IDPersonnage"],"personnage");
+							$_SESSION["PopupEvenement"]["Titre"] = lang("Action_6_PechePoissonCru_Titre");
+							$_SESSION["PopupEvenement"]["Message"] = lang("Action_6_PechePoissonCru_Description");
+							$_SESSION["PopupEvenement"]["GainsItems"][$IDItemGain] = 4;
+
+						}
+						else if($poissonPeche == 2) // Tortue
+						{
+							//Ajout inventaire
+							$IDItemGain = ajouterItem($mysqli,$IDPartie,9,$_SESSION["IDPersonnage"],"personnage");
+							$_SESSION["PopupEvenement"]["Titre"] = lang("Action_6_PecheTortue_Titre");
+							$_SESSION["PopupEvenement"]["Message"] = lang("Action_6_PecheTortue_Description");
+							$_SESSION["PopupEvenement"]["GainsItems"][$IDItemGain] = 9;
+						}
+
+						//Modification du banc
+						$requete = "UPDATE ".$PT."parametresBancsPoissons SET NbPoissons = NbPoissons-1 WHERE IDLieu = ".$banc["ID"];
+						$retour = mysqli_query($mysqli,$requete);
+						if (!$retour) die('Requête invalide : ' . mysqli_error());
+					}
+					else
+					{
+						//Peche infructeuse
+						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_6_PecheInfructueuse_Titre");
+						$_SESSION["PopupEvenement"]["Message"] = lang("Action_6_PecheInfructueuse_Description");
+					}
+				}
+				else
+					$_SESSION["Message"] = lang("ErreurAPPourAction");
+
+			}
+			else
+				$_SESSION["Message"] = "Erreur Pêche: Banc de poisson non découvert.";
+		}
+		else
+			$_SESSION["Message"] = "Erreur Pêche: Banc de poisson introuvable.";
+	}
+	break;
 }
 ?>

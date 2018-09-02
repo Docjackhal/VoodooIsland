@@ -1,3 +1,5 @@
+String.prototype.ucFirst=function(){return this.substr(0,1).toUpperCase()+this.substr(1);}
+
 function updateHorloge()
 {
 	window.setTimeout(updateHorloge,1000);
@@ -124,9 +126,9 @@ function initialiserPopupZoomItem(IDTypeItem,IDItem)
 	var typeItem = game.typesItems[IDTypeItem];
 	var item = game.inventaire[IDTypeItem][IDItem];
 
-	$("#popup_zoomItem_titre").html(typeItem["NomFR"]);
+	$("#popup_zoomItem_titre").html((typeItem["Nom"]).ucFirst());
 	$("#popup_zoomItem_image").attr("src","images/items/item_"+IDTypeItem+".png");
-	$("#popup_zoomItem_description").html(typeItem["DescriptionFR"]);
+	$("#popup_zoomItem_description").html(typeItem["Description"]);
 
 	popupZoomItem.css("display","block");
 	popupZoomItem.css("opacity",0);

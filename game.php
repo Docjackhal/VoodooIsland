@@ -7,6 +7,7 @@ else
 	include_once("fonctionsLangue.php");
 	include_once("prive/config.php");
 	include_once("fonctionsLieux.php");
+	include_once("fonctionsPersonnages.php");
 	include_once("fonctionsGlobales.php");
 	include_once("updateInformationsSession.php");
 
@@ -136,7 +137,7 @@ function genererHTMLInventaireJoueur()
 		foreach($listeItemsDeType as $IDItem => $item)
 		{
 			$html .= "<div class='bloc_inventaire' id='bloc_inventaire_".$IDItem."' IDTypeItem='".$IDTypeItem."' IDItem='".$IDItem."'>";
-				$html .= "<img src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
+				$html .= "<img title='".ucfirst(lang("Item_".$IDTypeItem."_Nom"))."' src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
 			$html .= "</div>";
 		}
 	}
@@ -187,13 +188,13 @@ function PM($cout)
 				<div class='time'><b>Prochain cycle dans: </b><span id='horloge_js'><?php echo $time; ?></span></div>
 				<div id='symbole_soleil' style='background-color:<?php echo $colorDay; ?>'><image src='images/soleils/soleil_<?php echo $cycle; ?>.png'/></div>
 			</div>
-			<div id='btn_rdy_y' style='display:<?php echo(($estReady)?"block":"none");?>'></div>
-			<div id='btn_rdy_n' style='display:<?php echo(($estReady)?"none":"block");?>'></div>
+			<div id='btn_rdy_y' title="Vous êtes prêts à passer au prochain cycle." style='display:<?php echo(($estReady)?"block":"none");?>'></div>
+			<div id='btn_rdy_n' title="Cliquez ici pour indiquer au MJ que vous êtes prêt à passer au prochain cycle." style='display:<?php echo(($estReady)?"none":"block");?>'></div>
 		</div>
 
 		<!-- Bloc personnage Gauche -->
 		<div id="bloc_personnage">
-			<div id='nom_personnage'><?php echo $_SESSION['Heros'][$IDPersoActuel]['Nom']?></div>
+			<div id='nom_personnage'><?php echo $_SESSION['Heros'][$IDPersoActuel]['Prenom']." ".$_SESSION['Heros'][$IDPersoActuel]['Nom']?></div>
 			<div id='image_personnage' style='background-image:url(images/Personnage_portrait/Personnage_Portrait_<?php echo $IDPersoActuel; ?>.png);'></div>
 			<div id='metier_personnage'><?php echo $_SESSION['Heros'][$IDPersoActuel]['Metier']?></div>
 
@@ -231,7 +232,7 @@ function PM($cout)
 			</div>
 			<div id='menu_bas'>
 				<div class='bloc_menu_bas' id="bloc_menu_bas_0">
-					<img src="images/UI/icone_inventaire.png" width="150" height="150" align="middle"/>
+					<img title="Votre inventaire" src="images/UI/icone_inventaire.png" width="150" height="150" align="middle"/>
 				</div>
 				<div class='bloc_menu_bas' id="bloc_menu_bas_1"></div>
 				<div class='bloc_menu_bas' id="bloc_menu_bas_2"></div>
@@ -331,7 +332,7 @@ function PM($cout)
 										foreach($_SESSION["PopupEvenement"]["GainsItems"] as $IDItem => $IDTypeItem)
 										{
 											$blocItemGagne = "<div class='bloc_inventaire' id='bloc_inventaire_".$IDTypeItem."' IDTypeItem='".$IDTypeItem."' IDItem='".$IDItem."'>";
-												$blocItemGagne .= "<img src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
+												$blocItemGagne .= "<img title='".ucfirst(lang("Item_".$IDTypeItem."_Nom"))."' src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
 											$blocItemGagne .= "</div>";
 											echo $blocItemGagne;
 										}
@@ -346,6 +347,8 @@ function PM($cout)
 									echo "<div class='blocImageLieu'>";
 										echo "<img src='images/lieux/Visuels/visuels_".$IDTypeLieu.".png' width='400px' height='150px' align='middle'/>";
 									echo "</div>";
+
+									echo "<div style='margin-top:10px;'>".str_replace("%NomLieu%","<span class='blue'>".lang("Lieu_".$IDTypeLieu."_Nom")."</span>",lang("EvenementLieuDecouvert"))."</div>";
 								}
 							?>
 
@@ -429,7 +432,7 @@ function PM($cout)
 					<img id="popup_zoomItem_image" src='images/items/item_1.png' width='130px' height='110px' align='middle'/>
 				</div>
 			</div>
-			<div id="popup_zoomItem_description">blablabla</div>
+			<div id="popup_zoomItem_description"></div>
 		</div>
 
 		<!-- Popup Condition/Etats -->

@@ -55,7 +55,7 @@ function genererBoutonAction(nomAction,texte,action,inputsSup)
 	var bouton = '<form id='+nomAction+' method="post" action="action.php?action='+action+'">';
 		if(inputsSup != undefined)
 			bouton += inputsSup;
-		bouton +=	'<div class="divSubmit" onclick="document.getElementById("'+nomAction+'").submit()">'+texte+'</div>';
+		bouton +=	'<div class="divSubmit" onclick="document.getElementById(\''+nomAction+'\').submit()">'+texte+'</div>';
 		bouton +='</form>';
 
 	return bouton;

@@ -12,6 +12,7 @@ else
 	include_once("fonctionsEvents.php");
 	include_once("fonctionsLieux.php");
 	include_once("fonctionsConditions.php");
+	include_once("fonctionsPersonnages.php");
 	include_once("fonctionsGlobales.php");
 
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
@@ -20,6 +21,8 @@ else
 	updateInformationsSession();
 	updateDateAndTime();
 
+
+
 	if(empty($_GET['action']))
 		die("IDAction not defined");
 	else
@@ -27,6 +30,11 @@ else
 		$idAction = $_GET['action'];
 		$ref = "";
 		$idPageAction = floor(($idAction/10));
+
+		//Informations globales
+		$IDPartie = $_SESSION['IDPartieEnCours'];
+		$IDRegion = $_SESSION['RegionActuelle'];
+
 		include("action".$idPageAction.".php");
 
 		if($ref == "")

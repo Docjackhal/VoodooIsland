@@ -3,6 +3,8 @@ session_start();
 if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegister']) && isset($_GET['mdpRegister'])))
 {
 	include_once("prive/config.php");
+	include_once("fonctionsLangue.php");
+
 	// Connexion a la base
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
 	mysqli_set_charset($mysqli, "utf8");
@@ -59,7 +61,12 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 			$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
 			while($typeItem = mysqli_fetch_assoc($retour))
+			{
+				$IDTypeItem = $typeItem["ID"];
+				$typeItem["Description"] = lang("Item_".$IDTypeItem."_Description");
+				$typeItem["Nom"] = lang("Item_".$IDTypeItem."_Nom");
 				$_SESSION["TypesItems"][$typeItem["ID"]] = $typeItem;
+			}
 
 			// Récupération des types de lieu dans la liste
 			$_SESSION["TypeLieux"] = array();
@@ -81,7 +88,7 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 				$_SESSION['Evenements'][$event['ID']] = $event;	
 			}
 
-			// Récupération de la liste des TypesItems
+			// Récupération de la liste des Conditions
 			$_SESSION["ParametresConditions"] = array();
 			$requete = "SELECT * FROM ".$PT."parametresConditions";
 			$retour = mysqli_query($mysqli,$requete);

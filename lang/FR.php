@@ -28,6 +28,8 @@ $lang["DescriptionConfirmationChangementCycle"] = "Vous allez indiquer au maitre
 
 // ------------------------------- EVENEMENTS ------------------------------------- //
 
+$lang["EvenementLieuDecouvert"] = "Lieu découvert: %NomLieu%.";
+
 $lang["Evenement_5_Message_Choix_1_A1"] = "Vous parvenez à éscalader le cocotier avec succès et à décrocher une précieuse noix de coco.";
 $lang["Evenement_5_Message_Choix_1_AX"] = "Vous parvenez à éscalader le cocotier avec succès et à décrocher %Number% précieuses noix de coco.";
 $lang["Evenement_5_Message_Choix_1_B"] = "En tentant d'escalader le cocotier, vous glissez et tombez lourdement sur le sable, aïe !";
@@ -42,6 +44,8 @@ $lang["Evenement_9_Message_Choix_1_B"] = "Tel un ninja, vous pénétrez discrete
 $lang["Evenement_9_Message_Choix_2"] = "Vous préferez repartir, laissant votre camarade à son triste sort.";
 
 // ----------------------------  FIN EVENEMENTS ------------------------------------//
+
+// ------------------------------- LIEUX ------------------------------------- //
 
 $lang["Lieu_1_Nom"] = "Banc de poisson";
 $lang["Lieu_1_Description"] = "Vous voyez des poissons barbotter à la surface de l'eau. Avec un peu de technique, vous voici façe à une source de nourriture potentielle.";
@@ -85,4 +89,108 @@ $lang["Lieu_11_Description"] = "Un autel voodoo dédié à de sombres rituels sa
 
 $lang["Lieu_12_Nom"] = "Coulée de lave";
 $lang["Lieu_12_Description"] = "Une ardente coulée de lave s'échappe de la caldéra. Tout ce qui y penetrerai disparaitrait à jamais.";
+
+// ------------------------------- FIN LIEUX ------------------------------------- //
+
+// ------------------------------- ACTIONS ------------------------------------- //
+
+//Pecher
+$lang["ErreurAPPourAction"] = "Vous n'avez pas assez de points d'actions pour faire ça.";
+
+$lang["Action_6_PecheInfructueuse_Titre"] = "Pêche infructueuse";
+$lang["Action_6_PecheInfructueuse_Description"] = "Malheuresement, vous n'avez rien attrapé ce coup-ci. Personne ne vous en voudra (sauf vos compagnons peut-être).";
+$lang["Action_6_PechePoissonCru_Titre"] = "Belle prise !";
+$lang["Action_6_PechePoissonCru_Description"] = "Après un glorieux combat, vous sortez de l'eau un beau poisson !";
+$lang["Action_6_PecheTortue_Titre"] = "Une carapace hors de l'eau !";
+$lang["Action_6_PecheTortue_Description"] = "Vous sortez de l'eau une tortue de mer ! C'est encore mieux qu'un poisson, non?";
+
+// ------------------------------- FIN ACTIONS ------------------------------------- //
+
+// ------------------------------- ITEMS ------------------------------------- //
+
+$lang["Item_1_Nom"] = "couteau";
+$lang["Item_1_Description"] = "Une arme tranchante augmentant vos dégâts de 3 lors des affrontements contre les prédateurs ou d'autres joueurs. Le couteau est également utile pour la cuisine ou d'autres actions, comme dépecer des carcasses d'animaux.";
+$lang["Item_2_Nom"] = "harpon";
+$lang["Item_2_Description"] = "Une arme perçante augmentant vos dégâts de 3 lors des affrontements contre les prédateurs ou d'autres joueurs. Le harpon augmente également fortement les résultats de la pêche.";
+$lang["Item_3_Nom"] = "pelle";
+$lang["Item_3_Description"] = "La pelle vous permet de déterrer des objets sur les plages. Augmente également les dégâts de 1 lors des affrontements.";
+$lang["Item_4_Nom"] = "poisson cru";
+$lang["Item_4_Description"] = "Un poisson fraîchement pêché. Peut être cuisiné au campement. Attention, manger cru peut rendre malade !";
+$lang["Item_5_Nom"] = "poisson cuit";
+$lang["Item_5_Description"] = "Un poisson cuit a point, il semble délicieux.";
+$lang["Item_6_Nom"] = "poisson brûlé";
+$lang["Item_6_Description"] = "Un poisson totalement brûlé, oeuvre d'un piètre cuisinier. Ne présente pas de risque quand on le mange, mais rassasie beaucoup moins.";
+$lang["Item_7_Nom"] = "poisson succulent";
+$lang["Item_7_Description"] = "Un poisson extraordinairement bien cuit. Les compliments au chef !";
+$lang["Item_8_Nom"] = "poisson pourri";
+$lang["Item_8_Description"] = "Ce poisson dégage une odeur particulièrement pestilentielle. Le manger est fortement déconseillé. Peut empoisonner une source d'eau pure.";
+$lang["Item_9_Nom"] = "tortue de mer";
+$lang["Item_9_Description"] = "Peut-être cuisinée par un chef cuisiner équipé d'un couteau pour obtenir de bons steaks de tortue. Immangeable en l'état.";
+$lang["Item_10_Nom"] = "steack de tortue";
+$lang["Item_10_Description"] = "Un steak de tortue cuisiné par un chef cuisinier. Plat typiquement local !";
+$lang["Item_11_Nom"] = "tortue (pourrie)";
+$lang["Item_11_Description"] = "Cette tortue est totalement avariée. Son cadavre pourrait empoisonner une source d'eau pure s'il était jeté dedans.";
+$lang["Item_12_Nom"] = "trousse de secours";
+$lang["Item_12_Description"] = "Un kit médical de premier secours permettant de soigner les blessures classiques. A privilégier par les médecins.";
+$lang["Item_13_Nom"] = "bouteille d'eau";
+$lang["Item_13_Description"] = "Une bouteille remplie d'eau, idéal pour se désaltérer. Prenez tout de même garde à sa provenance. La consommer vous permettra de récupérer une bouteille vide.";
+$lang["Item_14_Nom"] = "bouteille vide";
+$lang["Item_14_Description"] = "Une bouteille vide. Il est possible de la remplir d'eau à une source.";
+$lang["Item_15_Nom"] = "bouteille d'eau";
+$lang["Item_15_Description"] = "Une bouteille remplie d'eau, idéal pour se désaltérer. Prenez tout de même garde à sa provenance. La consommer vous permettra de récupérer une bouteille vide.";
+$lang["Item_16_Nom"] = "bouteille de vodka";
+$lang["Item_16_Description"] = "Une bouteille de vodka en provenance de Russie. Dangereux pour les non-initiés.";
+$lang["Item_17_Nom"] = "boite de conserve";
+$lang["Item_17_Description"] = "Une boîte de conserve contenant une portion à cuisiner. 100% adaptée aux végétariens. Nécessite d'être cuisinée.";
+$lang["Item_18_Nom"] = "portion cuisinée";
+$lang["Item_18_Description"] = "Un plat issu d'une boite de conserve, préparée avec amour et adapté aux végétariens.";
+$lang["Item_19_Nom"] = "portion cuisinée périmée";
+$lang["Item_19_Description"] = "Cette portion dégage une odeur pestilentielle. Peut rendre malade en la mangeant, mais ne risque pas d'empoisonner une source d'eau.";
+$lang["Item_20_Nom"] = "fruit";
+$lang["Item_20_Description"] = "Un fruit. Miam !";
+$lang["Item_21_Nom"] = "noix de coco";
+$lang["Item_21_Description"] = "Une noix de coco locale. A manger et à boire en un seul repas !";
+$lang["Item_22_Nom"] = "morceau de viande";
+$lang["Item_22_Description"] = "Un morceau de viande cru. Peut-être cuisiné. Immangeable en l'état.";
+$lang["Item_23_Nom"] = "steack cuisiné";
+$lang["Item_23_Description"] = "Un bon steak grillé. Miam !";
+$lang["Item_24_Nom"] = "steack cuisiné périmé";
+$lang["Item_24_Description"] = "Ce steak dégage une forte odeur de pourri. Peut rendre malade et peut empoisonner une source d'eau pure.";
+$lang["Item_25_Nom"] = "kit d'analyse hydraulique";
+$lang["Item_25_Description"] = "Un kit d'analyse permettant de détecter la présente de poison ou de microbes dans une source d'eau. Réutilisable tant qu'il n'est pas contaminé.";
+$lang["Item_26_Nom"] = "kit d'analyse d'eau contaminé";
+$lang["Item_26_Description"] = "Ce kit d'analyse à été contaminé par une source impure. L'utiliser à nouveau risque de contaminer les sources analysées.";
+$lang["Item_27_Nom"] = "statuette voodoo";
+$lang["Item_27_Description"] = "Une étrange statuette en bois.";
+$lang["Item_28_Nom"] = "bois";
+$lang["Item_28_Description"] = "Un bout de bois, qui peut servir pour alimenter un feu ou assembler des objets.";
+$lang["Item_29_Nom"] = "silex";
+$lang["Item_29_Description"] = "Un morceau de silex, excellent pour allumer un feu.";
+$lang["Item_30_Nom"] = "radio";
+$lang["Item_30_Description"] = "Une radio, permettant de dialoguer avec d'autres radios sur l'ile. Une antenne radio doit être opérationnel pour que ce canal fonctionne.";
+$lang["Item_31_Nom"] = "toile déchirée";
+$lang["Item_31_Description"] = "Une grande bâche en toile un peu déchirée. Idéale pour construire un campement primitif.";
+$lang["Item_32_Nom"] = "vieille marmitte";
+$lang["Item_32_Description"] = "Une vieille marmitte qui, une fois installée dans un campement, permettra de préparer à manger.";
+$lang["Item_33_Nom"] = "clé à molette";
+$lang["Item_33_Description"] = "Une clé à molette. Augmente les dégats de 1 lors d'affrontement et augmente l’efficacité des réparations.";
+$lang["Item_34_Nom"] = "batterie";
+$lang["Item_34_Description"] = "Une batterie électrique. Elle semble en état de marche.";
+$lang["Item_35_Nom"] = "caméra";
+$lang["Item_35_Description"] = "Une caméra ayant souffert, mais qui semble encore en état de fonctionnement.";
+$lang["Item_36_Nom"] = "peau de bête";
+$lang["Item_36_Description"] = "Une peau de bête permettant d'assembler des objets.";
+$lang["Item_37_Nom"] = "palmes";
+$lang["Item_37_Description"] = "Une paire de palme permettant d'explorer des zones inaccessibles, comme la partie submergée d'une épave de bateau.";
+$lang["Item_38_Nom"] = "sonde";
+$lang["Item_38_Description"] = "Une sonde météorologique. Peut être combinée pour créer un ballon météo.";
+$lang["Item_39_Nom"] = "ballon météo";
+$lang["Item_39_Description"] = "Un ballon météorologique permettant d'améliorer l'antenne radio.";
+$lang["Item_40_Nom"] = "steack de tortue pourri";
+$lang["Item_40_Description"] = "Un steak de tortue à l'odeur pestilentiel. Peut rendre malade et peut contaminer une source d'eau pure.";
+
+
+
+// ------------------------------- FIN ITEMS ------------------------------------- //
+
 ?>
