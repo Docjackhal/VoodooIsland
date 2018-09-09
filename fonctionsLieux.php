@@ -11,6 +11,21 @@ function getIDLieuDeTypeDansRegion($IDTypeLieu)
 	return -1;
 }
 
+//Renvoi la liste des lieux d'un type donné dans une partie donnée
+function getLieuxDeTypeDansPartie($mysqli,$IDTypeLieu,$IDPartie)
+{
+	$lieux = array();
+
+	$requete = "SELECT * FROM ".$PT."lieux WHERE IDTypeLieu = ".$IDTypeLieu." IDPartie = ".$IDPartie;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+
+	while($lieu = mysqli_fetch_assoc($retour))
+		$lieux[$lieu["ID"]] = $lieu;
+
+	return $lieux;
+}
+
 // Découvre un lien en bdd si pas déja découvert
 function decouvrirLieu($mysqli, $IDLieu)
 {
@@ -75,4 +90,30 @@ function getIDPersonnageRiteEnCours($mysqli)
 		return -1;
 }
 
+//Supprime définitivement un lieu de la base de données
+function supprimerLieu($mysqli,$IDLieu)
+{
+	global $PT;
+
+	$requete = "DELETE FROM ".$PT."lieux WHERE ID = ".$IDLieu;
+	$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+
+	//Supprimer également de la liste des lieux découverts
+	$requete = "DELETE FROM ".$PT."lieuxDecouverts WHERE IDLieu = ".$IDLieu;
+	$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));	
+}
+
+//Créer un nouveau lieu et renvoi son ID
+function creerLieu($mysqli,$IDTypeLieu,$IDParametrage,$IDRegion,$IDPartie,$etatDecouverte)
+{
+	global $PT;
+
+	$requete = "INSERT INTO ".$PT."lieux (IDTypeLieu,IDParametrageLieu,IDPartie,IDRegion,EtatDecouverte) VALUES (".$IDTypeLieu.",".$IDParametrage.",".$IDRegion.",".$IDPartie.",'".$EtatDecouverte."')";
+	$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+
+	return mysqli_insert_id($mysqli);	
+}
 ?>

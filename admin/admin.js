@@ -117,3 +117,8 @@ switchOngletGestionPartie = function(onglet)
 	$(".blocOnglet").css("display","none");
 	$("#blocOnglet_"+onglet).css("display","block");
 }
+
+afficherPopupDonObjet = function(IDHeros)
+{
+	
+}

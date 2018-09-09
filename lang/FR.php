@@ -128,6 +128,9 @@ $lang["Action_7_Creuser_Description"] = "Vous creusez le sable afin de préparer
 
 $lang["Action_8_Creuser_Titre"] = "Un abri rudimentaire";
 $lang["Action_8_Creuser_Description"] = "Vous bricolez un abri a partir d'une vieille toile déchirée. Ce n'est pas le grand luxe, mais c'est toujours mieux que rien.";
+
+$lang["Action_9_Creuser_Titre"] = "Premier objectif accompli !";
+$lang["Action_9_Creuser_Description"] = "Vous avez maintenatn un campement opérationnel! Vous avez accompli le premier pas vers votre survie et vos chances de vous échapper de cette île un jour augmentent.. Enfin, au moins elles ne sont plus nulles.";
 // ------------------------------- FIN ACTIONS ------------------------------------- //
 
 // ------------------------------- ITEMS ------------------------------------- //

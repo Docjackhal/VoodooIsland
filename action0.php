@@ -107,7 +107,7 @@ switch($idAction)
 				if($regionCible['Lien1'] == $idRegionActuelle || $regionCible['Lien2'] == $idRegionActuelle || $regionCible['Lien3'] == $idRegionActuelle || $regionCible['Lien4'] == $idRegionActuelle || $regionCible['Lien5'] == $idRegionActuelle)
 				{
 					// Voyage accepté
-					$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idRegionCible."' WHERE IDHeros = '".$_SESSION['IDPersonnage']."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
+					$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idRegionCible."' WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$IDPartie;
 					$retour = mysqli_query($mysqli,$requete);
 					if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
@@ -160,7 +160,7 @@ switch($idAction)
 	break;
 	case 5: //Etre prêt a passer au cycle suivant
 	{
-		$requete = "UPDATE ".$PT."personnages SET PretCycleSuivant='o' WHERE IDHeros = '".$_SESSION['IDPersonnage']."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
+		$requete = "UPDATE ".$PT."personnages SET PretCycleSuivant='o' WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$IDPartie;
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide : ' . mysqli_error());
 		mysqli_commit($mysqli);
@@ -213,7 +213,7 @@ switch($idAction)
 						if($poissonPeche == 1) // Poisson cru
 						{
 							//Ajout inventaire
-							$IDItemGain = ajouterItem($mysqli,$IDPartie,4,$_SESSION["IDPersonnage"],"personnage");
+							$IDItemGain = ajouterItem($mysqli,$IDPartie,4,$IDPersonnage,"personnage");
 							$_SESSION["PopupEvenement"]["Titre"] = lang("Action_6_PechePoissonCru_Titre");
 							$_SESSION["PopupEvenement"]["Message"] = lang("Action_6_PechePoissonCru_Description");
 							$_SESSION["PopupEvenement"]["GainsItems"][$IDItemGain] = 4;
@@ -222,7 +222,7 @@ switch($idAction)
 						else if($poissonPeche == 2) // Tortue
 						{
 							//Ajout inventaire
-							$IDItemGain = ajouterItem($mysqli,$IDPartie,9,$_SESSION["IDPersonnage"],"personnage");
+							$IDItemGain = ajouterItem($mysqli,$IDPartie,9,$IDPersonnage,"personnage");
 							$_SESSION["PopupEvenement"]["Titre"] = lang("Action_6_PecheTortue_Titre");
 							$_SESSION["PopupEvenement"]["Message"] = lang("Action_6_PecheTortue_Description");
 							$_SESSION["PopupEvenement"]["GainsItems"][$IDItemGain] = 9;
@@ -319,6 +319,14 @@ switch($idAction)
 						//On retire la toile de l'inventaire
 						supprimerItem($mysqli,$toileDechiree["ID"]);
 
+						//On détruit tous les autres emplacements de campement
+						$emplacementsCampements = getLieuxDeTypeDansPartie($mysqli,2,$IDPartie);
+						foreach($emplacementsCampements as $IDCampement=>$campement)
+						{
+							if($IDCampement != $IDLieu)
+								supprimerLieu($mysqli,$IDCampement);
+						}
+
 						$_SESSION["PopupEvenement"] = array();
 						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_8_Creuser_Titre");
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_8_Creuser_Description");
@@ -340,7 +348,52 @@ switch($idAction)
 	break;
 	case 9://Installer la cuisine et terminer d'installer un campement
 	{
+		$IDLieu = getIDLieuDeTypeDansRegion(2);
+		if($IDLieu > -1)
+		{
+			$lieu = $_SESSION["LieuxDansRegion"][$IDLieu];
+			if($lieu["IDParametrageLieu"] == -2 && getVariable(4) == 1 && getVariable(5) == -1)
+			{
+				//Verification de la marmitte
+				$marmitte = getItem(32,"Inventaire");
+				if($marmitte != null)
+				{
+					//Verification du cout
+					$cout = COUT_INSTALLATION_CAMPEMENT;
+					if($_SESSION["PaActuel"] >= $cout)
+					{
+						//Tout est ok
+						updateMyCarac($mysqli,"Pa",-$cout);
 
+						//Update de la variable de partie
+						setVariablePartie($mysqli,5,1);
+
+						//On retire la marmitte de l'inventaire
+						supprimerItem($mysqli,$marmitte["ID"]);
+
+						//On supprime l'emplacement de campement
+						supprimerLieu($mysqli,$IDLieu);
+
+						//Et on créer un campement
+						creerLieu($mysqli,3,-1,$IDRegion,$IDPartie,"visible");
+
+						$_SESSION["PopupEvenement"] = array();
+						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_9_Creuser_Titre");
+						$_SESSION["PopupEvenement"]["Message"] = lang("Action_9_Creuser_Description");
+
+						mysqli_commit($mysqli);
+					}
+					else
+						$_SESSION["Message"] = "<span class='red'>".lang("ErreurAPPourAction")."</span>";
+				}
+				else
+					$_SESSION["Message"] = "<span class='red'>".lang("ErreurObjetPourAction")."</span>";
+			}
+			else
+				$_SESSION["Message"] = "<span class='red'>Erreur : Emplacement de campement non prêt a recevoir marmitte.</span>";
+		}
+		else
+			$_SESSION["Message"] = "<span class='red'>Erreur : Emplacement de campement introuvable.</span>";
 	}
 	break;
 }

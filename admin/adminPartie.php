@@ -34,6 +34,11 @@
 	
 ?>
 
+<!-- Popup Don  Objet -->
+<div class="popup" id='popupDonObjet'>
+	<div></div>
+</div>
+
 <div id="blocAdminPartie">
 	<div id="title">Partie N° <?php echo $IDPartie;?></div>
 	<div id="jourEtCycle">Jour n° <?php echo $partie["Jour"];?> - Cycle n° <?php echo $partie["Cycle"];?></div>
@@ -78,6 +83,9 @@
 										<input name="IDHeros" type="hidden" value="<?php echo $hero["ID"]; ?>"/>
 										<input class="boutonActionPerso" type="submit" value="Full AP"/>
 									</form>
+								</div>
+								<div>
+									<input class="boutonActionPerso" type="button" value="Donner objet" onclick="afficherPopupDonObjet(<?php echo $hero["ID"]; ?>);"/>
 								</div>
 							</div>
 						</div>

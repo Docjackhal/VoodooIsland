@@ -35,6 +35,7 @@ else
 		//Informations globales
 		$IDPartie = $_SESSION['IDPartieEnCours'];
 		$IDRegion = $_SESSION['RegionActuelle'];
+		$IDPersonnage = $_SESSION["IDPersonnage"];
 
 		include("action".$idPageAction.".php");
 
