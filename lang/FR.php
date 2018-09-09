@@ -112,6 +112,9 @@ $lang["Lieu_12_Description"] = "Une ardente coulée de lave s'échappe de la cal
 //Pecher
 $lang["ErreurAPPourAction"] = "Vous n'avez pas assez de points d'actions pour faire ça.";
 $lang["ErreurPMPourAction"] = "Vous n'avez pas assez de PM pour voyager.";
+$lang["ErreurObjetPourAction"] = "Vous n'avez pas l'objet nécéssaire pour effectuer cette action.";
+
+
 
 $lang["Action_6_PecheInfructueuse_Titre"] = "Pêche infructueuse";
 $lang["Action_6_PecheInfructueuse_Description"] = "Malheuresement, vous n'avez rien attrapé ce coup-ci. Personne ne vous en voudra (sauf vos compagnons peut-être).";
@@ -123,6 +126,8 @@ $lang["Action_6_PecheTortue_Description"] = "Vous sortez de l'eau une tortue de 
 $lang["Action_7_Creuser_Titre"] = "Travaux de terrassement";
 $lang["Action_7_Creuser_Description"] = "Vous creusez le sable afin de préparer l'installation éventuelle d'un futur campement. Il vous faut maintenant de quoi installer un abri.";
 
+$lang["Action_8_Creuser_Titre"] = "Un abri rudimentaire";
+$lang["Action_8_Creuser_Description"] = "Vous bricolez un abri a partir d'une vieille toile déchirée. Ce n'est pas le grand luxe, mais c'est toujours mieux que rien.";
 // ------------------------------- FIN ACTIONS ------------------------------------- //
 
 // ------------------------------- ITEMS ------------------------------------- //

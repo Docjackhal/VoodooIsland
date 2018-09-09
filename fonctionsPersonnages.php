@@ -3,23 +3,34 @@
 //Modifie une carac pour le personnage en cours
 function updateMyCarac($mysqli,$carac,$modificateur)
 {
-	updateCarac($mysqli,$_SESSION["IDPersonnage"],$carac,$modificateur);
+	$personnage = array();
+	$personnage["ID"] = $_SESSION['IDPersonnage'];
+	$personnage["IDPartie"] = $_SESSION['IDPartieEnCours'];
+	$personnage["FatigueActuel"] = $_SESSION['FatigueActuel'];
+	$personnage["FaimActuel"] = $_SESSION['FaimActuel'];
+	$personnage["SoifActuel"] = $_SESSION['SoifActuel'];
+	$personnage["PaActuel"] = $_SESSION['PaActuel'];
+	$personnage["PmActuel"] = $_SESSION['PmActuel'];
+	$personnage["PvActuel"] = $_SESSION['PvActuel'];
+	$personnage["MPActuel"] = $_SESSION['MPActuel'];
+	updateCarac($mysqli,$personnage,$carac,$modificateur);
 }
 
-function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
+function updateCarac($mysqli,$personnage,$carac,$modificateur)
 {
 	global $PT;
 
+	//die(print_r($personnage));
 	//die("carac ".$carac." modif ".$modificateur);
-
-	$heros = $_SESSION["Heros"][$IDPersonnage];
-	$fatigue = $_SESSION['FatigueActuel'];
-	$faim = $_SESSION['FaimActuel'];
-	$soif = $_SESSION['SoifActuel'];
-	$pa = $_SESSION['PaActuel'];
-	$pm = $_SESSION['PmActuel'];
-	$pv = $_SESSION['PvActuel'];
-	$mp = $_SESSION['MPActuel'];
+	$IDPersonnage = $personnage["IDHeros"];
+	$heros = isset($_SESSION["Admin"]["Heros"][$IDPersonnage]) ? $_SESSION["Admin"]["Heros"][$IDPersonnage] : $_SESSION["Heros"][$IDPersonnage];
+	$fatigue = $personnage['FatigueActuel'];
+	$faim = $personnage['FaimActuel'];
+	$soif = $personnage['SoifActuel'];
+	$pa = $personnage['PaActuel'];
+	$pm = $personnage['PmActuel'];
+	$pv = $personnage['PvActuel'];
+	$mp = $personnage['MPActuel'];
 
 	switch($carac)
 	{
@@ -78,9 +89,26 @@ function updateCarac($mysqli,$IDPersonnage,$carac,$modificateur)
 
 
 	// Update final
-	$requete2 = "UPDATE  ".$PT."personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."',MPActuel = '".$mp."' WHERE IDHeros= '".$IDPersonnage."' AND IDPartie = ".$_SESSION["IDPartieEnCours"];
+	$requete2 = "UPDATE  ".$PT."personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."',MPActuel = '".$mp."' WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$personnage["IDPartie"];
 	$retour2 = mysqli_query($mysqli,$requete2);
 	if (!$retour2) die('Requête invalide : ' . mysqli_error($mysqli));
+
+	//die($requete2);
+}
+
+//Renvoi toutes les infos d'un personnage depuis la base, ou null si introuvable
+function getPersonnage($mysqli,$IDHeros,$IDPartie)
+{
+	global $PT;
+
+	$requete = "SELECT * FROM ".$PT."personnages WHERE IDHeros= '".$IDHeros."' AND IDPartie = ".$IDPartie;
+	$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) trigger_error('Impossible de selectionner le personnage : ('.$requete.') ' . mysqli_error($mysqli));
+
+	if(mysqli_num_rows($retour) == 0)
+		return null;
+	else
+		return mysqli_fetch_assoc($retour);
 }
 
 ?>

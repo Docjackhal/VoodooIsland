@@ -13,7 +13,7 @@ updateGlobalesDatas = function()
 			},
 			error:function(datas)
 			{
-				alert("Ajax error");
+				alert("Ajax error: "+datas.responseText);
 			}
 		});
 }
@@ -27,15 +27,16 @@ updateInfosPartie = function()
 			cache:false,
 			success:function(data)
 			{
+				console.log(data);
 				traiterDonneesUpdatesInfosPartie(data);			
 			},
 			error:function(datas)
 			{
-				alert("Ajax error");
+				alert("Ajax error: "+datas.responseText);
 			}
 		});
 
-	var timeToUpdate = 10000;
+	var timeToUpdate = 3000;
 	window.setTimeout(updateInfosPartie,timeToUpdate);
 	if (!window.requestAnimationFrame) 
 	{
@@ -62,7 +63,9 @@ $(document).ready(function()
 
 traiterDonneesUpdatesInfosPartie = function(data)
 {
+	//Personnages
 	var personnages = data["Personnages"];
+	var persoPrets = 0;
 	for(IDPersonnage in personnages)
 	{
 		var IDDivBlocPerso = "#blocPersonnage_"+IDPersonnage;
@@ -70,6 +73,9 @@ traiterDonneesUpdatesInfosPartie = function(data)
 		var blocPrincipal = $(IDDivBlocPerso);
 
 		$(IDDivBlocPerso+" .iconeRdy").attr("src","../images/"+((personnage["PretCycleSuivant"] == 'o')?"button_ready":"button_Nready")+".png");
+
+		if(personnage["PretCycleSuivant"] == 'o')
+			persoPrets++;
 		
 		//Carac
 		$(IDDivBlocPerso+" .PAActuel").html(personnage["PaActuel"]);
@@ -82,4 +88,32 @@ traiterDonneesUpdatesInfosPartie = function(data)
 		$(IDDivBlocPerso+" .PMMax").html(personnage["PmMax"]);
 		$(IDDivBlocPerso+" .nom_region_perso").html(VI.datas.Regions[personnage["RegionActuelle"]]["Nom"]);
 	}
+
+	if(persoPrets == 8)
+		$("#btnPasserCycle").addClass("rdy");
+	else
+		$("#btnPasserCycle").remove("rdy");
+
+	//Variables
+	var variables = data["Variables"];
+	$blocVariable = $("#listeVariablesPartie");
+	for(IDVariable in variables)
+	{
+		var value = variables[IDVariable];
+		var row = $("#rowVariable_"+IDVariable);
+		if(value > -1)
+		{
+			row.find(".descriptionVariable").addClass("green").removeClass("red");
+			row.find(".etatVariable").removeClass("grey").html(value);	
+		}
+	}
+}
+
+switchOngletGestionPartie = function(onglet)
+{
+	$(".btnTopBarLocked").removeClass("btnTopBarLocked");
+	$("#btnTopBar_"+onglet).addClass("btnTopBarLocked");
+
+	$(".blocOnglet").css("display","none");
+	$("#blocOnglet_"+onglet).css("display","block");
 }

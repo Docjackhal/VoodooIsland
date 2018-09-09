@@ -24,7 +24,7 @@ else
 	//Start transaction, ne pas oublier de commit a la fin de chaque action
 	mysqli_begin_transaction($mysqli);
 
-	if(empty($_GET['action']))
+	if(!isset($_GET['action']))
 		die("IDAction not defined");
 	else
 	{

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("../prive/config.php");
+include_once("../fonctionsVariables.php");
 header('Content-type: text/json');
 
 $mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
@@ -62,6 +63,7 @@ switch($_GET['action'])
 	break;
 	case "Update":
 	{
+		//Personnages
 		$requete = "SELECT * FROM ".$PT."personnages WHERE IDPartie = ".$IDPartie;
 		$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) trigger_error('Impossible de selectionner les personnages : ' . mysqli_error($mysqli));
@@ -70,6 +72,9 @@ switch($_GET['action'])
 			$personnages[$personnage["IDHeros"]] = $personnage;
 
 		$result["Personnages"] = $personnages;
+
+		//Variables
+		$result["Variables"] = getVariablesDePartie($mysqli,$IDPartie);
 	}
 	break;
 }

@@ -1,3 +1,18 @@
+.grey
+{
+	color:grey;
+}
+
+.green
+{
+	color:green;
+}
+
+.red
+{
+	color:red;
+}
+
 #blocSelectionPartie
 {
 	width: 1280px;
@@ -117,8 +132,25 @@
 
 .btnTopBar:hover
 {
-	background-color: red;
+	background-color: black;
 	color: white;
+}
+
+.btnTopBarLocked, .btnTopBarLocked:hover
+{
+	background-color: grey;
+    color: white;
+    cursor:auto;
+}
+
+#btnPasserCycle
+{
+	background-color:red;
+}
+
+.rdy
+{
+	background-color:green !important;
 }
 
 #blocAdminPartie #jourEtCycle
@@ -189,4 +221,40 @@
 #menuTopBar form
 {
 	display:inline;
+}
+
+.blocPersonnage .bloc_2 .boutonActionPerso
+{
+	cursor: pointer;
+    background-color: white;
+    color: black;
+    float: left;
+    margin-left: 5px;
+    min-width: 95px;
+    border-radius: 15px;
+    margin-top: 5px;
+}
+
+.blocPersonnage .bloc_2 .boutonActionPerso:hover
+{
+	background-color:black;
+	color:white;
+}
+
+#blocOnglet_variables #tableVariables
+{
+	text-align: center;
+    border: 2px solid black;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#blocOnglet_variables #tableVariables tr, #blocOnglet_variables #tableVariables td
+{
+    border: 2px solid black;
+}
+
+#blocOnglet_variables #tableVariables .titres
+{
+	font-weight: bold;
 }

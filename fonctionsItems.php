@@ -35,4 +35,31 @@ function nbItemsDansInventaire($typeItem)
 	else
 		return 0;
 }
+
+//Renvoi tous les objets d'un type donné dans l'inventaire donné
+function getItems($typeItem,$typeInventaire)
+{
+	if(!empty($_SESSION[$typeInventaire][$typeItem]))
+		return $_SESSION[$typeInventaire][$typeItem];
+	else
+		return array();
+}
+
+//Renvoi le premier objet d'un type donné dans un inventaire donné, ou null
+/*
+TypeInventaire valides:
+Inventaire => Inventaire du personnage actif
+InventaireCampement => Inventaire du campement de la région active
+*/
+function getItem($typeItem,$typeInventaire)
+{
+	$items = getItems($typeItem,$typeInventaire);
+	if(empty($items))
+		return null;
+	else
+	{	
+		foreach($items as $IDItem=>$item)
+			return $item;
+	}
+}
 ?>

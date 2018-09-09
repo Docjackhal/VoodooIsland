@@ -141,7 +141,7 @@ switch($idAction)
 			else
 				$_SESSION["Message"] = "Malheuresement, vous n'avez rien trouvé.";
 
-			updateCarac($mysqli,$_SESSION["IDPersonnage"],"Pa",-getCoutExploration());
+			updateMyCarac($mysqli,"Pa",-getCoutExploration());
 			mysqli_commit($mysqli);
 		}
 		else
@@ -285,7 +285,7 @@ switch($idAction)
 						$_SESSION["Message"] = "<span class='red'>".lang("ErreurAPPourAction")."</span>";
 				}
 				else
-					$_SESSION["Message"] = "<span class='red'>Erreur : Il vous faut une pelle pour creuser un emplacement de campement.</span>";
+					$_SESSION["Message"] = "<span class='red'>".lang("ErreurObjetPourAction")."</span>";
 			}
 			else
 				$_SESSION["Message"] = "<span class='red'>Erreur : Emplacement de campement déjà creusé.</span>";
@@ -296,7 +296,46 @@ switch($idAction)
 	break;
 	case 8://Installer un abris dans un emplacement de campement
 	{
+		$IDLieu = getIDLieuDeTypeDansRegion(2);
+		if($IDLieu > -1)
+		{
+			$lieu = $_SESSION["LieuxDansRegion"][$IDLieu];
+			if($lieu["IDParametrageLieu"] == -2 && getVariable(4) == -1)
+			{
+				//Verification de la toile
+				$toileDechiree = getItem(31,"Inventaire");
+				if($toileDechiree != null)
+				{
+					//Verification du cout
+					$cout = COUT_INSTALLATION_CAMPEMENT;
+					if($_SESSION["PaActuel"] >= $cout)
+					{
+						//Tout est ok
+						updateMyCarac($mysqli,"Pa",-$cout);
 
+						//Update de la variable de partie
+						setVariablePartie($mysqli,4,1);
+
+						//On retire la toile de l'inventaire
+						supprimerItem($mysqli,$toileDechiree["ID"]);
+
+						$_SESSION["PopupEvenement"] = array();
+						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_8_Creuser_Titre");
+						$_SESSION["PopupEvenement"]["Message"] = lang("Action_8_Creuser_Description");
+
+						mysqli_commit($mysqli);
+					}
+					else
+						$_SESSION["Message"] = "<span class='red'>".lang("ErreurAPPourAction")."</span>";
+				}
+				else
+					$_SESSION["Message"] = "<span class='red'>".lang("ErreurObjetPourAction")."</span>";
+			}
+			else
+				$_SESSION["Message"] = "<span class='red'>Erreur : Emplacement de campement non creusé ou abris deja installé.</span>";
+		}
+		else
+			$_SESSION["Message"] = "<span class='red'>Erreur : Emplacement de campement introuvable.</span>";
 	}
 	break;
 	case 9://Installer la cuisine et terminer d'installer un campement
