@@ -35,6 +35,8 @@ else
 
 	// ------------------- Liste des actions -------------------
 	// Action 0: Full AP un personnage
+	// Action 1: Donner items à un personnage
+	// Action 2: Modifier une variable de partie
 	
 	switch($idAction)
 	{
@@ -43,6 +45,28 @@ else
 			$IDHeros = $_POST["IDHeros"];
 			$personnage = getPersonnage($mysqli,$IDHeros,$IDPartie);
 			updateCarac($mysqli,$personnage,"Pa",$_SESSION["Admin"]["Heros"][$IDHeros]["PaMax"]);
+			mysqli_commit($mysqli);
+			break;
+		}
+		case 1:// Donner items à un personnage
+		{
+			$IDHeros = $_POST["IDHeros"];
+			$IDItem = $_POST["IDItem"];
+			$parametre = $_POST["parametre"];
+			$quantite = intval($_POST["quantite"]);
+
+			for($i=0;$i<$quantite;$i++)
+				ajouterItem($mysqli,$IDPartie,$IDItem,$IDHeros,"personnage",$parametre);	
+
+			mysqli_commit($mysqli);
+			break;
+		}
+		case 2:// Modifier une variable
+		{
+			$IDVariable = $_POST["IDVariable"];
+			$value = $_POST["value"];
+			setVariable($mysqli,$IDPartie,$IDVariable,$value);
+			$ref = "index.php?o=v";
 			mysqli_commit($mysqli);
 			break;
 		}

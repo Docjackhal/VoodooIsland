@@ -14,11 +14,12 @@ function getIDLieuDeTypeDansRegion($IDTypeLieu)
 //Renvoi la liste des lieux d'un type donné dans une partie donnée
 function getLieuxDeTypeDansPartie($mysqli,$IDTypeLieu,$IDPartie)
 {
+	global $PT;
 	$lieux = array();
 
-	$requete = "SELECT * FROM ".$PT."lieux WHERE IDTypeLieu = ".$IDTypeLieu." IDPartie = ".$IDPartie;
+	$requete = "SELECT * FROM ".$PT."lieux WHERE IDTypeLieu = ".$IDTypeLieu." AND IDPartie = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+	if (!$retour) die('Requête invalide (getLieuxDeTypeDansPartie): ' . mysqli_error($mysqli));
 
 	while($lieu = mysqli_fetch_assoc($retour))
 		$lieux[$lieu["ID"]] = $lieu;
@@ -33,7 +34,7 @@ function decouvrirLieu($mysqli, $IDLieu)
 
 	$requete = "INSERT IGNORE INTO ".$PT."lieuxDecouverts (IDLieu,IDPersonnage,DateDecouverte) VALUES (".$IDLieu.",".$_SESSION["IDPersonnage"].",NOW())";
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) trigger_error('Requête invalide : '.$requete . mysqli_error($mysqli));
+	if (!$retour) trigger_error('Requête invalide (decouvrirLieu): '.$requete . mysqli_error($mysqli));
 }
 
 // Renvoi le nombre de personnages actuellement capturés dans le village caché voodoo.
@@ -42,7 +43,7 @@ function getNombrePersonnagesCapturesDansVillage($mysqli)
 	global $PT;
 	$requete = "SELECT count(*) as NB FROM ".$PT."personnages WHERE EstCapture = 'o' AND IDPartie = ".$_SESSION["IDPartie"];
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+	if (!$retour) die('Requête invalide (getNombrePersonnagesCapturesDansVillage): ' . mysqli_error($mysqli));
 
 	$infosParties = mysqli_fetch_assoc($retour);
 	return $infosParties["NB"];
@@ -55,7 +56,7 @@ function capturerJoueurDansVillage($mysqli,$IDHeros)
 
 	$requete = "UPDATE ".$PT."personnages SET EstCapture = 'o', NombreCyclesDepuisCapture = 0 WHERE IDHeros = ".$IDHeros." AND IDPartie = ".$_SESSION["IDPartieEnCours"];
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) trigger_error('Requête invalide : '.$requete . mysqli_error($mysqli));
+	if (!$retour) trigger_error('Requête invalide (capturerJoueurDansVillage): '.$requete . mysqli_error($mysqli));
 }
 
 function commencerRiteSurPersonnage($mysqli,$IDHeros)
@@ -69,7 +70,7 @@ function commencerRiteSurPersonnage($mysqli,$IDHeros)
 
 	$requete = "UPDATE ".$PT."personnages SET EstCapture = 'n', RiteEnCours = 'o', NombreCyclesDepuisRite = 0 WHERE IDHeros = ".$IDHeros." AND IDPartie = ".$_SESSION["IDPartieEnCours"];
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) trigger_error('Requête invalide : '.$requete . mysqli_error($mysqli));
+	if (!$retour) trigger_error('Requête invalide (commencerRiteSurPersonnage): '.$requete . mysqli_error($mysqli));
 }
 
 // renvoi l'id du personnage subissant un rite de transformation, ou -1 si il n'y a pas de rite en cours.
@@ -79,7 +80,7 @@ function getIDPersonnageRiteEnCours($mysqli)
 
 	$requete = "SELECT IDHeros FROM ".$PT."personnages WHERE RiteEnCours = 'o' AND IDPartie = ".$_SESSION["IDPartie"]." AND NombreCyclesDepuisRite < ".DUREE_CYCLE_RITE;
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+	if (!$retour) die('Requête invalide (getIDPersonnageRiteEnCours): ' . mysqli_error($mysqli));
 
 	if(mysqli_num_rows($retour) > 0)
 	{
@@ -97,12 +98,12 @@ function supprimerLieu($mysqli,$IDLieu)
 
 	$requete = "DELETE FROM ".$PT."lieux WHERE ID = ".$IDLieu;
 	$retour = mysqli_query($mysqli,$requete);
-		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+		if (!$retour) die('Requête invalide (supprimerLieu): ' . mysqli_error($mysqli));
 
 	//Supprimer également de la liste des lieux découverts
 	$requete = "DELETE FROM ".$PT."lieuxDecouverts WHERE IDLieu = ".$IDLieu;
 	$retour = mysqli_query($mysqli,$requete);
-		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));	
+		if (!$retour) die('Requête invalide (supprimerLieuDecouvert): ' . mysqli_error($mysqli));	
 }
 
 //Créer un nouveau lieu et renvoi son ID
@@ -110,9 +111,9 @@ function creerLieu($mysqli,$IDTypeLieu,$IDParametrage,$IDRegion,$IDPartie,$etatD
 {
 	global $PT;
 
-	$requete = "INSERT INTO ".$PT."lieux (IDTypeLieu,IDParametrageLieu,IDPartie,IDRegion,EtatDecouverte) VALUES (".$IDTypeLieu.",".$IDParametrage.",".$IDRegion.",".$IDPartie.",'".$EtatDecouverte."')";
+	$requete = "INSERT INTO ".$PT."lieux (IDTypeLieu,IDParametrageLieu,IDPartie,IDRegion,EtatDecouverte) VALUES (".$IDTypeLieu.",".$IDParametrage.",".$IDRegion.",".$IDPartie.",'".$etatDecouverte."')";
 	$retour = mysqli_query($mysqli,$requete);
-		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+		if (!$retour) die('Requête invalide (creerLieu): ' . mysqli_error($mysqli));
 
 	return mysqli_insert_id($mysqli);	
 }

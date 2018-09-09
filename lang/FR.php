@@ -23,6 +23,9 @@ $lang["Non"] = "Non";
 $lang["DescriptionConfirmationChangementCycle"] = "Vous allez indiquer au maitre du jeu que vous êtes prêts à passer au prochain cycle. Etes-vous sûrs?";
 $lang["DureeCycleConsommable"] = "Obtenu il y à %Number% cycles.";
 
+$lang["Gains:"] = "Gains:";
+$lang["Pertes:"] = "Pertes:";
+
 $lang["Tooltip_BarresStats_Pa"] = "Vos Points d'actions. Ils vous permettent d'éffectuer des actions et remontent de %Number% à chaque cycle.";
 $lang["Tooltip_BarresStats_Pm"] = "Vos Points de mouvements. Ils vous permettent de vous déplacer sur l'ile et remontent de %Number% à chaque cycle.";
 $lang["Tooltip_BarresStats_MP"] = "Votre santé mentale (Mental points). Elle représente votre santé psychique. Une valeur basse pourra entrainer de nombreuses complications.";

@@ -7,7 +7,7 @@ function ajouterItem($mysqli,$IDPartie,$IDTypeItem,$IDProprietaire,$typeInventai
 
 	$requete = "INSERT INTO ".$PT."items (IDTypeItem,Parametre1,IDPartie,IDProprietaire,TypeInventaire) VALUES (".$IDTypeItem.",".$parametre1.",".$IDPartie.",".$IDProprietaire.",'".$typeInventaire."')";
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) trigger_error('Requête invalide : '.$requete . mysqli_error($mysqli));
+	if (!$retour) trigger_error('Requête invalide (ajouterItem): '.$requete . mysqli_error($mysqli));
 
 	return mysqli_insert_id($mysqli);
 }
@@ -19,7 +19,7 @@ function supprimerItem($mysqli,$IDItem)
 
 	$requete = "DELETE FROM ".$PT."items WHERE ID = ".$IDItem;
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) trigger_error('Requête invalide : '.$requete . mysqli_error($mysqli));
+	if (!$retour) trigger_error('Requête invalide (supprimerItem) : '.$requete . mysqli_error($mysqli));
 }
 
 //Renvoi le nombre d'items dans l'inventaire du type donné

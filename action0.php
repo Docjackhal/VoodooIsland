@@ -330,6 +330,7 @@ switch($idAction)
 						$_SESSION["PopupEvenement"] = array();
 						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_8_Creuser_Titre");
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_8_Creuser_Description");
+						$_SESSION["PopupEvenement"]["PertesItems"][] = 31;
 
 						mysqli_commit($mysqli);
 					}
@@ -375,11 +376,13 @@ switch($idAction)
 						supprimerLieu($mysqli,$IDLieu);
 
 						//Et on créer un campement
-						creerLieu($mysqli,3,-1,$IDRegion,$IDPartie,"visible");
+						$IDCampement = creerLieu($mysqli,3,-1,$IDRegion,$IDPartie,"Visible");
 
 						$_SESSION["PopupEvenement"] = array();
 						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_9_Creuser_Titre");
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_9_Creuser_Description");
+						$_SESSION["PopupEvenement"]["PertesItems"][] = 32;
+						$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDCampement;
 
 						mysqli_commit($mysqli);
 					}

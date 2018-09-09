@@ -259,11 +259,16 @@
 	font-weight: bold;
 }
 
+#blocOnglet_variables #tableVariables .etatVariable input
+{
+	text-align: center;
+	width:50px;
+}
+
 .popup
 {
 	border:3px solid black;
 	width:300px;
-	height: 500px;
 	display:none;
 	left: calc(50% - 150px);
 	position: absolute;
@@ -274,5 +279,31 @@
 
 #popupDonObjet
 {
-	display:block;
+	width:370px;
+	left: calc(50% - 185px);
+}
+
+#popupDonObjet div
+{
+	margin:5px;
+}
+
+.submit
+{
+	cursor: pointer;
+    background-color: white;
+    color: black;
+    min-width: 95px;
+    border-radius: 15px;
+}
+
+.submit:hover
+{
+	background-color:black;
+	color:white;
+}
+
+#popupDonObjet select
+{
+	cursor:pointer;
 }

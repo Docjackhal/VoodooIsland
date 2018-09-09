@@ -35,7 +35,7 @@ function genererContenuInfosLieu(lieu)
 			}
 			else if(lieu.IDParametrageLieu == -2) // Emplacement creusé
 			{
-				if(game.variables[4] == undefined) // Toile non posée
+				if(game.variables[4] == undefined || game.variables[4] == -1) // Toile non posée
 				{
 					if($toilePossedee)
 						contenu += "<div><span class='green'>"+getLang("Lieu_2_ToileObtenue")+"</span></div>";
@@ -80,7 +80,7 @@ function genererContenuActionLieu(lieu)
 
 			if(lieu.IDParametrageLieu == -1 && $pellePossedee) 
 				contenu += genererBoutonAction("creuser",getLang("Lieu_"+IDTypeLieu+"_Creuser")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",7);
-			else if(lieu.IDParametrageLieu == -2 && game.variables[4] == undefined && $toilePossedee)
+			else if(lieu.IDParametrageLieu == -2 && (game.variables[4] == undefined || game.variables[4] == -1) && $toilePossedee)
 				contenu += genererBoutonAction("toiler",getLang("Lieu_"+IDTypeLieu+"_InstallerToile")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",8);
 			else if(game.variables[4] == 1 && $marmittePossedee)
 				contenu += genererBoutonAction("marmitter",getLang("Lieu_"+IDTypeLieu+"_InstallerMarmitte")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",9);

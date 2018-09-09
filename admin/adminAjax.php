@@ -73,6 +73,8 @@ switch($_GET['action'])
 
 		$result["Personnages"] = $personnages;
 
+		$result["Heros"] = $_SESSION["Admin"]["Heros"];
+
 		//Variables
 		$result["Variables"] = getVariablesDePartie($mysqli,$IDPartie);
 	}

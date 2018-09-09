@@ -330,11 +330,27 @@ function PM($cout)
 							<div class="messageEvenement"><?php echo $message;?></div>
 
 							<?php
+
+							//Liste des items perdus
+								if(!empty($_SESSION["PopupEvenement"]["PertesItems"]))
+								{
+									echo "<div class='popupEvenement_listeGainsItems'>";
+										echo "<div class='popupEvenement_listeGainsItems_titre red'>".lang("Pertes:")."</div>";
+										foreach($_SESSION["PopupEvenement"]["PertesItems"] as $IDItem => $IDTypeItem)
+										{
+											$blocItemPerdu = "<div class='bloc_inventaire' id='bloc_inventaire_".$IDTypeItem."' IDTypeItem='".$IDTypeItem."' IDItem='".$IDItem."'>";
+												$blocItemPerdu .= "<img title='".ucfirst(lang("Item_".$IDTypeItem."_Nom"))."' src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
+											$blocItemPerdu .= "</div>";
+											echo $blocItemPerdu;
+										}
+									echo "</div>";
+								}
+
 							// Liste des items gagnés
 								if(!empty($_SESSION["PopupEvenement"]["GainsItems"]))
 								{
 									echo "<div class='popupEvenement_listeGainsItems'>";
-										echo "<div class='popupEvenement_listeGainsItems_titre'>Gains:</div>";
+										echo "<div class='popupEvenement_listeGainsItems_titre green'>".lang("Gains:")."</div>";
 										foreach($_SESSION["PopupEvenement"]["GainsItems"] as $IDItem => $IDTypeItem)
 										{
 											$blocItemGagne = "<div class='bloc_inventaire' id='bloc_inventaire_".$IDTypeItem."' IDTypeItem='".$IDTypeItem."' IDItem='".$IDItem."'>";
@@ -350,11 +366,10 @@ function PM($cout)
 								{
 									$IDLieu = $_SESSION["PopupEvenement"]["LieuDecouvert"];
 									$IDTypeLieu = $_SESSION["LieuxDansRegion"][$IDLieu]["IDTypeLieu"];
+									echo "<div style='margin-top:10px;'>".str_replace("%NomLieu%","<span class='blue'>".lang("Lieu_".$IDTypeLieu."_Nom")."</span>",lang("EvenementLieuDecouvert"))."</div>";
 									echo "<div class='blocImageLieu'>";
 										echo "<img src='images/lieux/Visuels/visuels_".$IDTypeLieu.".png' width='400px' height='150px' align='middle'/>";
-									echo "</div>";
-
-									echo "<div style='margin-top:10px;'>".str_replace("%NomLieu%","<span class='blue'>".lang("Lieu_".$IDTypeLieu."_Nom")."</span>",lang("EvenementLieuDecouvert"))."</div>";
+									echo "</div>";				
 								}
 							?>
 

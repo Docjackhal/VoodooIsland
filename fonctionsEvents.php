@@ -131,6 +131,7 @@ function effectueResultatEvenementSimple($mysqli,$event)
 
 	$_SESSION["PopupEvenement"] = array();
 	$_SESSION["PopupEvenement"]["GainsItems"] = array();
+	$_SESSION["PopupEvenement"]["PertesItems"] = array();
 	$_SESSION["PopupEvenement"]["LieuDecouvert"] = -1;
 
 
@@ -217,6 +218,7 @@ function effectueResultatChoixEvenementComplexe($mysqli,$IDEvent,$IDReponse)
 
 	$_SESSION["PopupEvenement"] = array();
 	$_SESSION["PopupEvenement"]["GainsItems"] = array();
+	$_SESSION["PopupEvenement"]["PertesItems"] = array();
 	$_SESSION["PopupEvenement"]["Titre"] = $event["TitreFR"];
 	$message = lang("Evenement_".$IDEvent."_Message_Choix_".$IDReponse); // Par défaut pour les choix à conséquences uniques.
 	$texteReponse = lang("Daccord"); // Par défaut

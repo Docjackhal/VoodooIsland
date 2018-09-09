@@ -8,17 +8,17 @@ body
 
 .blue
 {
-	color:blue;
+	color:blue !important;
 }
 
 .red
 {
-	color: red;
+	color: red !important;
 }
 
 .green
 {
-	color: green;
+	color: green !important;
 }
 
 #game

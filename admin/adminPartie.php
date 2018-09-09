@@ -1,6 +1,8 @@
 <?php
 	$IDPartie = $_SESSION["Admin"]["IDPartieEnCours"];
 
+	$IDOnglet = (isset($_GET['o'])) ? $_GET['o'] : 'p';
+
 	// Chargement de la partie
 	$requete = "SELECT * FROM ".$PT."parties WHERE ID = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
@@ -36,7 +38,30 @@
 
 <!-- Popup Don  Objet -->
 <div class="popup" id='popupDonObjet'>
-	<div></div>
+	<h2>Donner des objets à <span class="labelNomHeros">???</span></h2>
+	<form action="actionAdmin.php?action=1" method="post">
+		<input class="inputIDHeros" name="IDHeros" value="" type="hidden"/>
+		<div>
+			Objet: <select name="IDItem">
+			<?php
+				foreach($_SESSION["Admin"]["TypeItems"] as $item)
+					echo "<option value='".$item["ID"]."'>(".$item["ID"].") ".$item["NomFR"]."</option>";
+			?>
+			</select>
+		</div>
+		<div>
+			Parametre: <input name="parametre" value="-1" type="number"/>		
+		</div>
+		<div>
+			Quantité: <input name="quantite" value="1" type="number"/>	
+		</div>	
+		<div>
+			<input class="submit" type="submit" value="Donner"/>
+		</div>	
+	</form>
+	<div>
+		<input class="submit" type="submit" onclick="fermerPopupDonItem();" value="Fermer"/>
+	</div>
 </div>
 
 <div id="blocAdminPartie">
@@ -50,11 +75,11 @@
 		<form onsubmit="return confirm('Etes-vous sûrs de vouloir passer au cycle suivant?');" action="cycleSuivant.php">
 			<input class="btnTopBar" id="btnPasserCycle" type="submit" value="Passer Cycle"/>
 		</form>
-		<form action="#"><input id="btnTopBar_perso" class="btnTopBar btnTopBarLocked" value="Personnages" onclick="switchOngletGestionPartie('perso');"/></form>
-		<form action="#"><input id="btnTopBar_variables" class="btnTopBar" value="Variables" onclick="switchOngletGestionPartie('variables');"/></form>
+		<form action="#"><input id="btnTopBar_perso" class="btnTopBar <?php echo ($IDOnglet=='p') ? 'btnTopBarLocked' : '';?>" value="Personnages" onclick="switchOngletGestionPartie('perso');"/></form>
+		<form action="#"><input id="btnTopBar_variables" class="btnTopBar <?php echo ($IDOnglet=='v') ? 'btnTopBarLocked' : '';?>" value="Variables" onclick="switchOngletGestionPartie('variables');"/></form>
 	</div>
 
-	<div class="blocOnglet" id="blocOnglet_perso">
+	<div class="blocOnglet" id="blocOnglet_perso" style="display:<?php echo ($IDOnglet=='p')?'block':'none';?>">
 		<div id="blocPersonnages">
 			<?php
 				foreach($personnages as $personnage)
@@ -95,7 +120,7 @@
 			?>
 		</div>
 	</div>
-	<div class="blocOnglet" id="blocOnglet_variables" style="display:none;">
+	<div class="blocOnglet" id="blocOnglet_variables" style="display:<?php echo ($IDOnglet=='v')?'block':'none';?>">
 		<h1>Variables</h1>
 		<div id='listeVariablesPartie'>
 			<table id="tableVariables">
@@ -103,6 +128,7 @@
 					<td>ID Variable</td>
 					<td>Description</td>
 					<td class='etatVariable'>Etat</td>
+					<td>Modifier</td>
 				</tr>
 				<?php
 					$listeVariables = array();
@@ -115,9 +141,13 @@
 					foreach($listeVariables as $IDVariable=>$description)
 					{
 						echo "<tr id='rowVariable_".$IDVariable."'>
-							<td>".$IDVariable."</td>
-							<td class='descriptionVariable red'>".$description."</td>
-							<td class='etatVariable grey'>-1</td>
+							<form action='actionAdmin.php?action=2' method='post'>
+								<input type='hidden' name='IDVariable' value='".$IDVariable."'/>
+								<td>".$IDVariable."</td>
+								<td class='descriptionVariable red'>".$description."</td>
+								<td class='etatVariable grey'><input name='value' value='-1'/></td>
+								<td><input class='submit' type='submit' value='modifier'/></td>
+							</form>
 						</tr>";
 					}		
 				?>

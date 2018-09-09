@@ -29,6 +29,14 @@
 		$listeHeros[$heros["ID"]] = $heros;
 	$_SESSION["Admin"]["Heros"] = $listeHeros;
 
+	$requete = "SELECT * FROM ".$PT."typeItems";
+	$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) trigger_error('Impossible de selectionner les items : ' . mysqli_error($mysqli));
+	$listeItems = array();
+	while($item = mysqli_fetch_assoc($retour))
+		$listeItems[$item["ID"]] = $item;
+	$_SESSION["Admin"]["TypeItems"] = $listeItems;
+
 	$requete = "SELECT * FROM ".$PT."accounts WHERE IDPartieEnCours = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Impossible de selectionner les comptes joueurs : ' . mysqli_error($mysqli));

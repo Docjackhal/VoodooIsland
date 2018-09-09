@@ -91,7 +91,7 @@ function updateCarac($mysqli,$personnage,$carac,$modificateur)
 	// Update final
 	$requete2 = "UPDATE  ".$PT."personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."',MPActuel = '".$mp."' WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$personnage["IDPartie"];
 	$retour2 = mysqli_query($mysqli,$requete2);
-	if (!$retour2) die('Requête invalide : ' . mysqli_error($mysqli));
+	if (!$retour2) die('Requête invalide (UpdateCarac) : ' . mysqli_error($mysqli));
 
 	//die($requete2);
 }

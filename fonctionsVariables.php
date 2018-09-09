@@ -22,7 +22,7 @@ function getVariablesDePartie($mysqli,$IDPartie)
 	$variables = array();
 	$requete = "SELECT IDVariable,Valeur FROM ".$PT."variables WHERE IDPartie = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+	if (!$retour) die('Requête invalide (GetVariableDePartie): ' . mysqli_error($mysqli));
 
 	while($variable = mysqli_fetch_assoc($retour))
 		$variables[$variable["IDVariable"]] = $variable["Valeur"];
@@ -42,7 +42,7 @@ function setVariable($mysqli,$IDPartie,$IDVariable,$value)
 	global $PT;
 	$requete = "INSERT INTO ".$PT."variables (IDPartie,IDVariable,Valeur) VALUES (".$IDPartie.",".$IDVariable.",".$value.") ON DUPLICATE KEY UPDATE Valeur = ".$value;
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+	if (!$retour) die('Requête invalide  (setVariable): ' . mysqli_error($mysqli));
 }
 
 ?>

@@ -64,6 +64,7 @@ $(document).ready(function()
 traiterDonneesUpdatesInfosPartie = function(data)
 {
 	//Personnages
+	VI.Heros = data.Heros;
 	var personnages = data["Personnages"];
 	var persoPrets = 0;
 	for(IDPersonnage in personnages)
@@ -104,7 +105,8 @@ traiterDonneesUpdatesInfosPartie = function(data)
 		if(value > -1)
 		{
 			row.find(".descriptionVariable").addClass("green").removeClass("red");
-			row.find(".etatVariable").removeClass("grey").html(value);	
+			row.find(".etatVariable").removeClass("grey");
+			row.find(".etatVariable input").val(value);	
 		}
 	}
 }
@@ -120,5 +122,17 @@ switchOngletGestionPartie = function(onglet)
 
 afficherPopupDonObjet = function(IDHeros)
 {
-	
+	var popup = $("#popupDonObjet");
+	if(VI.Heros != undefined)
+		popup.find(".labelNomHeros").html(VI.Heros[IDHeros]["Prenom"]+" "+VI.Heros[IDHeros]["Nom"]);
+	else
+		popup.find(".labelNomHeros").html("Heros "+IDHeros);
+
+	popup.find(".inputIDHeros").val(IDHeros);
+	popup.css("display","block");
+}
+
+fermerPopupDonItem = function()
+{
+	$("#popupDonObjet").css("display","none");
 }
