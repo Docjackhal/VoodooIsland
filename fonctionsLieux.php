@@ -11,6 +11,15 @@ function getIDLieuDeTypeDansRegion($IDTypeLieu)
 	return -1;
 }
 
+//Retourne un lieu dans la region a partir de son ID, ou retourne null;
+function getLieuDansRegion($IDLieu)
+{
+	if(isset($_SESSION["LieuxDansRegion"][$IDLieu]))
+		return $_SESSION["LieuxDansRegion"][$IDLieu];
+	else
+		return null;
+}
+
 //Renvoi la liste des lieux d'un type donné dans une partie donnée
 function getLieuxDeTypeDansPartie($mysqli,$IDTypeLieu,$IDPartie)
 {
@@ -115,6 +124,20 @@ function creerLieu($mysqli,$IDTypeLieu,$IDParametrage,$IDRegion,$IDPartie,$etatD
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide (creerLieu): ' . mysqli_error($mysqli));
 
-	return mysqli_insert_id($mysqli);	
+	$IDLieu = mysqli_insert_id($mysqli);	
+
+	//Parametrages
+	switch($IDTypeLieu)
+	{
+		case 3://Campement
+		{
+			$requete = "INSERT INTO ".$PT."parametresCampement (IDCampement) VALUES (".$IDLieu.")";
+			$retour = mysqli_query($mysqli,$requete);
+				if (!$retour) die('Requête invalide (creerParametreCampement): ' . mysqli_error($mysqli));
+		}
+		break;
+	}
+
+	return $IDLieu;	
 }
 ?>

@@ -420,8 +420,9 @@ function initialisationLieuxVisibles()
 		var lieu = game.lieuxDecouverts[IDLieu];
 		lieu.image = new Image();
 		lieu.image.src = urlImagesLieux+"lieu_"+lieu.IDTypeLieu+".png";
-		lieu.imageHover = new Image();
-		lieu.imageHover.src = urlImagesLieux+"lieu_"+lieu.IDTypeLieu+"_hover.png";
+
+		if(lieu.IDTypeLieu == 3 && parseInt(lieu.Parametres.NiveauFeu) > 0) // Campement
+				lieu.image.src = urlImagesLieux+"lieu_"+lieu.IDTypeLieu+"b.png";
 	}
 
 	// Création d'un canvas qui servira a la detection de pixel non transparents pour le hover des régions

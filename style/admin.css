@@ -106,7 +106,7 @@
 #blocAdminPartie
 {
 	width: 1280px;
-	height: 845px;
+	min-height: 845px;
 	border: 4px solid black;
 	border-radius: 10px;
 	margin-left: auto;
@@ -306,4 +306,117 @@
 #popupDonObjet select
 {
 	cursor:pointer;
+}
+
+#carteIle
+{
+	border:3px solid black;
+	border-radius:5px;
+	width:calc(800px*1.2);
+	height:calc(614px*1.2);
+	margin-left:auto;
+	margin-right:auto;
+	background-image:url('../images/island_map.png');
+    -moz-background-size:100% 100%;
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;
+    margin-bottom:20px;
+}
+
+#carteIle .zoneRegion
+{
+	border: 2px solid black;
+	width:100px;
+	height:50;
+	position:absolute;
+	font-size:40px;
+	color:red;
+	float:left;
+	cursor:pointer;
+}
+
+#carteIle .zoneRegion:hover
+{
+	border: 2px solid blue;
+}
+
+#carteIle #region_1
+{
+	margin-top: 404px;
+    margin-left: 76px;
+    height: 200px;
+    width: 200px;
+}
+
+#carteIle #region_2
+{
+	margin-top: 535px;
+    margin-left: 536px;
+    height: 145px;
+    width: 287px;
+}
+
+#carteIle #region_3
+{
+	margin-top: 152px;
+    margin-left: 689px;
+    height: 106px;
+    width: 189px;
+}
+
+#carteIle #region_4
+{
+	margin-top:0px;
+	margin-left:0px;
+	height: 100px;
+    width: 100px;
+}
+
+#carteIle #region_5
+{
+	margin-top:0px;
+	margin-left:0px;
+	height: 100px;
+    width: 100px;
+}
+
+#carteIle #region_6
+{
+	margin-top:0px;
+	margin-left:0px;
+	height: 100px;
+    width: 100px;
+}
+
+#carteIle #region_7
+{
+	margin-top:0px;
+	margin-left:0px;
+	height: 100px;
+    width: 100px;
+}
+
+#carteIle #region_8
+{
+	margin-top:0px;
+	margin-left:0px;
+	height: 100px;
+    width: 100px;
+}
+
+
+#carteIle #region_9
+{
+	margin-top:0px;
+	margin-left:0px;
+	height: 100px;
+    width: 100px;
+}
+
+#carteIle #region_10
+{
+	margin-top:0px;
+	margin-left:0px;
+	height: 100px;
+    width: 100px;
 }

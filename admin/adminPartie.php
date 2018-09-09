@@ -77,6 +77,7 @@
 		</form>
 		<form action="#"><input id="btnTopBar_perso" class="btnTopBar <?php echo ($IDOnglet=='p') ? 'btnTopBarLocked' : '';?>" value="Personnages" onclick="switchOngletGestionPartie('perso');"/></form>
 		<form action="#"><input id="btnTopBar_variables" class="btnTopBar <?php echo ($IDOnglet=='v') ? 'btnTopBarLocked' : '';?>" value="Variables" onclick="switchOngletGestionPartie('variables');"/></form>
+		<form action="#"><input id="btnTopBar_carte" class="btnTopBar <?php echo ($IDOnglet=='c') ? 'btnTopBarLocked' : '';?>" value="Carte" onclick="switchOngletGestionPartie('carte');"/></form>
 	</div>
 
 	<div class="blocOnglet" id="blocOnglet_perso" style="display:<?php echo ($IDOnglet=='p')?'block':'none';?>">
@@ -145,13 +146,28 @@
 								<input type='hidden' name='IDVariable' value='".$IDVariable."'/>
 								<td>".$IDVariable."</td>
 								<td class='descriptionVariable red'>".$description."</td>
-								<td class='etatVariable grey'><input name='value' value='-1'/></td>
+								<td class='etatVariable grey'><input type='number' name='value' value='-1'/></td>
 								<td><input class='submit' type='submit' value='modifier'/></td>
 							</form>
 						</tr>";
 					}		
 				?>
 			</table>
+		</div>
+	</div>
+	<div class="blocOnglet" id="blocOnglet_carte" style="display:<?php echo ($IDOnglet=='c')?'block':'none';?>">
+		<h1>Carte de l'île</h1>
+		<div id="carteIle">
+			<div class="zoneRegion" id="region_1">1</div>
+			<div class="zoneRegion" id="region_2">2</div>
+			<div class="zoneRegion" id="region_3">3</div>
+			<div class="zoneRegion" id="region_4">4</div>
+			<div class="zoneRegion" id="region_5">5</div>
+			<div class="zoneRegion" id="region_6">6</div>
+			<div class="zoneRegion" id="region_7">7</div>
+			<div class="zoneRegion" id="region_8">8</div>
+			<div class="zoneRegion" id="region_9">9</div>
+			<div class="zoneRegion" id="region_10">10</div>
 		</div>
 	</div>
 </div>

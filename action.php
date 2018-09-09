@@ -23,6 +23,7 @@ else
 
 	//Start transaction, ne pas oublier de commit a la fin de chaque action
 	mysqli_begin_transaction($mysqli);
+	mysqli_autocommit($mysqli,false);
 
 	if(!isset($_GET['action']))
 		die("IDAction not defined");
@@ -56,5 +57,6 @@ else
 	// Action 7: Creuser un emplacement de campement
 	// Action 8: Installer une toile dans un emplacement de campement
 	// Action 9: Installer la vieille marmitte dans un emplacement de campement
+	// Action 10: Allumer le feu d'un campement (silex ou bois)
 }
 ?>

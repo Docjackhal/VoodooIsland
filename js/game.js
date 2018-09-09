@@ -216,6 +216,14 @@ function nbItemsDansInventaire(typeItem)
 	}
 }
 
+function ouvrirPopupInventaireCampement()
+{
+	var popupInventaireCampement = $("#popup_inventaireCampement");
+	popupInventaireCampement.css("display","block");
+	popupInventaireCampement.css("opacity",0);
+	popupInventaireCampement.animate({opacity: 1},300);
+}
+
 // Binds
 $(document).ready(function()
 {
@@ -231,6 +239,16 @@ $(document).ready(function()
 	$("#popup_inventaire_close").click(function()
 	{
 		popupInventaire.animate({opacity: 0},300,function(){
+			$(this).css("display","none");
+		});
+	});
+
+	//Inventaire campement
+	var popupInventaireCampement = $("#popup_inventaireCampement");
+
+	$("#popup_inventaireCampement_close").click(function()
+	{
+		popupInventaireCampement.animate({opacity: 0},300,function(){
 			$(this).css("display","none");
 		});
 	});

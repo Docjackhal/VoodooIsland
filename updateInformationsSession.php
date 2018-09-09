@@ -121,7 +121,35 @@ function updateInformationsSession()
 			break;	
 			case 2: // Emplacement de campement
 				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["CoutInstallation"] = COUT_INSTALLATION_CAMPEMENT;
-			break;		
+			break;	
+			case 3: // Campement
+				$requete2 = "SELECT * FROM ".$PT."parametresCampement WHERE IDCampement = ".$IDLieu;
+				$retour2 = mysqli_query($mysqli,$requete2);
+				if (!$retour2) 
+					die('Requête invalide : '.$requete2 . mysqli_error($mysqli));
+				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"] = mysqli_fetch_assoc($retour2);
+				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["CoutAllumageFeu"] = COUT_ALLUMER_FEU;
+				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["ChanceAllumerFeuSilex"] = CHANCE_ALLUMER_FEU_SILEX;
+				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["ChanceAllumerFeuBois"] = CHANCE_ALLUMER_FEU_BOIS;
+				$_SESSION["LieuxDansRegion"][$IDLieu]["Parametres"]["StockBucheMax"] = STOCK_BUCHE_MAX_FEU;
+
+				//Récupération de l'inventaire du campement
+				$_SESSION["InventaireCampement"] = array();
+				$requete = "SELECT * FROM ".$PT."items WHERE IDPartie = ".$IDPartie." AND TypeInventaire = 'campement' AND IDProprietaire = ".$IDLieu;
+				$retour = mysqli_query($mysqli,$requete);
+				if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+				while($item = mysqli_fetch_assoc($retour))
+				{
+					$IDItem = $item["ID"];
+					$IDTypeItem = $item["IDTypeItem"];
+
+					if(empty($_SESSION["InventaireCampement"][$IDTypeItem]))
+						$_SESSION["InventaireCampement"][$IDTypeItem] = array();
+
+					$_SESSION["InventaireCampement"][$IDTypeItem][$IDItem] = $item;
+				}
+
+			break;	
 			case 5: // Sources d'eau
 			{	
 				$requete2 = "SELECT * FROM ".$PT."parametresSourcesEau WHERE IDLieu = ".$IDLieu;

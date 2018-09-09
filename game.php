@@ -150,6 +150,24 @@ function genererHTMLInventaireJoueur()
 	return $html;
 }
 
+function genererHTMLInventaireCampement()
+{
+	$html = "";
+	if(isset($_SESSION["InventaireCampement"]))
+	{
+		foreach($_SESSION["Inventaire"] as $IDTypeItem => $listeItemsDeType)
+		{
+			foreach($listeItemsDeType as $IDItem => $item)
+			{
+				$html .= "<div class='bloc_inventaire' id='bloc_inventaire_".$IDItem."' IDTypeItem='".$IDTypeItem."' IDItem='".$IDItem."'>";
+					$html .= "<img title='".ucfirst(lang("Item_".$IDTypeItem."_Nom"))."' src='images/items/item_".$IDTypeItem.".png' width='65px' height='55px' align='middle'/>";
+				$html .= "</div>";
+			}
+		}
+	}
+	return $html;
+}
+
 function AP($cout)
 {
 	echo "<div class='iconeCoutAP";
@@ -440,9 +458,16 @@ function PM($cout)
 
 		<!-- Popup Inventaire -->
 		<div id="popup_inventaire" class='popup'>	
-			<div id="popup_inventaire_titre">Inventaire</div>
+			<div id="popup_inventaire_titre"><?php echo lang("Inventaire");?></div>
 			<div id="popup_inventaire_close" class="popup_close">X</div>
 			<div id="popup_inventaire_contenu"><?php echo genererHTMLInventaireJoueur();?></div>
+		</div>
+
+		<!-- Popup Inventaire Campement -->
+		<div id="popup_inventaireCampement" class='popup'>	
+			<div id="popup_inventaireCampement_titre"><?php echo lang("InventaireCampement");?></div>
+			<div id="popup_inventaireCampement_close" class="popup_close">X</div>
+			<div id="popup_inventaireCampement_contenu"><?php echo genererHTMLInventaireCampement();?></div>
 		</div>
 
 		<div id="popup_zoomItem" class='popup'>

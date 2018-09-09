@@ -21,6 +21,12 @@ body
 	color: green !important;
 }
 
+.orange
+{
+	color: orange !important;
+}
+
+
 #game
 {
 	width: 1280px;
@@ -665,7 +671,7 @@ body
 	margin-left: 10px;
 }
 
-#game #popup_inventaire, #game #popup_zoomItem
+#game #popup_inventaire, #game #popup_zoomItem, #game #popup_inventaireCampement
 {
 	border:3px solid black;
 	border-radius:10px;
@@ -678,7 +684,7 @@ body
 	display: none;
 }
 
-#game #popup_inventaire_titre, #game #popup_zoomItem_titre
+#game #popup_inventaire_titre, #game #popup_zoomItem_titre , #game #popup_inventaireCampement_titre
 {
 	border-bottom: 2px solid black;
 	width:100%;
@@ -934,11 +940,13 @@ body
 {
 	border: 2px solid black;
     border-radius: 20px;
-    width: 130px;
+    min-width: 130px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+    margin-top: 5px;
     cursor: pointer;
+    padding: 2px;
+    display: inline-block;
 }
 
 .divSubmit:hover

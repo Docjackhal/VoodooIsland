@@ -25,6 +25,8 @@ $lang["DureeCycleConsommable"] = "Obtenu il y à %Number% cycles.";
 
 $lang["Gains:"] = "Gains:";
 $lang["Pertes:"] = "Pertes:";
+$lang["Inventaire"] = "Inventaire";
+$lang["InventaireCampement"] = "Inventaire du campement";
 
 $lang["Tooltip_BarresStats_Pa"] = "Vos Points d'actions. Ils vous permettent d'éffectuer des actions et remontent de %Number% à chaque cycle.";
 $lang["Tooltip_BarresStats_Pm"] = "Vos Points de mouvements. Ils vous permettent de vous déplacer sur l'ile et remontent de %Number% à chaque cycle.";
@@ -79,7 +81,21 @@ $lang["Lieu_2_InstallerToile"] = "Installer l'abris";
 $lang["Lieu_2_InstallerMarmitte"] = "Installer la cuisine";
 
 $lang["Lieu_3_Nom"] = "Campement";
-$lang["Lieu_3_Description"] = "Votre base stratégique principale sur l'ile. D'ici, vous pouvez vous reposer, alimenter le feu et faire la cuisine.";
+$lang["Lieu_3_Description"] = "Votre base stratégique principale sur l'ile. D'ici, vous pouvez vous reposer, alimenter le feu et faire la cuisine. Le feu est d'une importance cruciale. Il vous permet de préparer des plats chauts, vous protège contre les prédateurs et vous réchauffe la nuit. Veillez à ce qu'il soit toujours allumé la nuit et économisez vos combustibles en journée !";
+$lang["Lieu_3_FeuEteint"] = "Le feu est éteint.";
+$lang["Lieu_3_FeuAllume"] = "Le feu est allumé.";
+$lang["Lieu_3_FeuAllumeBientotEteint"] = "Le feu est allumé, mais il va s'éteindre !";
+$lang["Lieu_3_AucuneBuche"] = "Il n'y à plus de bûches dans le feu.";
+$lang["Lieu_3_UneBuche"] = "Il n'y à plus qu'une bûche dans le feu.";
+$lang["Lieu_3_PlusieursBuches"] = "Il y à encore %Number% bûches dans le feu.";
+$lang["Lieu_3_AllumerFeuSilex"] = "Allumer le feu (Silex).";
+$lang["Lieu_3_AllumerFeuBois"] = "Allumer le feu (Bois).";
+$lang["Lieu_3_RienPourAllumerFeu"] = "Vous n'avez rien pour allumer le feu.";
+$lang["Lieu_3_ErreurFeuDejaAllume"] = "Le feu est déjà allumé !";
+$lang["Lieu_3_AjouterCombustible"] = "Ajouter du bois dans le feu.";
+$lang["Lieu_3_PasDeBoisPourFeu"] = "Vous n'avez pas de bois pour le feu.";
+$lang["Lieu_3_StockBucheDejaMax"] = "Le feu ne peut pas accueillir plus de bois.";
+$lang["Lieu_3_InventaireCampement"] = "Inventaire du campement.";
 
 $lang["Lieu_4_Nom"] = "Epave du Santa Marina";
 $lang["Lieu_4_Description"] = "L'épave de votre bateau qui s'est echoué non loin de la plage. Une partie semble entièrement submergée, mais l'avant du bateau semble accessible. Aucune trace de survivants.";
@@ -134,6 +150,16 @@ $lang["Action_8_Creuser_Description"] = "Vous bricolez un abri a partir d'une vi
 
 $lang["Action_9_Creuser_Titre"] = "Premier objectif accompli !";
 $lang["Action_9_Creuser_Description"] = "Vous avez maintenatn un campement opérationnel! Vous avez accompli le premier pas vers votre survie et vos chances de vous échapper de cette île un jour augmentent.. Enfin, au moins elles ne sont plus nulles.";
+
+$lang["Action_10_ReussiteAllumerFeu_Titre"] = "3, 2, 1, allumage !";
+$lang["Action_10_ReussiteAllumerFeu_Description"] = "Vous avez réussi à allumer le feu ! Vos camarades vous dédierons une danse de la joie plus tard.";
+$lang["Action_10_EchecAllumerFeu_Titre"] = "Echec cuisant";
+$lang["Action_10_EchecAllumerFeu_Description"] = "Malheuresement, vous n'avez pas réussi à allumer le feu cette fois-ci. Peut-être avez-vous manqué de chance? Ou de talent.";
+
+$lang["Action_11_FeuAlimente_Titre"] = "Entretien du feu";
+$lang["Action_11_FeuAlimente_Description"] = "Vous déposez une bûche dans le feu. Combien de vie avez-vous sauvées aujourd'hui en réalisant ce geste héroïque?";
+
+
 // ------------------------------- FIN ACTIONS ------------------------------------- //
 
 // ------------------------------- ITEMS ------------------------------------- //
@@ -193,7 +219,7 @@ $lang["Item_26_Description"] = "Ce kit d'analyse à été contaminé par une sou
 $lang["Item_27_Nom"] = "statuette voodoo";
 $lang["Item_27_Description"] = "Une étrange statuette en bois.";
 $lang["Item_28_Nom"] = "bois";
-$lang["Item_28_Description"] = "Un bout de bois, qui peut servir pour alimenter un feu ou assembler des objets.";
+$lang["Item_28_Description"] = "Une branche de bois, qui peut servir pour alimenter un feu ou assembler des objets.";
 $lang["Item_29_Nom"] = "silex";
 $lang["Item_29_Description"] = "Un morceau de silex, excellent pour allumer un feu.";
 $lang["Item_30_Nom"] = "radio";
