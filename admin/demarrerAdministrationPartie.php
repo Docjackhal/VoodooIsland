@@ -46,6 +46,15 @@
 
 	$_SESSION["Admin"]["Accounts"] = $listeJoueurs;
 
+	$requete = "SELECT * FROM ".$PT."regions";
+	$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) trigger_error('Impossible de selectionner les régions : ' . mysqli_error($mysqli));
+	$listeRegions = array();
+	while($region = mysqli_fetch_assoc($retour))
+		$listeRegions[$region["ID"]] = $region;
+
+	$_SESSION["Admin"]["Regions"] = $listeRegions;
+
 	header("Location: index.php");
 
 ?>

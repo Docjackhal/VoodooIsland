@@ -325,7 +325,7 @@
 
 #carteIle .zoneRegion
 {
-	border: 2px solid black;
+	/*border: 2px solid black;*/
 	width:100px;
 	height:50;
 	position:absolute;
@@ -366,57 +366,68 @@
 
 #carteIle #region_4
 {
-	margin-top:0px;
-	margin-left:0px;
-	height: 100px;
-    width: 100px;
+	margin-top: 320px;
+    margin-left: 643px;
+    height: 175px;
+    width: 197px;
 }
 
 #carteIle #region_5
 {
-	margin-top:0px;
-	margin-left:0px;
-	height: 100px;
-    width: 100px;
+	margin-top: 143px;
+    margin-left: 420px;
+    height: 100px;
+    width: 221px;
 }
 
 #carteIle #region_6
 {
-	margin-top:0px;
-	margin-left:0px;
-	height: 100px;
-    width: 100px;
+	margin-top: 226px;
+    margin-left: 157px;
+    height: 100px;
+    width: 246px;
 }
 
 #carteIle #region_7
 {
-	margin-top:0px;
-	margin-left:0px;
-	height: 100px;
-    width: 100px;
+	margin-top: 382px;
+    margin-left: 253px;
+    height: 100px;
+    width: 188px;
 }
 
 #carteIle #region_8
 {
-	margin-top:0px;
-	margin-left:0px;
-	height: 100px;
-    width: 100px;
+	margin-top: 526px;
+    margin-left: 390px;
+    height: 154px;
+    width: 123px;
 }
 
 
 #carteIle #region_9
 {
-	margin-top:0px;
-	margin-left:0px;
-	height: 100px;
-    width: 100px;
+	margin-top: 402px;
+    margin-left: 489px;
+    height: 115px;
+    width: 128px;
 }
 
 #carteIle #region_10
 {
-	margin-top:0px;
-	margin-left:0px;
-	height: 100px;
-    width: 100px;
+	margin-top: 270px;
+    margin-left: 419px;
+    height: 100px;
+    width: 178px;
+}
+
+#carteIle .iconeDansCarte
+{
+	width:50px;
+	height:50px;
+	/*border:2px solid black;*/
+	float: left;
+	margin:5px;
+	-moz-background-size:100% 100%;
+    -webkit-background-size:100% 100%;
 }

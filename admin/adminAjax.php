@@ -2,6 +2,7 @@
 session_start();
 include_once("../prive/config.php");
 include_once("../fonctionsVariables.php");
+include_once("../fonctionsLieux.php");
 header('Content-type: text/json');
 
 $mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
@@ -77,6 +78,9 @@ switch($_GET['action'])
 
 		//Variables
 		$result["Variables"] = getVariablesDePartie($mysqli,$IDPartie);
+
+		//Lieux
+		$result["Lieux"] = getLieuxDansPartie($mysqli,$IDPartie);
 	}
 	break;
 }

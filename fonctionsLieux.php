@@ -36,6 +36,21 @@ function getLieuxDeTypeDansPartie($mysqli,$IDTypeLieu,$IDPartie)
 	return $lieux;
 }
 
+function getLieuxDansPartie($mysqli,$IDPartie)
+{
+	global $PT;
+	$lieux = array();
+
+	$requete = "SELECT * FROM ".$PT."lieux WHERE  IDPartie = ".$IDPartie;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) die('Requête invalide (getLieuxDansPartie): ' . mysqli_error($mysqli));
+
+	while($lieu = mysqli_fetch_assoc($retour))
+		$lieux[$lieu["ID"]] = $lieu;
+
+	return $lieux;
+}
+
 // Découvre un lien en bdd si pas déja découvert
 function decouvrirLieu($mysqli, $IDLieu)
 {

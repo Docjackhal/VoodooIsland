@@ -158,16 +158,10 @@
 	<div class="blocOnglet" id="blocOnglet_carte" style="display:<?php echo ($IDOnglet=='c')?'block':'none';?>">
 		<h1>Carte de l'île</h1>
 		<div id="carteIle">
-			<div class="zoneRegion" id="region_1">1</div>
-			<div class="zoneRegion" id="region_2">2</div>
-			<div class="zoneRegion" id="region_3">3</div>
-			<div class="zoneRegion" id="region_4">4</div>
-			<div class="zoneRegion" id="region_5">5</div>
-			<div class="zoneRegion" id="region_6">6</div>
-			<div class="zoneRegion" id="region_7">7</div>
-			<div class="zoneRegion" id="region_8">8</div>
-			<div class="zoneRegion" id="region_9">9</div>
-			<div class="zoneRegion" id="region_10">10</div>
+			<?php
+				foreach($_SESSION["Admin"]["Regions"] as $IDRegion=>$region)
+					echo '<div class="zoneRegion" id="region_'.$IDRegion.'" title="'.$region["Nom"].'"></div>';
+			?>
 		</div>
 	</div>
 </div>

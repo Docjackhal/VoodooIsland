@@ -63,6 +63,10 @@ $(document).ready(function()
 
 traiterDonneesUpdatesInfosPartie = function(data)
 {
+	//Carte
+	var carteIle = $("#carteIle");
+	carteIle.find(".zoneRegion").html("");
+
 	//Personnages
 	VI.Heros = data.Heros;
 	var personnages = data["Personnages"];
@@ -88,6 +92,9 @@ traiterDonneesUpdatesInfosPartie = function(data)
 		$(IDDivBlocPerso+" .PMActuel").html(personnage["PmActuel"]);
 		$(IDDivBlocPerso+" .PMMax").html(personnage["PmMax"]);
 		$(IDDivBlocPerso+" .nom_region_perso").html(VI.datas.Regions[personnage["RegionActuelle"]]["Nom"]);
+
+		//Position sur Ile
+		carteIle.find("#region_"+personnage["RegionActuelle"]).append(genererIconeHerosSurCarteIle(IDPersonnage));
 	}
 
 	if(persoPrets == 8)
@@ -109,6 +116,15 @@ traiterDonneesUpdatesInfosPartie = function(data)
 			row.find(".etatVariable input").val(value);	
 		}
 	}
+
+	//Lieux
+	for(IDLieu in data.Lieux)
+	{
+		//Position sur Ile
+		var lieu = data.Lieux[IDLieu];
+		carteIle.find("#region_"+lieu["IDRegion"]).append(genererIconeLieuSurCarteIle(lieu["IDTypeLieu"]));
+	}
+
 }
 
 switchOngletGestionPartie = function(onglet)
@@ -135,4 +151,16 @@ afficherPopupDonObjet = function(IDHeros)
 fermerPopupDonItem = function()
 {
 	$("#popupDonObjet").css("display","none");
+}
+
+genererIconeHerosSurCarteIle = function(IDHeros)
+{
+	var bloc = "<div class='iconeDansCarte iconeJoueurDansCarte iconeJoueurDansCarte_"+IDHeros+"' style='background-image:url(\"../images/Personnage_portrait/Personnage_Portrait_"+IDHeros+".png\");'></div>";
+	return bloc;
+}
+
+genererIconeLieuSurCarteIle = function(IDTypeLieu)
+{
+	var bloc = "<div class='iconeDansCarte iconeLieuDansCarte iconeLieuDansCarte_"+IDTypeLieu+"' style='background-image:url(\"../images/lieux/Icones/icone_"+IDTypeLieu+".png\");'></div>";
+	return bloc;
 }
