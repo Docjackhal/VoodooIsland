@@ -52,12 +52,11 @@ if (!window.requestAnimationFrame)
 
 function switchTchat(name)
 {
-	var tchats = $(".tchat");
-	for(var i = 0; i < tchats.length; i++)
-		tchats[i].style.display = "none";
-	
-	var tchat = document.getElementById("tchat_"+name);
-	tchat.style.display = "block";
+	$(".tchat").css("display","none");
+	$("#tchat_"+name).css("display","block");
+
+	$(".selection_channel").removeClass("selected");
+	$("#selection_channel_"+name).addClass("selected");
 }
 
 function envoyerMessage(idCanal)

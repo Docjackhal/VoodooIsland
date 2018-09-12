@@ -9,6 +9,7 @@ else
 	include_once("fonctionsLieux.php");
 	include_once("fonctionsPersonnages.php");
 	include_once("fonctionsGlobales.php");
+	include_once("fonctionsTchats.php");
 	include_once("updateInformationsSession.php");
 
 	if($_SESSION['IDPartieEnCours'] == -1 || $_SESSION['PartieEnCours']['Etat'] == 'en_creation')
@@ -71,6 +72,7 @@ else
 
 		$region = $_SESSION['Regions'][$_SESSION['RegionActuelle']];	
 		$estReady = $_SESSION["PretCycleSuivant"];	
+
 	}
 
 // ----------------------- Fonctions Graphiques ---------------------------
@@ -105,35 +107,6 @@ function genererBarreStatistique($nomStat)
 	return $div;	
 }
 
-function genererTchat($idCanal)
-{
-	$content = "";
-	if(!empty($_SESSION['Tchats'][$idCanal]))
-	{
-		$content .= "<div class='enssemble_message' id='enssemble_message_".$idCanal."'>";
-		foreach($_SESSION['Tchats'][$idCanal] as $message)
-		{
-			$content .= "<div class='entree_tchat'>";
-				$content .= "<span class='tchat_date'>".substr($message['DateEnvoie'],11).": </span>";
-				$content .= "<span class='tchat_auteur'>".$message['Auteur'].": </span>";
-				$content .= "<span class='tchat_message'>".$message['Message']."</span>";
-			$content .= "</div>";
-		}
-		$content .= "</div>";
-
-		// Bloc poster message
-		$content .= "<div class='bloc_envoi_message' id='bloc_envoi_message_".$idCanal."'>";
-				$content .= "<input type='hidden' name='idCanal' value='".$idCanal."'></input>";
-				$content .= "<textarea type='text' name='message' maxlength='255' id='zone_envoi_message_".$idCanal."'></textarea>";
-				$content .= "<div class='submit' onclick='envoyerMessage(".$idCanal.")'>Envoyer</div>";
-		$content .= "</div>";
-
-	}
-	else
-				$content .= "<div class='enssemble_message' id='enssemble_message_".$idCanal."'><div class='entree_tchat'>Aucun message</div></div>";
-	return $content;
-}
-
 function genererHTMLInventaireJoueur()
 {
 	$html = "";
@@ -155,7 +128,7 @@ function genererHTMLInventaireCampement()
 	$html = "";
 	if(isset($_SESSION["InventaireCampement"]))
 	{
-		foreach($_SESSION["Inventaire"] as $IDTypeItem => $listeItemsDeType)
+		foreach($_SESSION["InventaireCampement"] as $IDTypeItem => $listeItemsDeType)
 		{
 			foreach($listeItemsDeType as $IDItem => $item)
 			{
@@ -437,20 +410,20 @@ function PM($cout)
 		<!-- Bloc Tchat droit -->
 		<div id="bloc_tchat">
 			<div id='bloc_selection_channels'>
-				<div class='selection_channel selected' id='selection_channel_<?php echo $_SESSION['ID'] ?>'  onclick='switchTchat("<?php echo $_SESSION['ID'] ?>")'>Personnel</div>
-				<div class='selection_channel' id='selection_channel_<?php echo $_SESSION['RegionActuelle'] ?>'  onclick='switchTchat("<?php echo $_SESSION['RegionActuelle'] ?>")'>Local</div>
-				<div class='selection_channel' id='selection_channel_0' onclick='switchTchat(0)'>Général</div>
+				<div class='selection_channel selected' id='selection_channel_Partie'  onclick='switchTchat("Partie")'><?php echo lang("Tchat_Partie");?></div>
+				<div class='selection_channel' id='selection_channel_Region'  onclick='switchTchat("Region")'><?php echo lang("Tchat_Region");?></div>
+				<div class='selection_channel' id='selection_channel_Radio' onclick='switchTchat("Radio")'><?php echo lang("Tchat_Radio");?></div>
 			</div>
 
 			<div id='contener_tchat'>
-				<div class='tchat' id='tchat_<?php echo $_SESSION['ID'] ?>'>
-					<?php echo genererTchat($_SESSION['ID']); ?>
+				<div class='tchat' id='tchat_Partie'>
+					<?php echo genererTchat("Partie"); ?>
 				</div>
-				<div class='tchat' id='tchat_<?php echo $_SESSION['RegionActuelle'] ?>' style='display:none'>
-					<?php echo genererTchat($_SESSION['RegionActuelle']); ?>
+				<div class='tchat' id='tchat_Region' style='display:none'>
+					<?php echo genererTchat("Region"); ?>
 				</div>
-				<div class='tchat' id='tchat_0' style='display:none'>
-					<?php echo genererTchat(0); ?>
+				<div class='tchat' id='tchat_Radio' style='display:none'>
+					<?php echo genererTchat("Radio"); ?>
 				</div>
 
 			</div>

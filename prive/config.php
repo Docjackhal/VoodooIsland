@@ -10,6 +10,9 @@ const COUT_EXPLORATION = 1; // 1
 const GAIN_PA_CYCLE = 2;
 const GAIN_PM_CYCLE = 1;
 
+//Tchat
+const HISTORIQUE_TCHAT = 10; // Nombre de messages récupérés
+
 //Peche
 const COUT_PECHE = 1; // 1
 const CHANCE_BASE_PECHE = 50;

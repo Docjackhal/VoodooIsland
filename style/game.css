@@ -535,6 +535,12 @@ body
 	background-color: grey;
 }
 
+.messageRemplaceEnvoie
+{
+	text-align:center;
+	margin-top: 35px;
+}
+
 .popup
 {
 	background-color: white;

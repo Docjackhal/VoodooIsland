@@ -35,6 +35,18 @@ $lang["Tooltip_BarresStats_Pv"] = "Votre santé (Points de Vie). Elle représent
 
 // ------------------------------- FIN GAME.PHP ------------------------------------- //
 
+// ------------------------------- TCHATS ------------------------------------- //
+
+$lang["Tchat_Partie"] = "Partie";
+$lang["Tchat_Region"] = "Local";
+$lang["Tchat_Radio"] = "Radio";
+$lang["AucunMessage"] = "Aucun message";
+$lang["SilenceRadio"] = "Silence radio.";
+$lang["RadioPourUtiliserCanal"] = "Il vous faut une radio pour pouvoir utiliser ce canal.";
+$lang["EcrireNouveauMessage"] = "Envoyer un nouveau message.";
+
+
+// ----------------------------- FIN TCHATS ------------------------------------- //
 
 
 // ------------------------------- EVENEMENTS ------------------------------------- //

@@ -1,6 +1,8 @@
 <?php
 include_once("fonctionsLangue.php");
 include_once("fonctionsGlobales.php");
+include_once("fonctionsTchats.php");
+include_once("fonctionsItems.php");
 include_once("prive/config.php");
 
 function updateInformationsSession()
@@ -55,24 +57,6 @@ function updateInformationsSession()
 
 	$_SESSION['PartieEnCours']['Cycle'] = $partie['Cycle'];
 	$_SESSION['PartieEnCours']['Jour'] = $partie['Jour'];
-
-	// Données Tchat
-	$requete = "SELECT Auteur, Message, Canal, DateEnvoie FROM ".$PT."tchats WHERE IDPartie = '".$IDPartie."' AND (Canal = '".$_SESSION['RegionActuelle']."' OR Canal = 0) AND DateEnvoie >= '".$_SESSION['DateArriveeLieu']."' ORDER BY DateEnvoie DESC";
-	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : ' . mysql_error($mysqli));
-	
-	$_SESSION['Tchats'] = array();
-
-	if(mysqli_num_rows($retour))
-	{
-		while($message = mysqli_fetch_assoc($retour))
-		{
-			if(!isset($_SESSION['Tchats'][$message['Canal']]))
-				$_SESSION['Tchats'][$message['Canal']] = array();
-
-			$_SESSION['Tchats'][$message['Canal']][] = $message;
-		}
-	}
 
 	// MAJ des variables de la partie
 	$_SESSION["Variables"] = array();
@@ -199,5 +183,9 @@ function updateInformationsSession()
 	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
 	while($condition = mysqli_fetch_assoc($retour))
 		$_SESSION["Conditions"][$condition["IDCondition"]] = $condition;
+
+	//Historique des tchats
+	$_SESSION["AccesTchatRadio"] = (getItem(30,"personnage") != null);
+	$_SESSION["Tchats"] = getHistoriquesTchats($mysqli,$_SESSION['IDPersonnage'],$IDRegion,$_SESSION['DateArriveeLieu'],$_SESSION["AccesTchatRadio"],$IDPartie);
 }
 ?>
