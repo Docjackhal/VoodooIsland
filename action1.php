@@ -31,12 +31,18 @@ switch($idAction)
 							$requete = "UPDATE ".$PT."parametresCampement SET NiveauFeu = 1 WHERE IDCampement = ".$IDCampement;
 							$retour = mysqli_query($mysqli,$requete);
 								if (!$retour) die('Requête invalide (Allumer feu) : ' . mysqli_error());
+
+							//Broadcast tchat
+							envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_10_MessageTchatReussite",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 						}
 						else
 						{
 							//Echec
 							$_SESSION["PopupEvenement"]["Titre"] = lang("Action_10_EchecAllumerFeu_Titre");
 							$_SESSION["PopupEvenement"]["Message"] = lang("Action_10_EchecAllumerFeu_Description");
+
+							//Broadcast tchat
+							envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_10_MessageTchatEchec",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 						}
 
 						//Perte de l'item
@@ -86,6 +92,9 @@ switch($idAction)
 						//Perte de l'item
 						supprimerItem($mysqli,$combustible["ID"]);
 						$_SESSION["PopupEvenement"]["PertesItems"][] = 28;	
+
+						//Broadcast tchat
+						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_11_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 
 						mysqli_commit($mysqli);	
 					}	

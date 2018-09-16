@@ -156,20 +156,26 @@ $lang["Action_6_PecheTortue_Description"] = "Vous sortez de l'eau une tortue de 
 
 $lang["Action_7_Creuser_Titre"] = "Travaux de terrassement";
 $lang["Action_7_Creuser_Description"] = "Vous creusez le sable afin de préparer l'installation éventuelle d'un futur campement. Il vous faut maintenant de quoi installer un abri.";
+$lang["Action_7_MessageTchat"] = "%Login% creuse le sable avec sa pelle afin de préparer un éventuel campement.";
 
 $lang["Action_8_Creuser_Titre"] = "Un abri rudimentaire";
 $lang["Action_8_Creuser_Description"] = "Vous bricolez un abri a partir d'une vieille toile déchirée. Ce n'est pas le grand luxe, mais c'est toujours mieux que rien.";
+$lang["Action_8_MessageTchat"] = "%Login% installe un abris à l'aide d'une vieille toile. Vous voici avec un début de campement.";
 
 $lang["Action_9_Creuser_Titre"] = "Premier objectif accompli !";
 $lang["Action_9_Creuser_Description"] = "Vous avez maintenatn un campement opérationnel! Vous avez accompli le premier pas vers votre survie et vos chances de vous échapper de cette île un jour augmentent.. Enfin, au moins elles ne sont plus nulles.";
+$lang["Action_9_MessageTchat"] = "%Login% installe une marmitte dans le campement, qui est désormais opérationnel.";
 
 $lang["Action_10_ReussiteAllumerFeu_Titre"] = "3, 2, 1, allumage !";
 $lang["Action_10_ReussiteAllumerFeu_Description"] = "Vous avez réussi à allumer le feu ! Vos camarades vous dédierons une danse de la joie plus tard.";
 $lang["Action_10_EchecAllumerFeu_Titre"] = "Echec cuisant";
 $lang["Action_10_EchecAllumerFeu_Description"] = "Malheuresement, vous n'avez pas réussi à allumer le feu cette fois-ci. Peut-être avez-vous manqué de chance? Ou de talent.";
+$lang["Action_10_MessageTchatReussite"] = "%Login% allume le feu avec succès dans le campement.";
+$lang["Action_10_MessageTchatEchec"] = "%Login% essaye d'allumer le feu dans le campement, en vain. Bouh !";
 
 $lang["Action_11_FeuAlimente_Titre"] = "Entretien du feu";
 $lang["Action_11_FeuAlimente_Description"] = "Vous déposez une bûche dans le feu. Combien de vie avez-vous sauvées aujourd'hui en réalisant ce geste héroïque?";
+$lang["Action_11_MessageTchat"] = "%Login% dépose une bûche dans le feu.";
 
 
 // ------------------------------- FIN ACTIONS ------------------------------------- //

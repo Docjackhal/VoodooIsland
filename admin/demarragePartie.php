@@ -223,7 +223,7 @@ if(mysqli_num_rows($retour))
 
 		$necessiteRollback = false;
 
-		header('Location: index.php');
+		//header('Location: index.php');
 	}
 	else
 		trigger_error("Erreur creation partie not ready");

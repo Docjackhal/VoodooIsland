@@ -38,11 +38,24 @@ if(!empty($_POST["IDPartie"]))
 		$IDParametresLieu[] = $lieu["IDParametrageLieu"];
 	if(count($IDParametrageLieu) > 0)
 	{
-		$requete = "DELETE FROM ".$PT."parametragesBancsPoissons WHERE ID IN (".implode(',',$IDParametresLieu).")";
+		$requete = "DELETE FROM ".$PT."parametresBancsPoissons WHERE ID IN (".implode(',',$IDParametresLieu).")";
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
 	}
 
+	// Suppression des campements
+	$requete = "SELECT IDParametrageLieu FROM ".$PT."lieux WHERE IDPartie = ".$IDPartie." AND IDTypeLieu = 3";
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
+	$IDParametresLieu = array();
+	while($lieu = mysqli_fetch_assoc($retour))
+		$IDParametresLieu[] = $lieu["IDParametrageLieu"];
+	if(count($IDParametrageLieu) > 0)
+	{
+		$requete = "DELETE FROM ".$PT."parametresCampement WHERE ID IN (".implode(',',$IDParametresLieu).")";
+		$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
+	}
 
 	// Suppression des sources d'eau
 	$requete = "SELECT IDParametrageLieu FROM ".$PT."lieux WHERE IDPartie = ".$IDPartie." AND IDTypeLieu = 5";
@@ -53,7 +66,7 @@ if(!empty($_POST["IDPartie"]))
 		$IDParametresLieu[] = $lieu["IDParametrageLieu"];
 	if(count($IDParametrageLieu) > 0)
 	{
-		$requete = "DELETE FROM ".$PT."parametragesSourcesEau WHERE ID IN (".implode(',',$IDParametresLieu).")";
+		$requete = "DELETE FROM ".$PT."parametresSourcesEau WHERE ID IN (".implode(',',$IDParametresLieu).")";
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
 	}
@@ -65,6 +78,11 @@ if(!empty($_POST["IDPartie"]))
 
 	// Suppression du tchat
 	$requete = "DELETE FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
+
+	// Suppression des variables
+	$requete = "DELETE FROM ".$PT."variables WHERE IDPartie = ".$IDPartie;
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) trigger_error('Requête invalide : ' . mysqli_error($mysqli));
 

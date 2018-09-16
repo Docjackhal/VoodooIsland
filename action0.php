@@ -283,6 +283,8 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_7_Creuser_Titre");
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_7_Creuser_Description");
 
+						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_7_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+
 						mysqli_commit($mysqli);
 					}
 					else
@@ -336,6 +338,9 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_8_Creuser_Description");
 						$_SESSION["PopupEvenement"]["PertesItems"][] = 31;
 
+						//Broadcast tchat
+						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_8_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+
 						mysqli_commit($mysqli);
 					}
 					else
@@ -387,6 +392,9 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_9_Creuser_Description");
 						$_SESSION["PopupEvenement"]["PertesItems"][] = 32;
 						$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDCampement;
+
+						//Broadcast tchat
+						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_9_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 
 						mysqli_commit($mysqli);
 					}
