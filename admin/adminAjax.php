@@ -91,7 +91,7 @@ switch($_GET['action'])
 	break;
 	case "UpdateTchat":
 	{
-		$historique = adminGetDerniersMessagesTchat($mysqli,$IDPartie,20);
+		$historique = adminGetDerniersMessagesTchat($mysqli,$IDPartie,30);
 		$result["Historique"] = $historique;
 	}
 	break;

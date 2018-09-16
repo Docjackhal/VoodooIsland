@@ -49,6 +49,7 @@ function updateInformationsSession()
 	$_SESSION['RiteEnCours'] = ($personnage['RiteEnCours'] == 'o');
 	$_SESSION['DateDebutRite'] = $personnage['DateDebutRite'];
 	$_SESSION['PretCycleSuivant'] = ($personnage['PretCycleSuivant'] == 'o');
+	$_SESSION["DateDerniereUpdateTchat"] = $personnage["DateDerniereUpdateTchat"];
 
 	$IDRegion = $_SESSION['RegionActuelle'];
 

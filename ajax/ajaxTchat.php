@@ -43,6 +43,30 @@ switch($_GET['action'])
 
 	}
 	break;
+	case "update": // Recupere, traite et envoie au client les nouveaux messages Tchat
+	{
+		$dateDerniereUpdate = $_SESSION["DateDerniereUpdateTchat"];
+		$messages = getNouveauxMessagesTchats($mysqli,$IDPersonnage,$IDRegion,$_SESSION["AccesTchatRadio"],$IDPartie,$dateDerniereUpdate);
+
+		//Mise a jour de la date d'update
+		$requete = "UPDATE  ".$PT."personnages SET DateDerniereUpdateTchat = NOW() WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$IDPartie;
+		$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide (Update DateDerniereUpdateTchat) : ' . mysqli_error($mysqli));
+
+		$_SESSION["DateDerniereUpdateTchat"] = date("Y-m-d H:i:s");
+
+		//Traitement des messages
+		foreach($messages as $i=>$message)
+		{
+			if(substr($message["Canal"], 0,6) == "Region")
+				$message["Canal"] = "Region";
+			$message["HTML"] = genererBlocMessage($message);
+			$messages[$i] = $message;
+		}
+
+		$result["Messages"] = $messages;
+	}
+	break;
 }
 
 echo json_encode($result);

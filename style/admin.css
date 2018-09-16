@@ -468,6 +468,7 @@
 {
 	height:70%;
 	border-bottom:2px solid black;
+	overflow-y: auto;
 }
 
 .bloc_tchat .bloc_tchat_envoieMessage

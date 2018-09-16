@@ -60,7 +60,7 @@ function getNouveauxMessagesTchats($mysqli,$IDHeros,$IDRegion,$possedeRadio,$IDP
 
 	$destinatairesAutorises = array("Tous","Heros_".$IDHeros);
 
-	$requete = "SELECT * FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie." AND Canal IN ('".join("','",$canauxAutorises)."') AND Destinataires IN ('".join("','",$destinatairesAutorises)."') AND DateEnvoie > ".$dateDerniereUpdate." ORDER BY DateEnvoie ASC";
+	$requete = "SELECT * FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie." AND Canal IN ('".join("','",$canauxAutorises)."') AND Destinataires IN ('".join("','",$destinatairesAutorises)."') AND DateEnvoie > '".$dateDerniereUpdate."' AND Auteur != 'Heros_".$IDHeros."' ORDER BY DateEnvoie ASC";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) trigger_error('Requête invalide (getNouveauxMessagesTchats): '.$requete . mysqli_error($mysqli));
 

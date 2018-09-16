@@ -18,6 +18,7 @@ updateGlobalesDatas = function()
 		});
 }
 
+var premierUpdate = true;
 updateInfosPartie = function()
 {
 	console.log("UPDATE");
@@ -169,6 +170,16 @@ traiterDonneesUpdatesTchat = function(data)
 			divContent.append(divMessage);
 		}
 	}
+
+	$(".bloc_tchat_content").each(function()
+	{	
+		var contentJQ = $(this);
+		var isScrollBottom = contentJQ.scrollTop() + contentJQ.innerHeight() >=contentJQ[0].scrollHeight;
+		if(isScrollBottom || premierUpdate)
+			contentJQ.scrollTop(contentJQ[0].scrollHeight);
+	});
+
+	premierUpdate = false;
 }
 
 
@@ -190,6 +201,7 @@ function envoyerMessageAdmin(idCanal)
 			var content = data.DivNouveauMessage;
 		
 			divContent.append(content);
+			divContent.scrollTop(divContent[0].scrollHeight);
 		},
 		error:function(datas)
 		{

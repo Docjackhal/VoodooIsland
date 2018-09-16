@@ -22,6 +22,11 @@
 	color: black;
 }
 
+#bloc_selection_channels .newMessage
+{
+	background-color:red !important;
+}
+
 #game #bloc_tchat #bloc_selection_channels .selection_channel:hover, #game #bloc_tchat #bloc_selection_channels .selected
 {
 	background-color: black;
