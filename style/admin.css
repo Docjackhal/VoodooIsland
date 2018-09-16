@@ -431,3 +431,46 @@
 	-moz-background-size:100% 100%;
     -webkit-background-size:100% 100%;
 }
+
+#bloc_tchats
+{
+	padding-left:42px;
+	height: 1830px;
+}
+
+#bloc_tchats .bloc_tchat
+{
+	border:3px solid black;
+	margin:10px;
+	float:left;
+	width:270px;
+	height:570px;
+}
+
+#bloc_tchats .bloc_tchat h2
+{
+	border-bottom:2px solid black;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.bloc_tchat .tchat_connectes
+{
+	border-bottom:2px solid black;
+}
+
+.bloc_tchat .tchat_connectes .tchat_connectes_title
+{
+	font-size: 12px;
+}
+
+.bloc_tchat .bloc_tchat_content
+{
+	height:70%;
+	border-bottom:2px solid black;
+}
+
+.bloc_tchat .bloc_tchat_envoieMessage
+{
+	height: 120px;
+}

@@ -1,4 +1,7 @@
 <?php
+
+	//echo phpinfo();
+
 	$IDPartie = $_SESSION["Admin"]["IDPartieEnCours"];
 
 	$IDOnglet = (isset($_GET['o'])) ? $_GET['o'] : 'p';
@@ -78,6 +81,7 @@
 		<form action="#"><input id="btnTopBar_perso" class="btnTopBar <?php echo ($IDOnglet=='p') ? 'btnTopBarLocked' : '';?>" value="Personnages" onclick="switchOngletGestionPartie('perso');"/></form>
 		<form action="#"><input id="btnTopBar_variables" class="btnTopBar <?php echo ($IDOnglet=='v') ? 'btnTopBarLocked' : '';?>" value="Variables" onclick="switchOngletGestionPartie('variables');"/></form>
 		<form action="#"><input id="btnTopBar_carte" class="btnTopBar <?php echo ($IDOnglet=='c') ? 'btnTopBarLocked' : '';?>" value="Carte" onclick="switchOngletGestionPartie('carte');"/></form>
+		<form action="#"><input id="btnTopBar_tchats" class="btnTopBar <?php echo ($IDOnglet=='t') ? 'btnTopBarLocked' : '';?>" value="Tchats" onclick="switchOngletGestionPartie('tchats');"/></form>
 	</div>
 
 	<div class="blocOnglet" id="blocOnglet_perso" style="display:<?php echo ($IDOnglet=='p')?'block':'none';?>">
@@ -164,6 +168,79 @@
 			?>
 		</div>
 	</div>
+	<div class="blocOnglet" id="blocOnglet_tchats" style="display:<?php echo ($IDOnglet=='t')?'block':'none';?>">
+		<h1>Tchats</h1>
+		<div id="bloc_tchats">
+			<div class="bloc_tchat" id='canal_Partie'><h2>Partie</h2>
+				<div class='tchat_connectes'>
+					<div class='tchat_connectes_title'>---</div>
+					<div class="tchat_connectes_content"></div>
+				</div>
+				<div class="bloc_tchat_content"></div>
+				<div class="bloc_tchat_envoieMessage">
+					<div class='bloc_envoi_message' id='bloc_envoi_message_Partie'>
+						<input type='hidden' name='idCanal' value='Partie'></input>
+						<textarea placeholder='Ecrire un message Admin' type='text' name='message' maxlength='255' id='zone_envoi_message_Partie'></textarea>
+						<div class='submit' onclick='envoyerMessageAdmin("Partie");'>Envoyer</div>
+					</div>
+				</div>
+			</div>
+			<div class="bloc_tchat" id='canal_Radio'><h2>Radio</h2>
+				<div class='tchat_connectes'>
+					<div class='tchat_connectes_title'>Joueurs présents:</div>
+					<div class="tchat_connectes_content">Loading</div>
+				</div>
+				<div class="bloc_tchat_content"></div>
+				<div class="bloc_tchat_envoieMessage">
+					<div class='bloc_envoi_message' id='bloc_envoi_message_Radio'>
+						<input type='hidden' name='idCanal' value='Radio'></input>
+						<textarea placeholder='Ecrire un message Admin' type='text' name='message' maxlength='255' id='zone_envoi_message_Radio'></textarea>
+						<div class='submit' onclick='envoyerMessageAdmin("Radio");'>Envoyer</div>
+					</div>
+				</div>
+			</div>
+			<?php
+				for($i=1;$i<=10;$i++)
+				{
+					?>
+						<div class="bloc_tchat" id='canal_Region_<?php echo $i;?>'><h2>Region <?php echo $i;?></h2>
+							<div class='tchat_connectes'>
+								<div class='tchat_connectes_title'>Joueurs présents:</div>
+								<div class="tchat_connectes_content">Loading</div>
+							</div>
+							<div class="bloc_tchat_content"></div>
+							<div class="bloc_tchat_envoieMessage">
+								<div class='bloc_envoi_message' id='bloc_envoi_message_Region_<?php echo $i;?>'>
+									<input type='hidden' name='idCanal' value='Region_<?php echo $i;?>'></input>
+									<textarea placeholder='Ecrire un message Admin' type='text' name='message' maxlength='255' id='zone_envoi_message_Region_<?php echo $i;?>'></textarea>
+									<div class='submit' onclick='envoyerMessageAdmin("Region_<?php echo $i;?>");'>Envoyer</div>
+								</div>
+							</div>
+						</div>
+					<?
+				}
+			?>	
+		</div>
+	</div>
 </div>
 
+<script>
+	var ongletActif = "<?php
+		switch($IDOnglet)
+		{
+			case "p":
+			default:
+				echo "perso";	
+				break;
+			case "v":
+				echo "variables";
+				break;
+			case "c":
+				echo "carte";	
+				break;
+			case "t":
+				echo "tchats";	
+				break;
+		}?>";
+</script>
 <script type="text/javascript" src="admin.js"></script>

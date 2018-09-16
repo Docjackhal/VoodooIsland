@@ -3,6 +3,9 @@ session_start();
 include_once("../prive/config.php");
 include_once("../fonctionsVariables.php");
 include_once("../fonctionsLieux.php");
+include_once("../fonctionsTchats.php");
+include_once("../fonctionsLangue.php");
+include_once("../fonctionsGlobales.php");
 header('Content-type: text/json');
 
 $mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
@@ -10,6 +13,9 @@ mysqli_set_charset($mysqli, "utf8");
 
 $result = array();
 $IDPartie = $_SESSION["Admin"]["IDPartieEnCours"];
+
+if($IDPartie == null)
+	die("Ajax: Deconnection");
 
 switch($_GET['action'])
 {
@@ -81,6 +87,28 @@ switch($_GET['action'])
 
 		//Lieux
 		$result["Lieux"] = getLieuxDansPartie($mysqli,$IDPartie);
+	}
+	break;
+	case "UpdateTchat":
+	{
+		$historique = adminGetDerniersMessagesTchat($mysqli,$IDPartie,20);
+		$result["Historique"] = $historique;
+	}
+	break;
+	case "envoyerMessageAdmin":
+	{
+		$message = $_POST["message"];
+		$canal = $_POST["idCanal"];
+		$auteur = "Admin";
+		$destinataires = "Tous";
+
+		$messageEnvoye = envoyerMessage($mysqli,$canal,$auteur,$message,$IDPartie,getIDCycleActuel(),$destinataires);
+
+		if($messageEnvoye != null)
+			$result["DivNouveauMessage"] = genererBlocMessage($messageEnvoye);
+		else
+			$result = "Erreur d'envoi du message";
+
 	}
 	break;
 }

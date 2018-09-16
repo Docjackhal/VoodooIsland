@@ -21,6 +21,7 @@ updateGlobalesDatas = function()
 updateInfosPartie = function()
 {
 	console.log("UPDATE");
+
 	$.ajax("adminAjax.php",
 		{
 			data:{"action":"Update"},
@@ -35,6 +36,24 @@ updateInfosPartie = function()
 				alert("Ajax error: "+datas.responseText);
 			}
 		});
+
+	if(ongletActif == "tchats")
+	{
+		$.ajax("adminAjax.php",
+		{
+			data:{"action":"UpdateTchat"},
+			cache:false,
+			success:function(data)
+			{
+				console.log(data);
+				traiterDonneesUpdatesTchat(data);			
+			},
+			error:function(datas)
+			{
+				alert("Ajax error: "+datas.responseText);
+			}
+		});
+	}
 
 	var timeToUpdate = 3000;
 	window.setTimeout(updateInfosPartie,timeToUpdate);
@@ -67,6 +86,8 @@ traiterDonneesUpdatesInfosPartie = function(data)
 	var carteIle = $("#carteIle");
 	carteIle.find(".zoneRegion").html("");
 
+	$(".tchat_connectes_content").html("");
+
 	//Personnages
 	VI.Heros = data.Heros;
 	var personnages = data["Personnages"];
@@ -95,6 +116,7 @@ traiterDonneesUpdatesInfosPartie = function(data)
 
 		//Position sur Ile
 		carteIle.find("#region_"+personnage["RegionActuelle"]).append(genererIconeHerosSurCarteIle(IDPersonnage));
+		$("#canal_Region_"+personnage["RegionActuelle"]+" .tchat_connectes_content").append(VI.Heros[personnage["IDHeros"]]["Prenom"]+" ");
 	}
 
 	if(persoPrets == 8)
@@ -127,6 +149,55 @@ traiterDonneesUpdatesInfosPartie = function(data)
 
 }
 
+traiterDonneesUpdatesTchat = function(data)
+{
+	for(canal in data["Historique"])
+	{
+		var messages = data["Historique"][canal];
+		var divCanal = $("#canal_"+canal);
+		var divContent = divCanal.find(".bloc_tchat_content");
+
+		for(var i = 0; i < messages.length;i++)
+		{
+			var message = messages[i];
+			var IDMessage = message["ID"];
+
+			if($("#bloc_message_"+IDMessage).length>0)
+				continue;
+
+			var divMessage = message["HTML"];
+			divContent.append(divMessage);
+		}
+	}
+}
+
+
+function envoyerMessageAdmin(idCanal)
+{
+	var zoneEvoie = document.getElementById("zone_envoi_message_"+idCanal);
+	var message = zoneEvoie.value;
+	zoneEvoie.value = "";
+	
+	$.ajax("adminAjax.php?action=envoyerMessageAdmin",
+	{
+		data:{"message":message,"idCanal":idCanal},
+		type:'POST',
+		cache:false,
+		success:function(data)
+		{
+			//document.location.href="game.php?c="+idCanal;	
+			var divContent = $("#canal_"+idCanal+" .bloc_tchat_content");
+			var content = data.DivNouveauMessage;
+		
+			divContent.append(content);
+		},
+		error:function(datas)
+		{
+			alert(datas.responseText);
+		}
+	});
+}
+
 switchOngletGestionPartie = function(onglet)
 {
 	$(".btnTopBarLocked").removeClass("btnTopBarLocked");
@@ -134,6 +205,8 @@ switchOngletGestionPartie = function(onglet)
 
 	$(".blocOnglet").css("display","none");
 	$("#blocOnglet_"+onglet).css("display","block");
+
+	ongletActif = onglet;
 }
 
 afficherPopupDonObjet = function(IDHeros)

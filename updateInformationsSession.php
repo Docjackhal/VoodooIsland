@@ -15,6 +15,9 @@ function updateInformationsSession()
 
 	$IDPartie = $_SESSION['IDPartieEnCours'];
 
+	if($IDPartie == null)
+		header("Location:deconnexion.php");
+
 	// Caractéristiques joueurs
 	$requete = "SELECT * FROM ".$PT."personnages WHERE Joueur = '".$_SESSION['ID']."' AND IDPartie = '".$IDPartie."' LIMIT 1";
 	$retour = mysqli_query($mysqli,$requete);

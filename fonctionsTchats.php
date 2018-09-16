@@ -126,7 +126,7 @@ function genererTchat($canal)
 }
 
 //Renvoi une div contenant un message tchat
-function genererBlocMessage($message)
+function genererBlocMessage($message,$estAdmin=false)
 {
 	$auteur = $message['Auteur'];
 	$auteurAffiche = $auteur;
@@ -154,7 +154,7 @@ function genererBlocMessage($message)
 	}
 
 	$content = "";
-	$content .= "<div class='entree_tchat ".genererClasseMessageTchat($message)."'>";
+	$content .= "<div id='bloc_message_".$message["ID"]."' class='entree_tchat ".genererClasseMessageTchat($message,$estAdmin)."'>";
 		$content .= "<span class='tchat_date'>(C".$message["IDCycle"].")".substr($message['DateEnvoie'],11).": </span>";
 		$content .= "<span class='tchat_auteur'>".$auteurAffiche.": </span>";
 		$content .= "<span class='tchat_message'>".$messageAffiche."</span>";
@@ -163,19 +163,21 @@ function genererBlocMessage($message)
 }
 
 //Renvoi la liste des classes de mise en page pour un message de tchat
-function genererClasseMessageTchat($message)
+function genererClasseMessageTchat($message,$estAdmin)
 {
 	$listeClasse = "";
 	$auteur = $message["Auteur"];
 	if($auteur == "System")
 		$listeClasse .= "messageSystem";
+	else if($auteur == "Admin")
+		$listeClasse .= "messageAdmin";
 	else
 	{
 		$analyse = explode("_",$auteur);
 		if($analyse[0] == "Heros")
 		{
 			$IDHeros = $analyse[1];
-			if($IDHeros == $_SESSION["IDPersonnage"])
+			if(!$estAdmin && $IDHeros == $_SESSION["IDPersonnage"])
 				$listeClasse .= "messageDeSoi";
 		}
 	}
@@ -207,6 +209,44 @@ function envoyerMessageSystem($mysqli,$canal,$fragmentLangue,$variablesLangue,$d
 		$message.="#".$variable.":".$value;
 
 	return envoyerMessage($mysqli,$canal,"System",$message,$_SESSION["IDPartieEnCours"],getIDCycleActuel(),$destinataires);
+}
+
+function adminGetDerniersMessagesTchat($mysqli,$IDPartie,$tailleHistorique)
+{
+	global $PT;
+
+	$historique = array();
+	$canaux = array("Partie","Radio","Region_1","Region_2","Region_3","Region_4","Region_5","Region_6","Region_7","Region_8","Region_9","Region_10");
+
+	foreach($canaux as $canal)
+	{		
+		$requete = "SELECT * FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie." AND Canal = '".$canal."' ORDER BY DateEnvoie DESC LIMIT ".$tailleHistorique."";
+		$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) trigger_error('Requête invalide (adminGetDerniersMessagesTchat): '.$requete . mysqli_error($mysqli));
+
+		$messagesDansCanal = array();
+		while($message = mysqli_fetch_assoc($retour))
+		{
+			$message["Timestamp"] = strtotime($message["DateEnvoie"]);
+			$message["HTML"] = genererBlocMessage($message,true);
+			$messagesDansCanal[] = $message;
+		}
+
+		$historique[$canal] = $messagesDansCanal;
+	}
+
+	//Inversion de l'ordre des messages, du plus vieux au plus récent
+	function cmp($a, $b)
+	{
+	    return $a["Timestamp"]>$b["Timestamp"];
+	}
+	foreach($historique as $canal => $messagesDansCanal)
+	{
+		usort($messagesDansCanal,cmp);
+		$historique[$canal] = $messagesDansCanal;
+	}
+
+	return $historique;
 }
 
 

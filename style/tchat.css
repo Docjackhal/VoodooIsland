@@ -106,13 +106,18 @@
 	margin-top: 35px;
 }
 
-.enssemble_message .messageSystem
+.messageSystem
 {
 	color:green;
 	font-style: italic;
 }
 
-.enssemble_message .messageDeSoi
+.messageDeSoi
 {
 	color:blue;
+}
+
+.messageAdmin
+{
+	color:red;
 }

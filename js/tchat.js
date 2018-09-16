@@ -23,7 +23,7 @@ function envoyerMessage(idCanal)
 	var message = zoneEvoie.value;
 	zoneEvoie.value = "";
 	
-	$.ajax("ajax/ajaxTchat.php?action=envoyerMessage",
+	$.ajax("../ajax/ajaxTchat.php?action=envoyerMessageAdmin",
 	{
 		data:{"message":message,"idCanal":idCanal},
 		type:'POST',
