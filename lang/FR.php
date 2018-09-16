@@ -145,7 +145,7 @@ $lang["ErreurAPPourAction"] = "Vous n'avez pas assez de points d'actions pour fa
 $lang["ErreurPMPourAction"] = "Vous n'avez pas assez de PM pour voyager.";
 $lang["ErreurObjetPourAction"] = "Vous n'avez pas l'objet nécéssaire pour effectuer cette action.";
 
-
+$lang["Action_2_MessageTchat"] = "%Login% viens d'arriver dans la région.";
 
 $lang["Action_6_PecheInfructueuse_Titre"] = "Pêche infructueuse";
 $lang["Action_6_PecheInfructueuse_Description"] = "Malheuresement, vous n'avez rien attrapé ce coup-ci. Personne ne vous en voudra (sauf vos compagnons peut-être).";

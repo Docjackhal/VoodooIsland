@@ -99,7 +99,8 @@ switch($idAction)
 			$idRegionCible = $_POST['idRegion'];
 
 			// Verification des PM
-			if($_SESSION['PmActuel'] >= getCoutDeplacement())
+			$coutDeplacement =  getCoutDeplacement();
+			if($_SESSION['PmActuel'] >= $coutDeplacement)
 			{
 				// Verification de la liaison entre la zone
 				$regionCible = $_SESSION['Regions'][$_POST['idRegion']];
@@ -107,13 +108,16 @@ switch($idAction)
 				if($regionCible['Lien1'] == $idRegionActuelle || $regionCible['Lien2'] == $idRegionActuelle || $regionCible['Lien3'] == $idRegionActuelle || $regionCible['Lien4'] == $idRegionActuelle || $regionCible['Lien5'] == $idRegionActuelle)
 				{
 					// Voyage accepté
-					$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idRegionCible."' WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$IDPartie;
+					$requete = "UPDATE ".$PT."personnages SET RegionActuelle = '".$idRegionCible."', DateArriveeLieu = NOW() WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$IDPartie;
 					$retour = mysqli_query($mysqli,$requete);
 					if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
 					$_SESSION['RegionActuelle'] = $idRegionCible;
 					
-					updateCarac($mysqli,$_SESSION["IDPersonnage"],"Pm",-getCoutDeplacement());
+					updateMyCarac($mysqli,"Pm",-$coutDeplacement);
+
+					//envoi du message à tous les joueurs sur le lieu
+					envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_2_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"])); 
 
 					mysqli_commit($mysqli);
 				}

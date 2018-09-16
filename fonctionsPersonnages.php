@@ -4,7 +4,7 @@
 function updateMyCarac($mysqli,$carac,$modificateur)
 {
 	$personnage = array();
-	$personnage["ID"] = $_SESSION['IDPersonnage'];
+	$personnage["IDHeros"] = $_SESSION['IDPersonnage'];
 	$personnage["IDPartie"] = $_SESSION['IDPartieEnCours'];
 	$personnage["FatigueActuel"] = $_SESSION['FatigueActuel'];
 	$personnage["FaimActuel"] = $_SESSION['FaimActuel'];
@@ -86,7 +86,6 @@ function updateCarac($mysqli,$personnage,$carac,$modificateur)
 		$fatigue = $heros["FatigueMax"];
 	else if($fatigue < 0)
 		$fatigue = 0;
-
 
 	// Update final
 	$requete2 = "UPDATE  ".$PT."personnages SET FatigueActuel = '".$fatigue."', FaimActuel = '".$faim."', SoifActuel = '".$soif."', PaActuel = '".$pa."', PmActuel = '".$pm."', PvActuel = '".$pv."',MPActuel = '".$mp."' WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$personnage["IDPartie"];

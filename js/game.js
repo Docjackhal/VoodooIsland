@@ -50,46 +50,6 @@ if (!window.requestAnimationFrame)
 	)();
 }
 
-function switchTchat(name)
-{
-	$(".tchat").css("display","none");
-	$("#tchat_"+name).css("display","block");
-
-	$(".selection_channel").removeClass("selected");
-	$("#selection_channel_"+name).addClass("selected");
-}
-
-function envoyerMessage(idCanal)
-{
-	var zoneEvoie = document.getElementById("zone_envoi_message_"+idCanal);
-	var message = zoneEvoie.value;
-	zoneEvoie.value = "";
-	
-	$.ajax("ajax/envoiMessageTchat.php",
-	{
-		data:{"message":message,"idCanal":idCanal},
-		cache:false,
-		success:function(data)
-		{
-			//document.location.href="game.php?c="+idCanal;	
-			var blocTchat = document.getElementById("enssemble_message_"+idCanal);
-			var content = "";
-			content += "<div class='entree_tchat'>";
-				content += "<span class='tchat_date'>"+data['date']+": </span>";
-				content += "<span class='tchat_auteur'>"+data['auteur']+": </span>";
-				content += "<span class='tchat_message'>"+message+"</span>";
-			content += "</div>";
-
-			blocTchat.innerHTML = content+blocTchat.innerHTML;
-			blocTchat.scrollTop='0px';
-		},
-		error:function(datas)
-		{
-			//alert(datas.responseText);
-		}
-	});
-}
-
 function SwitchPopupVoyage()
 {
 	var popup = document.getElementById("popup_validation_voyage");

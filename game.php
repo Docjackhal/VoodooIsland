@@ -168,10 +168,12 @@ function PM($cout)
 <head>
 <title>Voodoo Island - Game</title>
 <link href="style/game.css" rel="stylesheet" type="text/css"/>
+<link href="style/tchat.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/png" href="images/fav.png" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/lang.js"></script>
 <script type="text/javascript" src="js/lieux.js"></script>
+<script type="text/javascript" src="js/tchat.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
 </head>
 
@@ -410,17 +412,17 @@ function PM($cout)
 		<!-- Bloc Tchat droit -->
 		<div id="bloc_tchat">
 			<div id='bloc_selection_channels'>
-				<div class='selection_channel selected' id='selection_channel_Partie'  onclick='switchTchat("Partie")'><?php echo lang("Tchat_Partie");?></div>
-				<div class='selection_channel' id='selection_channel_Region'  onclick='switchTchat("Region")'><?php echo lang("Tchat_Region");?></div>
+				<div class='selection_channel selected' id='selection_channel_Region'  onclick='switchTchat("Region")'><?php echo lang("Tchat_Region");?></div>
+				<div class='selection_channel' id='selection_channel_Partie'  onclick='switchTchat("Partie")'><?php echo lang("Tchat_Partie");?></div>		
 				<div class='selection_channel' id='selection_channel_Radio' onclick='switchTchat("Radio")'><?php echo lang("Tchat_Radio");?></div>
 			</div>
 
 			<div id='contener_tchat'>
-				<div class='tchat' id='tchat_Partie'>
-					<?php echo genererTchat("Partie"); ?>
-				</div>
-				<div class='tchat' id='tchat_Region' style='display:none'>
+				<div class='tchat' id='tchat_Region'>
 					<?php echo genererTchat("Region"); ?>
+				</div>
+				<div class='tchat' id='tchat_Partie' style='display:none'>
+					<?php echo genererTchat("Partie"); ?>
 				</div>
 				<div class='tchat' id='tchat_Radio' style='display:none'>
 					<?php echo genererTchat("Radio"); ?>

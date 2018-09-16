@@ -1,6 +1,6 @@
 <?php
 
-//Renvoi l'histoire de tous les canaux de la region et du personnage, du plus récent au plus vieux (a inverser pour affichage)
+//Renvoi l'histoire de tous les canaux de la region et du personnage, du plus vieux au plus récent
 function getHistoriquesTchats($mysqli,$IDHeros,$IDRegion,$dateArriveeRegion,$possedeRadio,$IDPartie)
 {
 	global $PT;
@@ -25,12 +25,25 @@ function getHistoriquesTchats($mysqli,$IDHeros,$IDRegion,$dateArriveeRegion,$pos
 		$messagesDansCanal = array();
 		while($message = mysqli_fetch_assoc($retour))
 		{
-			if($canal != "Region" || strtotime($message["DateEnvoie"]) >= strtotime($dateArriveeRegion))
+			$message["Timestamp"] = strtotime($message["DateEnvoie"]);
+			if($canal != "Region" || $message["Timestamp"] >= strtotime($dateArriveeRegion))
 				$messagesDansCanal[] = $message;
 		}
 
 		$historique[$canal] = $messagesDansCanal;
 	}
+
+	//Inversion de l'ordre des messages, du plus vieux au plus récent
+	function cmp($a, $b)
+	{
+	    return $a["Timestamp"]>$b["Timestamp"];
+	}
+	foreach($historique as $canal => $messagesDansCanal)
+	{
+		usort($messagesDansCanal,cmp);
+		$historique[$canal] = $messagesDansCanal;
+	}
+
 
 	return $historique;
 }
@@ -57,21 +70,34 @@ function getNouveauxMessagesTchats($mysqli,$IDHeros,$IDRegion,$possedeRadio,$IDP
 	return $nouveauxMessages;
 }
 
+function getMessage($mysqli,$IDMessage)
+{
+	global $PT;
+
+	$requete = "SELECT * FROM ".$PT."tchats WHERE ID = ".$IDMessage;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide (getMessage): '.$requete . mysqli_error($mysqli));
+
+	return (mysqli_num_rows($retour) > 0) ? mysqli_fetch_assoc($retour) : null;
+}
+
 function genererTchat($canal)
 {
 	$content = "";
-	if(!empty($_SESSION['Tchats'][$canal]))
+	if(isset($_SESSION['Tchats'][$canal]))
 	{
-		$content .= "<div class='enssemble_message' id='enssemble_message_".$canal."'>";
-		foreach($_SESSION['Tchats'][$canal] as $message)
+		if(!empty($_SESSION['Tchats'][$canal]))
 		{
-			$content .= "<div class='entree_tchat'>";
-				$content .= "<span class='tchat_date'>".substr($message['DateEnvoie'],11).": </span>";
-				$content .= "<span class='tchat_auteur'>".$message['Auteur'].": </span>";
-				$content .= "<span class='tchat_message'>".$message['Message']."</span>";
+			$content .= "<div class='enssemble_message' id='enssemble_message_".$canal."'>";
+			//for($i = 0;$i<=10;$i++)
+			foreach($_SESSION['Tchats'][$canal] as $message)
+				$content .= genererBlocMessage($message);
+			
 			$content .= "</div>";
 		}
-		$content .= "</div>";
+		else
+			$content .= "<div class='enssemble_message' id='enssemble_message_".$canal."'><div class='entree_tchat'>".lang("AucunMessage")."</div></div>";
+
 
 		// Bloc poster message
 		if(($canal != "Radio" || $_SESSION["AccesTchatRadio"]) && $canal != "Partie")
@@ -79,7 +105,7 @@ function genererTchat($canal)
 			$content .= "<div class='bloc_envoi_message' id='bloc_envoi_message_".$canal."'>";
 				$content .= "<input type='hidden' name='idCanal' value='".$canal."'></input>";
 				$content .= "<textarea placeholder='".lang("EcrireNouveauMessage")."' type='text' name='message' maxlength='255' id='zone_envoi_message_".$canal."'></textarea>";
-				$content .= "<div class='submit' onclick='envoyerMessage(".$canal.")'>Envoyer</div>";
+				$content .= "<div class='submit' onclick='envoyerMessage(\"".$canal."\");'>Envoyer</div>";
 			$content .= "</div>";
 		}
 	}
@@ -97,6 +123,90 @@ function genererTchat($canal)
 			$content .= "<div class='enssemble_message' id='enssemble_message_".$canal."'><div class='entree_tchat'>".lang("AucunMessage")."</div></div>";
 	}
 	return $content;
+}
+
+//Renvoi une div contenant un message tchat
+function genererBlocMessage($message)
+{
+	$auteur = $message['Auteur'];
+	$auteurAffiche = $auteur;
+	$analyse = explode("_",$auteur);
+	$messageAffiche = $message['Message'];
+	if($analyse[0] == "Heros")
+	{
+		$IDHeros = $analyse[1];
+		$auteurAffiche = $_SESSION["Heros"][$IDHeros]["Prenom"];
+	}
+	else if($auteur == "System")
+	{
+		$auteurAffiche = "";
+
+		//Analyse du texte pour appliquer les fragments de langue et les variables
+		$analyse = explode("#",$message["Message"]);
+		$libele = $analyse[0];
+
+		$messageAffiche = lang($libele);
+		for($i=1;$i<count($analyse);$i++)
+		{
+			$variable = explode(":",$analyse[$i]);
+			$messageAffiche = str_replace($variable[0], $variable[1], $messageAffiche);
+		}
+	}
+
+	$content = "";
+	$content .= "<div class='entree_tchat ".genererClasseMessageTchat($message)."'>";
+		$content .= "<span class='tchat_date'>(C".$message["IDCycle"].")".substr($message['DateEnvoie'],11).": </span>";
+		$content .= "<span class='tchat_auteur'>".$auteurAffiche.": </span>";
+		$content .= "<span class='tchat_message'>".$messageAffiche."</span>";
+	$content .= "</div>";	
+	return $content;
+}
+
+//Renvoi la liste des classes de mise en page pour un message de tchat
+function genererClasseMessageTchat($message)
+{
+	$listeClasse = "";
+	$auteur = $message["Auteur"];
+	if($auteur == "System")
+		$listeClasse .= "messageSystem";
+	else
+	{
+		$analyse = explode("_",$auteur);
+		if($analyse[0] == "Heros")
+		{
+			$IDHeros = $analyse[1];
+			if($IDHeros == $_SESSION["IDPersonnage"])
+				$listeClasse .= "messageDeSoi";
+		}
+	}
+
+	return $listeClasse;
+}
+
+//Ajoute un nouveau message en bdd et le retourne en format html
+function envoyerMessage($mysqli,$canal,$auteur,$message,$IDPartie,$IDCycle,$destinataires)
+{
+	global $PT;
+
+	$requete = "INSERT INTO ".$PT."tchats (Auteur,IDPartie,IDCycle,Message,Canal,DateEnvoie,Destinataires) VALUES ('".$auteur."','".$IDPartie."','".$IDCycle."','".$message."','".$canal."',NOW(),'".$destinataires."')";
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide (getNouveauxMessagesTchats): '.$requete . mysqli_error($mysqli));
+
+	$IDMessage = mysqli_insert_id($mysqli);
+	return getMessage($mysqli,$IDMessage);
+}
+
+//Envoi un message system sur la partie en cours sur le cycle en cours et le retourne en format html
+function envoyerMessageSystem($mysqli,$canal,$fragmentLangue,$variablesLangue,$destinataires = "Tous")
+{
+	global $PT;
+
+	//Mise en forme du message pour intégrer le systeme de tradution
+	$message = $fragmentLangue;
+	foreach($variablesLangue as $variable=>$value)
+		$message.="#".$variable.":".$value;
+
+	return envoyerMessage($mysqli,$canal,"System",$message,$_SESSION["IDPartieEnCours"],getIDCycleActuel(),$destinataires);
 }
 
 

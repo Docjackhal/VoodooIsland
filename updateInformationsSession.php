@@ -71,7 +71,7 @@ function updateInformationsSession()
 	$_SESSION["LieuxDecouverts"] = array();
 	$requete = "SELECT IDLieu FROM ".$PT."lieuxDecouverts WHERE IDPersonnage = ".$_SESSION['IDPersonnage'];
 	$retour = mysqli_query($mysqli,$requete);
-	if (!$retour) die('Requête invalide : '.$requete . mysql_error($mysqli));
+	if (!$retour) die('Requête invalide : '.$requete . mysqli_error($mysqli));
 	while($lieuDecouvert = mysqli_fetch_assoc($retour))
 		$_SESSION["LieuxDecouverts"][$lieuDecouvert["IDLieu"]] = true;
 	

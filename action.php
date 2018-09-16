@@ -12,6 +12,7 @@ else
 	include_once("fonctionsEvents.php");
 	include_once("fonctionsLieux.php");
 	include_once("fonctionsConditions.php");
+	include_once("fonctionsTchats.php");
 	include_once("fonctionsPersonnages.php");
 	include_once("fonctionsGlobales.php");
 

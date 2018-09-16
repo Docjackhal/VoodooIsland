@@ -1,0 +1,118 @@
+#game #bloc_tchat #bloc_selection_channels
+{
+	width: 102%;
+	height: 10%;
+	border-bottom: 4px solid black;
+}
+
+#game #bloc_tchat #bloc_selection_channels .selection_channel
+{
+	border: 2px solid black;
+	border-bottom: 0px solid black;
+	border-radius: 25px 25px 0px 0px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	float: left;
+	width: 70px;
+	position: relative;
+	bottom: -59px;
+	cursor: pointer;
+	background-color: white;
+	color: black;
+}
+
+#game #bloc_tchat #bloc_selection_channels .selection_channel:hover, #game #bloc_tchat #bloc_selection_channels .selected
+{
+	background-color: black;
+	color: white;
+}
+
+#game #bloc_tchat #bloc_selection_channels .selection_channel:active
+{
+	background-color: grey;
+}
+
+#game #bloc_tchat #contener_tchat
+{
+	width: 100%;
+	height: 90%;
+}
+
+#game #bloc_tchat .entree_tchat
+{
+	width: 80%;
+	border-bottom: 2px solid black;
+	margin-left: 10%;
+	margin-top: 10px;
+
+}
+
+#game #bloc_tchat .tchat .enssemble_message
+{
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 575px;
+	border-bottom: 2px solid black;
+}
+
+#game #bloc_tchat .tchat .tchat_auteur
+{
+	font-weight: bold;
+}
+
+#game #bloc_tchat .tchat .tchat_date
+{
+	font-style: italic;
+	font-size: 12px;
+}
+
+.bloc_envoi_message textarea
+{
+	width: 100%;
+	display: block;
+	height: 70px;
+	margin-top: 10px;
+}
+
+.bloc_envoi_message .submit
+{
+	float: right;
+	cursor: pointer;
+	background-color: white;
+	border: 2px solid black;
+	border-radius: 10px;
+	font-size: 15px;
+	width: 80px;
+	text-align:center;
+	margin-top: 2px;
+}
+
+.bloc_envoi_message .submit:hover
+{
+	color: white;
+	background-color: black;
+}
+
+.bloc_envoi_message .submit:active
+{
+	color: white;
+	background-color: grey;
+}
+
+.messageRemplaceEnvoie
+{
+	text-align:center;
+	margin-top: 35px;
+}
+
+.enssemble_message .messageSystem
+{
+	color:green;
+	font-style: italic;
+}
+
+.enssemble_message .messageDeSoi
+{
+	color:blue;
+}

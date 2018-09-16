@@ -47,6 +47,12 @@ function getNombreVoodoos($mysqli)
 	return $infosParties["NB"];
 }
 
+//Renvoi l'ID du cycle en cours, en prenant en compte les jours
+function getIDCycleActuel()
+{
+	return (8*($_SESSION["PartieEnCours"]["Jour"]-1))+$_SESSION["PartieEnCours"]["Cycle"];
+}
+
 
 
 ?>
