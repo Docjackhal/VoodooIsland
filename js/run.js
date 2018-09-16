@@ -38,7 +38,7 @@ function load()
 			},
 			error:function(datas)
 			{
-				alert("load error");
+				console.log("load error");
 			}
 		});
 }

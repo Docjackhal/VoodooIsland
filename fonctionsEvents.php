@@ -142,39 +142,42 @@ function effectueResultatEvenementSimple($mysqli,$event)
 			$idItem = gainItem($mysqli,3,0); // Pelle
 			$i = getVariable(1);
 			setVariable($mysqli,$IDPartie,1,($i>=0)?$i+1:1);
-			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 3;
-			break;
+			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 3;		
 		}
+		break;
 		case 2:// La vieille marmitte
 		{
 			$idItem = gainItem($mysqli,32,0); // Marmitte
 			setVariable($mysqli,$IDPartie,2,1);
-			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 32;
-			break;
+			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 32;		
 		}
+		break;
 		case 3:// Une toile rudimentaire
 		{
 			$idItem = gainItem($mysqli,31,0); // Toile déchirée
 			setVariable($mysqli,$IDPartie,3,1);
 			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 31;
-			break;
+			
 		}
+		break;
 		case 4:// Ho la belle coco
 		{
 			$idItem = gainItem($mysqli,21,0); // Noix de coco
-			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 21;
-			break;
+			$_SESSION["PopupEvenement"]["GainsItems"][$idItem] = 21;			
 		}
+		break;
 		case 6: // Eaux poissoneuses
 		{
 			$IDLieu = getIDLieuDeTypeDansRegion(1);
 			decouvrirLieu($mysqli, $IDLieu); // Decouverte banc de poisson
 			$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDLieu;
 		}
+		break;
 		case 7: // Le crabe rancunnier
 		{
 			//TODO: Perte PV ou autre
 		}
+		break;
 		case 8: // Le village caché: Capture
 		{
 			capturerJoueurDansVillage($mysqli,$_SESSION["IDPersonnage"]);
@@ -182,6 +185,7 @@ function effectueResultatEvenementSimple($mysqli,$event)
 			decouvrirLieu($mysqli, $IDLieu); 
 			$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDLieu;
 		}
+		break;
 	}
 
 	// Popup Event

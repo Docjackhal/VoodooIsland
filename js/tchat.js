@@ -48,7 +48,7 @@ function envoyerMessage(idCanal)
 		},
 		error:function(datas)
 		{
-			alert(datas.responseText);
+			console.log(datas.responseText);
 		}
 	});
 }
@@ -68,7 +68,7 @@ updateTchat = function()
 			},
 			error:function(datas)
 			{
-				alert("Ajax error: "+datas.responseText);
+				console.log("Ajax error: "+datas.responseText);
 			}
 		});
 
