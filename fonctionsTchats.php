@@ -15,7 +15,7 @@ function getHistoriquesTchats($mysqli,$IDHeros,$IDRegion,$dateArriveeRegion,$pos
 
 	foreach($canauxAutorises as $canal)
 	{		
-		$requete = "SELECT * FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie." AND Canal = '".$canal."' AND Destinataires IN ('".join("','",$destinatairesAutorises)."') ORDER BY DateEnvoie DESC LIMIT ".$limiteTchat."";
+		$requete = "SELECT * FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie." AND Canal = '".$canal."' AND Destinataires IN ('".join("','",$destinatairesAutorises)."') ORDER BY TimestampEnvoie DESC LIMIT ".$limiteTchat."";
 		$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) trigger_error('Requête invalide (getHistoriquesTchats): '.$requete . mysqli_error($mysqli));
 
@@ -25,8 +25,8 @@ function getHistoriquesTchats($mysqli,$IDHeros,$IDRegion,$dateArriveeRegion,$pos
 		$messagesDansCanal = array();
 		while($message = mysqli_fetch_assoc($retour))
 		{
-			$message["Timestamp"] = strtotime($message["DateEnvoie"]);
-			if($canal != "Region" || $message["Timestamp"] >= strtotime($dateArriveeRegion))
+			//die($message["TimestampEnvoie"]);
+			if($canal != "Region" || $message["TimestampEnvoie"] >= strtotime($dateArriveeRegion))
 				$messagesDansCanal[] = $message;
 		}
 
@@ -36,7 +36,7 @@ function getHistoriquesTchats($mysqli,$IDHeros,$IDRegion,$dateArriveeRegion,$pos
 	//Inversion de l'ordre des messages, du plus vieux au plus récent
 	function cmp($a, $b)
 	{
-	    return $a["Timestamp"]>$b["Timestamp"];
+	    return $a["TimestampEnvoie"]>$b["TimestampEnvoie"];
 	}
 	foreach($historique as $canal => $messagesDansCanal)
 	{
@@ -60,8 +60,9 @@ function getNouveauxMessagesTchats($mysqli,$IDHeros,$IDRegion,$possedeRadio,$IDP
 
 	$destinatairesAutorises = array("Tous","Heros_".$IDHeros);
 
-	$requete = "SELECT * FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie." AND Canal IN ('".join("','",$canauxAutorises)."') AND Destinataires IN ('".join("','",$destinatairesAutorises)."') AND DateEnvoie > '".$dateDerniereUpdate."' AND Auteur != 'Heros_".$IDHeros."' ORDER BY DateEnvoie ASC";
+	$requete = "SELECT * FROM ".$PT."tchats WHERE IDPartie = ".$IDPartie." AND Canal IN ('".join("','",$canauxAutorises)."') AND Destinataires IN ('".join("','",$destinatairesAutorises)."') AND TimestampEnvoie >= '".$dateDerniereUpdate."' AND Auteur != 'Heros_".$IDHeros."' ORDER BY TimestampEnvoie ASC";
 
+	//die($requete);
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) trigger_error('Requête invalide (getNouveauxMessagesTchats): '.$requete . mysqli_error($mysqli));
 
@@ -192,7 +193,10 @@ function envoyerMessage($mysqli,$canal,$auteur,$message,$IDPartie,$IDCycle,$dest
 {
 	global $PT;
 
-	$requete = "INSERT INTO ".$PT."tchats (Auteur,IDPartie,IDCycle,Message,Canal,DateEnvoie,Destinataires) VALUES ('".$auteur."','".$IDPartie."','".$IDCycle."','".$message."','".$canal."',NOW(),'".$destinataires."')";
+	$date = date_create();
+	$currentTimestamp = date_timestamp_get($date);
+
+	$requete = "INSERT INTO ".$PT."tchats (Auteur,IDPartie,IDCycle,Message,Canal,DateEnvoie,TimestampEnvoie,Destinataires) VALUES ('".$auteur."','".$IDPartie."','".$IDCycle."','".$message."','".$canal."',NOW(),".$currentTimestamp.",'".$destinataires."')";
 	$retour = mysqli_query($mysqli,$requete);
 	if (!$retour) trigger_error('Requête invalide (getNouveauxMessagesTchats): '.$requete . mysqli_error($mysqli));
 

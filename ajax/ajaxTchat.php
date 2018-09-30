@@ -48,12 +48,14 @@ switch($_GET['action'])
 		$dateDerniereUpdate = $_SESSION["DateDerniereUpdateTchat"];
 		$messages = getNouveauxMessagesTchats($mysqli,$IDPersonnage,$IDRegion,$_SESSION["AccesTchatRadio"],$IDPartie,$dateDerniereUpdate);
 
+		$date = date_create();
+		$_SESSION["DateDerniereUpdateTchat"] = date_timestamp_get($date);
+
 		//Mise a jour de la date d'update
-		$requete = "UPDATE  ".$PT."personnages SET DateDerniereUpdateTchat = NOW() WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$IDPartie;
+		$requete = "UPDATE  ".$PT."personnages SET DateDerniereUpdateTchat = ".$_SESSION["DateDerniereUpdateTchat"]." WHERE IDHeros = '".$IDPersonnage."' AND IDPartie = ".$IDPartie;
 		$retour = mysqli_query($mysqli,$requete);
 			if (!$retour) die('Requête invalide (Update DateDerniereUpdateTchat) : ' . mysqli_error($mysqli));
 
-		$_SESSION["DateDerniereUpdateTchat"] = date("Y-m-d H:i:s");
 
 		//Traitement des messages
 		foreach($messages as $i=>$message)
