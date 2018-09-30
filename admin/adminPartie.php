@@ -111,7 +111,7 @@
 								<div>
 									<form action="actionAdmin.php?action=0" method="post">
 										<input name="IDHeros" type="hidden" value="<?php echo $hero["ID"]; ?>"/>
-										<input class="boutonActionPerso" type="submit" value="Full AP"/>
+										<input class="boutonActionPerso" type="submit" value="Full AP/PM"/>
 									</form>
 								</div>
 								<div>

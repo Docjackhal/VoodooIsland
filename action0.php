@@ -10,7 +10,7 @@ switch($idAction)
 			// Verification de la disponibilité du personnage
 			$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$idPartie."' AND Etat = 'en_creation' LIMIT 1";
 			$retour = mysqli_query($mysqli,$requete);
-			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+			if (!$retour) die('Requête invalide (RejoindrePartie1): ' . mysqli_error($mysqli));
 
 			if(mysqli_num_rows($retour))
 			{
@@ -20,15 +20,15 @@ switch($idAction)
 					// Partie et joueur disponible
 					$requete = "UPDATE ".$PT."parties SET Joueur".$idPerso." = '".$_SESSION['ID']."' WHERE ID = '".$idPartie."'";
 					$retour = mysqli_query($mysqli,$requete);
-					if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+					if (!$retour) die('Requête invalide (RejoindrePartie2): ' . mysqli_error($mysqli));
 
 					$requete = "UPDATE ".$PT."accounts SET IDPartieEnCours = '".$idPartie."', NombrePartiesJouees = NombrePartiesJouees+1 WHERE ID = '".$_SESSION['ID']."'";
 					$retour = mysqli_query($mysqli,$requete);
-					if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+					if (!$retour) die('Requête invalide (RejoindrePartie3): ' . mysqli_error($mysqli));
 
 					// Update Session
 					$_SESSION['IDPartieEnCours'] = $idPartie;
-					$requete = "SELECT * FROM parties WHERE ID = '".$idPartie."' LIMIT 1";
+					$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$idPartie."' LIMIT 1";
 					$retour = mysqli_query($mysqli,$requete);
 					if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 					$partie = mysqli_fetch_assoc($retour);
@@ -70,18 +70,18 @@ switch($idAction)
 		$ref = "lobby.php";
 		// Verification de la disponibilité du personnage
 		$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$_SESSION['IDPartieEnCours']."' AND Etat = 'en_creation' LIMIT 1";
-		$retour = mysqli_query($requete);
-		if (!$retour) die('Requête invalide : ' . mysqli_error());
+		$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
 		if(mysqli_num_rows($retour))
 		{
 			$requete = "UPDATE ".$PT."parties SET Joueur".$_SESSION['IDPersoActuel']." = '-1' WHERE ID = '".$_SESSION['IDPartieEnCours']."'";
-			$retour = mysqli_query($requete);
-			if (!$retour) die('Requête invalide : ' . mysqli_error());
+			$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
 			$requete = "UPDATE ".$PT."accounts SET IDPartieEnCours = '-1', NombrePartiesJouees = NombrePartiesJouees-1 WHERE ID = '".$_SESSION['ID']."'";
-			$retour = mysqli_query($requete);
-			if (!$retour) die('Requête invalide : ' . mysqli_error());
+			$retour = mysqli_query($mysqli,$requete);
+			if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
 
 			// Update Session
 			$_SESSION['IDPartieEnCours'] = -1;
@@ -283,7 +283,7 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["Titre"] = lang("Action_7_Creuser_Titre");
 						$_SESSION["PopupEvenement"]["Message"] = lang("Action_7_Creuser_Description");
 
-						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_7_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+						envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_7_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 
 						mysqli_commit($mysqli);
 					}
@@ -339,7 +339,7 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["PertesItems"][] = 31;
 
 						//Broadcast tchat
-						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_8_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+						envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_8_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 
 						mysqli_commit($mysqli);
 					}
@@ -394,7 +394,7 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["LieuDecouvert"] = $IDCampement;
 
 						//Broadcast tchat
-						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_9_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+						envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_9_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 
 						mysqli_commit($mysqli);
 					}

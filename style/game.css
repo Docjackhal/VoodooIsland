@@ -609,14 +609,14 @@ body
 	cursor:pointer;
 }
 
-#game #popup_inventaire #popup_inventaire_contenu
+#game #popup_inventaire #popup_inventaire_contenu, #game #popup_inventaireCampement #popup_inventaire_contenu
 {
 	overflow:scroll;
 	overflow-x: hidden;
 	height: 470px;
 }
 
-#game #popup_inventaire .bloc_inventaire
+#game #popup_inventaire .bloc_inventaire, #game #popup_inventaireCampement .bloc_inventaire
 {
 	border:2px solid black;
 	width:64px;
@@ -851,4 +851,10 @@ body
 {
 	background-color: black;
 	color:white;
+}
+
+.divSubmit span
+{
+	margin-left: 5px;
+    margin-right: 5px;
 }

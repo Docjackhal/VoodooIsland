@@ -27,6 +27,8 @@ $lang["Gains:"] = "Gains:";
 $lang["Pertes:"] = "Pertes:";
 $lang["Inventaire"] = "Inventaire";
 $lang["InventaireCampement"] = "Inventaire du campement";
+$lang["TransfertInventaireVersCampement"] = "Transférer au campement";
+$lang["TransfertInventaireDepuisCampement"] = "Prendre";
 
 $lang["Tooltip_BarresStats_Pa"] = "Vos Points d'actions. Ils vous permettent d'éffectuer des actions et remontent de %Number% à chaque cycle.";
 $lang["Tooltip_BarresStats_Pm"] = "Vos Points de mouvements. Ils vous permettent de vous déplacer sur l'ile et remontent de %Number% à chaque cycle.";
@@ -177,7 +179,9 @@ $lang["Action_11_FeuAlimente_Titre"] = "Entretien du feu";
 $lang["Action_11_FeuAlimente_Description"] = "Vous déposez une bûche dans le feu. Combien de vie avez-vous sauvées aujourd'hui en réalisant ce geste héroïque?";
 $lang["Action_11_MessageTchat"] = "%Login% dépose une bûche dans le feu.";
 
+$lang["Action_12_MessageTchat"] = "%Login% dépose un objet (%NomItem%) dans le coffre du campement.";
 
+$lang["Action_13_MessageTchat"] = "%Login% prend un objet (%NomItem%) dans le coffre du campement.";
 // ------------------------------- FIN ACTIONS ------------------------------------- //
 
 // ------------------------------- ITEMS ------------------------------------- //

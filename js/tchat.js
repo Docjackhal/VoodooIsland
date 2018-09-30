@@ -55,7 +55,7 @@ function envoyerMessage(idCanal)
 
 updateTchat = function()
 {
-	console.log("UPDATE TCHAT");
+	//console.log("UPDATE TCHAT");
 
 	$.ajax("ajax/ajaxTchat.php",
 		{
@@ -63,7 +63,7 @@ updateTchat = function()
 			cache:false,
 			success:function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				traiterDonneesUpdatesTchat(data);			
 			},
 			error:function(datas)

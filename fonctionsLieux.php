@@ -135,7 +135,7 @@ function creerLieu($mysqli,$IDTypeLieu,$IDParametrage,$IDRegion,$IDPartie,$etatD
 {
 	global $PT;
 
-	$requete = "INSERT INTO ".$PT."lieux (IDTypeLieu,IDParametrageLieu,IDPartie,IDRegion,EtatDecouverte) VALUES (".$IDTypeLieu.",".$IDParametrage.",".$IDRegion.",".$IDPartie.",'".$etatDecouverte."')";
+	$requete = "INSERT INTO ".$PT."lieux (IDTypeLieu,IDParametrageLieu,IDPartie,IDRegion,EtatDecouverte) VALUES (".$IDTypeLieu.",".$IDParametrage.",".$IDPartie.",".$IDRegion.",'".$etatDecouverte."')";
 	$retour = mysqli_query($mysqli,$requete);
 		if (!$retour) die('Requête invalide (creerLieu): ' . mysqli_error($mysqli));
 

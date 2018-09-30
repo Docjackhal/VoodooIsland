@@ -33,7 +33,7 @@ switch($idAction)
 								if (!$retour) die('Requête invalide (Allumer feu) : ' . mysqli_error());
 
 							//Broadcast tchat
-							envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_10_MessageTchatReussite",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+							envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_10_MessageTchatReussite",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 						}
 						else
 						{
@@ -42,7 +42,7 @@ switch($idAction)
 							$_SESSION["PopupEvenement"]["Message"] = lang("Action_10_EchecAllumerFeu_Description");
 
 							//Broadcast tchat
-							envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_10_MessageTchatEchec",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+							envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_10_MessageTchatEchec",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 						}
 
 						//Perte de l'item
@@ -94,7 +94,7 @@ switch($idAction)
 						$_SESSION["PopupEvenement"]["PertesItems"][] = 28;	
 
 						//Broadcast tchat
-						envoyerMessageSystem($mysqli,"Region_".$idRegionCible,"Action_11_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
+						envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_11_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"]));
 
 						mysqli_commit($mysqli);	
 					}	
@@ -111,6 +111,50 @@ switch($idAction)
 			$_SESSION["Message"] = "<span class='red'>Erreur : Campement introuvable.</span>";
 	}
 	break;
+	case 12: //Transférer un objet depuis l'inventaire d'un joueur dans l'inventaire du campement
+	{
+		$IDItem = $_POST["IDItem"];
+		$IDTypeItem = $_POST["IDTypeItem"];
+		if(isset($_SESSION["Inventaire"][$IDTypeItem]) && isset($_SESSION["Inventaire"][$IDTypeItem][$IDItem]))
+		{
+			$item = $_SESSION["Inventaire"][$IDTypeItem][$IDItem];
+			$IDCampement = getIDLieuDeTypeDansRegion(3);
+			if($IDCampement > -1)
+			{
+				transfererObjet($mysqli,$IDItem,"campement");
+				envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_12_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"],"%NomItem%"=>"Item_".$IDTypeItem."_Nom"));
+				mysqli_commit($mysqli);	
+			}
+			else
+				$_SESSION["Message"] = "<span class='red'>Erreur : Campement introuvable.</span>";
+		}
+		else
+			$_SESSION["Message"] = "<span class='red'>Erreur : Objet introuvable.</span>";
+	}	
+	break;
+	case 13: // Action 13: Transférer un objet depuis l'inventaire d'un campement vers l'inventaire du joueur
+	{
+		$IDItem = $_POST["IDItem"];
+		$IDTypeItem = $_POST["IDTypeItem"];
+		if(isset($_SESSION["InventaireCampement"][$IDTypeItem]) && isset($_SESSION["InventaireCampement"][$IDTypeItem][$IDItem]))
+		{
+			$item = $_SESSION["InventaireCampement"][$IDTypeItem][$IDItem];
+			$IDCampement = getIDLieuDeTypeDansRegion(3);
+			if($IDCampement > -1)
+			{
+				transfererObjet($mysqli,$IDItem,"personnage");
+				envoyerMessageSystem($mysqli,"Region_".$IDRegion,"Action_13_MessageTchat",array("%Login%"=>$_SESSION["Heros"][$IDPersonnage]["Prenom"],"%NomItem%"=>"Item_".$IDTypeItem."_Nom"));
+				mysqli_commit($mysqli);	
+			}
+			else
+				$_SESSION["Message"] = "<span class='red'>Erreur : Campement introuvable.</span>";
+		}
+		else
+			$_SESSION["Message"] = "<span class='red'>Erreur : Objet introuvable.</span>";
+	}	
+	break;
+
+	
 	
 }
 ?>

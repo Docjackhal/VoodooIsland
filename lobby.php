@@ -5,7 +5,10 @@ if(empty($_SESSION))
 else
 {
 	include_once("prive/config.php");
-	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); ;
+	include_once("updateInformationsSession.php");
+	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base);
+
+	updateInformationsSessionLobby($mysqli);
 
 	// Verification de la disponibilité du joueur
 	if($_SESSION['IDPartieEnCours'] != -1 && $_SESSION['PartieEnCours']['Etat'] == "en_cours")
@@ -21,6 +24,7 @@ else
 		$partie = mysqli_fetch_assoc($retour);
 		$slotsLibres = array();
 		$nbSlotsLibres = 0;
+		$IDPartie = $partie["ID"];
 
 		for($i = 1;$i <= count($_SESSION['Heros']);$i++)
 		{
@@ -44,6 +48,7 @@ else
 
 <body>
 
+	<h1>Partie N° <?php echo $IDPartie;?></h1>
 	<a href="deconnexion.php"/>Deconnexion</a>
 
 	<?php

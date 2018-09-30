@@ -19,9 +19,16 @@ else
 	$mysqli = mysqli_connect($mysql_ip, $mysql_user,$mysql_password,$base); 
 	mysqli_set_charset($mysqli, "utf8");
 
-	updateInformationsSession();
-	updateDateAndTime();
-
+	if(isset($_GET['action']) && $_GET['action'] < 2) // Actions Lobby
+	{
+		//updateInformationsSessionLobby();
+	}
+	else
+	{
+		updateInformationsSession();
+		updateDateAndTime();
+	}
+	
 	//Start transaction, ne pas oublier de commit a la fin de chaque action
 	mysqli_begin_transaction($mysqli);
 	mysqli_autocommit($mysqli,false);
@@ -59,5 +66,8 @@ else
 	// Action 8: Installer une toile dans un emplacement de campement
 	// Action 9: Installer la vieille marmitte dans un emplacement de campement
 	// Action 10: Allumer le feu d'un campement (silex ou bois)
+	// Action 11: Ajouter du bois dans le feu
+	// Action 12: Transférer un objet depuis l'inventaire d'un joueur dans l'inventaire du campement
+	// Action 13: Transférer un objet depuis l'inventaire d'un campement vers l'inventaire du joueur
 }
 ?>

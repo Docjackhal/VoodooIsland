@@ -62,4 +62,23 @@ function getItem($typeItem,$typeInventaire)
 			return $item;
 	}
 }
+
+//Transfere un objet dans un inventaire cible
+function transfererObjet($mysqli,$IDItem,$inventaireCible)
+{
+	global $PT;
+
+	$addSQL = "";
+	if($inventaireCible == "campement")
+	{
+		$IDCampement = getIDLieuDeTypeDansRegion(3);
+		$addSQL = ", IDProprietaire = ".$IDCampement." ";
+	}
+	else if($inventaireCible == "personnage")
+		$addSQL = ", IDProprietaire = ".$_SESSION["IDPersonnage"]." ";
+
+	$requete = "UPDATE ".$PT."items SET TypeInventaire = '".$inventaireCible."' ".$addSQL." WHERE ID = ".$IDItem;
+	$retour = mysqli_query($mysqli,$requete);
+	if (!$retour) trigger_error('Requête invalide (transfererObjet) : '.$requete . mysqli_error($mysqli));
+}
 ?>

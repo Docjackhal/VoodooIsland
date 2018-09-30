@@ -40,11 +40,13 @@ else
 	
 	switch($idAction)
 	{
-		case 0:// Full AP un personnage
+		case 0:// Full AP/PM un personnage
 		{
 			$IDHeros = $_POST["IDHeros"];
 			$personnage = getPersonnage($mysqli,$IDHeros,$IDPartie);
 			updateCarac($mysqli,$personnage,"Pa",$_SESSION["Admin"]["Heros"][$IDHeros]["PaMax"]);
+			$personnage = getPersonnage($mysqli,$IDHeros,$IDPartie);
+			updateCarac($mysqli,$personnage,"Pm",$_SESSION["Admin"]["Heros"][$IDHeros]["PmMax"]);
 			mysqli_commit($mysqli);
 			break;
 		}

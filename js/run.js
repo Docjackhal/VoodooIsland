@@ -51,6 +51,7 @@ function mainInitialisation()
 	game.lieuxDecouverts = game.xhrDatas['LieuxDecouverts'];
 	game.personnagesDansRegion = game.xhrDatas['PersonnagesDansRegion'];
 	game.inventaire = game.xhrDatas['Inventaire'];
+	game.inventaireCampement = game.xhrDatas['InventaireCampement'];
 	game.typesItems = game.xhrDatas['TypesItems'];
 	game.parametresConditions = game.xhrDatas['ParametresConditions'];
 	game.variables = game.xhrDatas['Variables'];

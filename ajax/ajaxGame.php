@@ -13,6 +13,7 @@ switch($_GET['action'])
 		$result['IDPersoActuel'] = $_SESSION['IDPersonnage'];
 		$result['PersonnagesDansRegion'] =  $_SESSION["PersonnagesDansRegion"];
 		$result['Inventaire'] =  $_SESSION["Inventaire"];
+		$result['InventaireCampement'] =  $_SESSION["InventaireCampement"];
 		$result['TypesItems'] =  $_SESSION["TypesItems"];
 		$result['ParametresConditions'] =  $_SESSION["ParametresConditions"];
 		$result['Variables'] =  $_SESSION["Variables"];

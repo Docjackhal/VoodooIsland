@@ -41,7 +41,7 @@ if((!empty($_POST['login']) && !empty($_POST['mdp'])) || (isset($_GET['loginRegi
 
 				for($i = 1; $i < count($_SESSION['Heros']); $i++)
 				{
-					if($_SESSION['PartieEnCours']['Joueur'.$i] == $_SESSION['Login'])
+					if($_SESSION['PartieEnCours']['Joueur'.$i] == $_SESSION['ID'])
 						$_SESSION['IDPersoActuel'] = $i;
 				}
 			}

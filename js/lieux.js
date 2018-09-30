@@ -64,6 +64,9 @@ function genererContenuInfosLieu(lieu)
 		break;
 		case 3: // Campement
 		{
+			//Accès inventaire
+			contenu += '<div class="divSubmit" onclick="ouvrirPopupInventaireCampement();"><span>'+getLang("Lieu_3_InventaireCampement")+'</span></div>';
+
 			var niveauFeu = lieu.Parametres.NiveauFeu;
 			var stockBuche = lieu.Parametres.StockBuche;
 			var stockBucheMax = lieu.Parametres.StockBucheMax;
@@ -84,9 +87,6 @@ function genererContenuInfosLieu(lieu)
 				contenu += "<div class='orange'>"+getLang("Lieu_3_UneBuche")+"</div>";
 			else
 				contenu += "<div class='green'>"+(getLang("Lieu_3_PlusieursBuches").replace("%Number%",stockBuche+"/"+stockBucheMax))+"</div>";
-
-			//Accès inventaire
-			contenu += '<div class="divSubmit" onclick="ouvrirPopupInventaireCampement();"><span>'+getLang("Lieu_3_InventaireCampement")+'</span></div>';
 		}
 		break;
 	}
@@ -105,7 +105,7 @@ function genererContenuActionLieu(lieu)
 		{
 			var nbPoissons = lieu.Parametres.NbPoissons;
 			if(nbPoissons>0)
-				contenu += genererBoutonAction("pecher",getLang("Lieu_"+IDTypeLieu+"_Pecher")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutPeche+"</div>",6);		
+				contenu += genererBoutonActionLieu("pecher",getLang("Lieu_"+IDTypeLieu+"_Pecher")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutPeche+"</div>",6);		
 		}
 		break;
 		case 2: //Emplacement de campement
@@ -116,11 +116,11 @@ function genererContenuActionLieu(lieu)
 			$marmittePossedee = (nbItemsDansInventaire(32)>0);
 
 			if(lieu.IDParametrageLieu == -1 && $pellePossedee) 
-				contenu += genererBoutonAction("creuser",getLang("Lieu_"+IDTypeLieu+"_Creuser")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",7);
+				contenu += genererBoutonActionLieu("creuser",getLang("Lieu_"+IDTypeLieu+"_Creuser")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",7);
 			else if(lieu.IDParametrageLieu == -2 && (game.variables[4] == undefined || game.variables[4] == -1) && $toilePossedee)
-				contenu += genererBoutonAction("toiler",getLang("Lieu_"+IDTypeLieu+"_InstallerToile")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",8);
+				contenu += genererBoutonActionLieu("toiler",getLang("Lieu_"+IDTypeLieu+"_InstallerToile")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",8);
 			else if(game.variables[4] == 1 && $marmittePossedee)
-				contenu += genererBoutonAction("marmitter",getLang("Lieu_"+IDTypeLieu+"_InstallerMarmitte")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",9);
+				contenu += genererBoutonActionLieu("marmitter",getLang("Lieu_"+IDTypeLieu+"_InstallerMarmitte")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutInstallation+"</div>",9);
 		}
 		break;
 		case 3: // Campement
@@ -134,9 +134,9 @@ function genererContenuActionLieu(lieu)
 			if(niveauFeu == 0)
 			{
 				if(silexs > 0)
-					contenu += genererBoutonAction("allumerFeuSilex",getLang("Lieu_"+IDTypeLieu+"_AllumerFeuSilex")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutAllumageFeu+"</div> ("+lieu.Parametres.ChanceAllumerFeuSilex+"%) ",10,"<input type='hidden' name='IDItemUtilise' value='29'/>");
+					contenu += genererBoutonActionLieu("allumerFeuSilex",getLang("Lieu_"+IDTypeLieu+"_AllumerFeuSilex")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutAllumageFeu+"</div> ("+lieu.Parametres.ChanceAllumerFeuSilex+"%) ",10,"<input type='hidden' name='IDItemUtilise' value='29'/>");
 				if(bois > 0)
-					contenu += genererBoutonAction("allumerFeuBois",getLang("Lieu_"+IDTypeLieu+"_AllumerFeuBois")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutAllumageFeu+"</div> ("+lieu.Parametres.ChanceAllumerFeuBois+"%) ",10,"<input type='hidden' name='IDItemUtilise' value='30'/>");
+					contenu += genererBoutonActionLieu("allumerFeuBois",getLang("Lieu_"+IDTypeLieu+"_AllumerFeuBois")+" <div class='iconeCoutAP'>"+lieu.Parametres.CoutAllumageFeu+"</div> ("+lieu.Parametres.ChanceAllumerFeuBois+"%) ",10,"<input type='hidden' name='IDItemUtilise' value='30'/>");
 				if(silexs == 0 && bois == 0)
 					contenu += "<div class='red'>"+getLang("Lieu_3_RienPourAllumerFeu")+"</div>";
 			}
@@ -144,7 +144,7 @@ function genererContenuActionLieu(lieu)
 			if(stockBuche < 5 && niveauFeu > 0)
 			{
 				if(bois > 0)
-					contenu += genererBoutonAction("ajouterCombustible",getLang("Lieu_"+IDTypeLieu+"_AjouterCombustible")+" <div class='iconeCoutAP'>0</div>",11);
+					contenu += genererBoutonActionLieu("ajouterCombustible",getLang("Lieu_"+IDTypeLieu+"_AjouterCombustible")+" <div class='iconeCoutAP'>0</div>",11);
 				else
 					contenu += "<div class='red'>"+getLang("Lieu_3_PasDeBoisPourFeu")+"</div>";
 			}
@@ -157,13 +157,13 @@ function genererContenuActionLieu(lieu)
 }
 
 /**
-Genere un formulaire avec un bouton d'action
+Genere un formulaire avec un bouton d'action pour un lieu
 nomAction: le nom du formulaire (dois etre unique sur toute la popup lieu)
 texte: le texte du bouton
 action: l'id de laction cible dans action.php
 inputsSub: html a ajouter si besoin d'inputs suplémentaires
 */
-function genererBoutonAction(nomAction,texte,action,inputsSup)
+function genererBoutonActionLieu(nomAction,texte,action,inputsSup)
 {
 	var bouton = '<form id='+nomAction+' method="post" action="action.php?action='+action+'">';
 		if(inputsSup != undefined)
@@ -172,4 +172,17 @@ function genererBoutonAction(nomAction,texte,action,inputsSup)
 		bouton +='</form>';
 
 	return bouton;
+}
+
+
+//Retourne un lieu de type passé découvert dans la région
+function getLieuDeTypeDecouvertDansRegion(typeLieu)
+{
+	for(IDLieu in game.lieuxDecouverts)
+	{
+		var lieu = game.lieuxDecouverts[IDLieu];
+		if(lieu.IDTypeLieu == typeLieu)
+			return lieu;
+	}
+	return null;
 }

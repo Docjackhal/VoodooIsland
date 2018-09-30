@@ -5,6 +5,26 @@ include_once("fonctionsTchats.php");
 include_once("fonctionsItems.php");
 include_once("prive/config.php");
 
+function updateInformationsSessionLobby($mysqli)
+{
+	global $mysql_ip, $mysql_user, $mysql_password, $base, $PT;
+
+	if($_SESSION['IDPartieEnCours'] != -1)
+	{
+		$requete = "SELECT * FROM ".$PT."parties WHERE ID = '".$_SESSION['IDPartieEnCours']."' ";
+		$retour = mysqli_query($mysqli,$requete);
+		if (!$retour) die('Requête invalide : ' . mysqli_error($mysqli));
+		$partie = mysqli_fetch_assoc($retour);
+		$_SESSION['PartieEnCours'] = $partie;
+
+		for($i = 1; $i < count($_SESSION['Heros']); $i++)
+		{
+			if($_SESSION['PartieEnCours']['Joueur'.$i] == $_SESSION['ID'])
+				$_SESSION['IDPersoActuel'] = $i;
+		}
+	}
+}
+
 function updateInformationsSession()
 {
 	global $mysql_ip, $mysql_user, $mysql_password, $base, $PT;

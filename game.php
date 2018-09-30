@@ -174,6 +174,7 @@ function PM($cout)
 <script type="text/javascript" src="js/lang.js"></script>
 <script type="text/javascript" src="js/lieux.js"></script>
 <script type="text/javascript" src="js/tchat.js"></script>
+<script type="text/javascript" src="js/items.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
 </head>
 
@@ -355,7 +356,7 @@ function PM($cout)
 								}
 
 							//Lieux découverts
-								if(!empty($_SESSION["PopupEvenement"]["LieuDecouvert"]))
+								if(!empty($_SESSION["PopupEvenement"]["LieuDecouvert"]) && $_SESSION["PopupEvenement"]["LieuDecouvert"] > 0)
 								{
 									$IDLieu = $_SESSION["PopupEvenement"]["LieuDecouvert"];
 									$IDTypeLieu = $_SESSION["LieuxDansRegion"][$IDLieu]["IDTypeLieu"];
